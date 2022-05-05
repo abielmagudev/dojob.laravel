@@ -7,7 +7,6 @@
     <li>
         <span>{{ $job->name }}</span>
         <a href="{{ route('jobs.show', $job) }}">Show</a>
-        <small>{{ $job->isAvailable() ? 'Yes' : 'No' }}</small>
     </li>
     @endforeach
 </ul>
