@@ -7,6 +7,7 @@
     <title>{{ config('app.name') }}</title>
 </head>
 <body>
+    @include('layouts.message')
     @yield('content')
 </body>
 </html>
