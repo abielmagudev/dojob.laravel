@@ -19,5 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('jobs', JobController::class);
-Route::resource('clients', ClientController::class);
+Route::resources([
+    'jobs' => JobController::class,
+    'clients' => ClientController::class,
+]);
