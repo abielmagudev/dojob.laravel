@@ -23,10 +23,10 @@ class JobRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('Write the name of the job'),
+            'name.required' => __('Enter the job\'s name'),
             'name.string' => __('Write a valid name for the job'),
             'name.unique' => __('Write another name for the job'),
-            'enabled.boolead' => __('Choose a valid option to enable or disable job'),
+            'enabled.boolead' => __('Choose a valid option to enable or disable the job'),
         ];
     }
 
