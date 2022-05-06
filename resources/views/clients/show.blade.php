@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 @section('content')
 <a href="{{ route('clients.index') }}">Index</a>
 <h1>{{ $client->fullname }} <small>({{ $client->alias }})</small></h1>

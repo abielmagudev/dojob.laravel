@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 @section('content')
 <h1>Clients ({{ $clients->count() }})</h1>
 <a href="{{ route('clients.create') }}">Create</a>

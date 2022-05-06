@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 @section('content')
 <a href="{{ route('jobs.index') }}">Index</a>
 <h1>{{ $job->name }}</h1>

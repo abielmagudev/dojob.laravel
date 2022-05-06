@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 @section('content')
 <h1>Jobs ({{ $jobs->count() }})</h1>
 <a href="{{ route('jobs.create') }}">Create</a>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 @section('content')
 <form action="{{ route('jobs.store') }}" method="post" autocomplete="off">
     @csrf
