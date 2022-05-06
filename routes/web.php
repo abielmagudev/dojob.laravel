@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\CrewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,5 @@ Route::resources([
     'jobs' => JobController::class,
     'clients' => ClientController::class,
     'operators' => OperatorController::class,
+    'crews' => CrewController::class,
 ]);

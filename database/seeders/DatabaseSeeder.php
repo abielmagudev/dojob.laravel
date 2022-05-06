@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             JobSeeder::class,
             ClientSeeder::class,
             OperatorSeeder::class,
+            CrewSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
