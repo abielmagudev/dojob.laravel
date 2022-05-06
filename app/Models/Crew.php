@@ -11,23 +11,18 @@ class Crew extends Model
 
     protected $fillable = [
         'name',
-        'description',
         'color',
-        'disabled',
+        'description',
+        'available',
     ];
 
     public function hasColor()
     {
-        return preg_match('/^#[a-f0-9]{6}|[a-f0-9]{3}$/i', $this->color);
-    }
-
-    public function isDisabled()
-    {
-        return (bool) $this->disabled;
+        return (bool) preg_match('/^#[a-f0-9]{6}|[a-f0-9]{3}$/i', $this->color);
     }
 
     public function isAvailable()
     {
-        return ! $this->isDisabled();
+        return (bool) $this->available;
     }
 }

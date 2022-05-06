@@ -16,9 +16,9 @@ class CreateCrewsTable extends Migration
         Schema::create('crews', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32)->unique()->index();
-            $table->text('description')->nullable();
             $table->string('color', 16)->nullable();
-            $table->boolean('disabled')->default(false)->index();
+            $table->text('description')->nullable();
+            $table->boolean('available')->default(false)->index();
             $table->timestamps();
         });
     }

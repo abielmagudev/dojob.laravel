@@ -15,9 +15,9 @@ class CrewFactory extends Factory
     {
         return [
             'name' => $this->faker->colorName(),
-            'description' => $this->faker->paragraph(),
             'color' => $this->faker->hexcolor(),
-            'disabled' => (int) $this->faker->boolean(),
+            'description' => $this->faker->paragraph(),
+            'available' => (int) $this->faker->boolean(),
         ];
     }
 }

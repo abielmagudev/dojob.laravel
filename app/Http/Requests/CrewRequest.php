@@ -15,9 +15,9 @@ class CrewRequest extends FormRequest
     {
         return [
             'name' => ['required','unique:crews,name,' . $this->crew_id],
-            'description' => 'nullable',
             'color' => 'nullable',
-            'disabled' => 'boolean',
+            'description' => 'nullable',
+            'available' => 'boolean',
         ];
     }
 
@@ -26,7 +26,7 @@ class CrewRequest extends FormRequest
         return [
             'name.required' => __('Write the name of crew'),
             'name.unique' => __('Write a another name for crew'),
-            'disabled.boolean' => __('Choice a valid option to disabled'),
+            'available.boolean' => __('Choice a valid option to available or unavailable'),
         ];
     }
 
@@ -34,6 +34,6 @@ class CrewRequest extends FormRequest
     {
         $this->crew_id = $this->route()->originalParameter('crew') ?? 0;
 
-        $this->merge(['disabled' => (int) $this->has('disabled')]);
+        $this->merge(['available' => (int) ! $this->has('unavailable')]);
     }
 }

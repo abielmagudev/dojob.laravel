@@ -5,8 +5,8 @@
     @method('put')
     @include('crews._form')
     <div>
-        <input type="checkbox" name="disabled" value="1" id="checkboxDisabled" {{ ! $crew->isDisabled() ?: 'checked' }}>
-        <label for="checkboxDisabled">Disabled</label>
+        <input type="checkbox" name="unavailable" value="0" id="checkboxDisabled" {{ $crew->isAvailable() ?: 'checked' }}>
+        <label for="checkboxDisabled">Unavailable</label>
     </div>
     <br>
     <button type="submit">Update crew</button>
