@@ -13,11 +13,10 @@
     </li>
 </ul>
 <br>
-
-<form action="{{ route('jobs.destroy', $job) }}" method="post">
+<a href="{{ route('jobs.edit', $job) }}">Edit</a>
+<form action="{{ route('jobs.destroy', $job) }}" method="post" style="display:inline">
     @csrf
     @method('delete')
-    <a href="{{ route('jobs.edit', $job) }}">Edit</a>
     <button type="submit">Delete</button>
 </form>
 @endsection
