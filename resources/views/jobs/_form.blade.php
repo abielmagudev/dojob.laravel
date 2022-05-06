@@ -4,5 +4,5 @@
 </div>
 <div>
     <label for="textDescription">Description</label>
-    <textarea name="description" id="textDescription" cols="30" rows="10">{{ old('description', $job->description) }}</textarea>
+    <textarea name="description" id="textDescription" cols="30" rows="10" placeholder="Optional">{{ old('description', $job->description) }}</textarea>
 </div>

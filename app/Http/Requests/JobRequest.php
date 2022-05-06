@@ -15,8 +15,8 @@ class JobRequest extends FormRequest
     {
         return [
             'name' => ['required','string','unique:jobs,name,' . $this->job_id],
-            'description' => ['nullable','string'],
-            'available' => ['boolean'],
+            'description' => ['nullable'],
+            'enabled' => ['boolean'],
         ];
     }
 
@@ -24,9 +24,9 @@ class JobRequest extends FormRequest
     {
         return [
             'name.required' => __('Write the name of the job'),
-            'name.string' => __('Write a name valid to job'),
-            'name.unique' => __('Write a different name to job'),
-            'available.boolead' => __('Choice a valid available option'),
+            'name.string' => __('Write a valid name for the job'),
+            'name.unique' => __('Write another name for the job'),
+            'enabled.boolead' => __('Choose a valid option to enable or disable job'),
         ];
     }
 
@@ -34,6 +34,6 @@ class JobRequest extends FormRequest
     {
         $this->job_id = $this->route()->originalParameter('job') ?? 0;
 
-        $this->merge(['available' => (int) $this->has('available')]);
+        $this->merge(['enabled' => (int) ! $this->has('disabled')]);
     }
 }

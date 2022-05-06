@@ -16,7 +16,7 @@ class JobFactory extends Factory
         return [
             'name' => $this->faker->jobTitle(),
             'description' => $this->faker->paragraph(),
-            'available' => $this->faker->boolean(),
+            'enabled' => $this->faker->boolean(),
         ];
     }
 }

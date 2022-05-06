@@ -12,16 +12,11 @@ class Job extends Model
     protected $fillable = [
         'name',
         'description',
-        'available',
+        'enabled',
     ];
 
-    public function isAvailable()
+    public function isEnabled()
     {
-        return (bool) $this->available;
-    }
-
-    public function isNotAvailable()
-    {
-        return ! $this->isAvailable();
+        return (bool) $this->enabled;
     }
 }
