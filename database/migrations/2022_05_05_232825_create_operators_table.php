@@ -21,6 +21,7 @@ class CreateOperatorsTable extends Migration
             $table->string('email', 40)->unique()->index();
             $table->date('birthdate')->nullable();
             $table->text('notes')->nullable();
+            $table->integer('crew_id',false,true)->nullable();
             $table->timestamps();
         });
     }

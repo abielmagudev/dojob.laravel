@@ -19,6 +19,10 @@
         <small>Notes</small>
         <span>{{ $operator->notes }}</span>
     </li>
+    <li>
+        <small>Crew</small>
+        <span>{{ $operator->belongsSomeCrew() ? $operator->crew->name : 'None' }}</span>
+    </li>
 </ul>
 <br>
 <a href="{{ route('operators.edit', $operator) }}">Edit</a>
