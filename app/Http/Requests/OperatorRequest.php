@@ -26,14 +26,14 @@ class OperatorRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('Write the name of operator'),
-            'name.string' => __('Write a valid name to operator'),
-            'lastname.required' => __('Write the lastname of operator'),
-            'lastname.string' => __('Write a valid lastname to operator'),
-            'phone.required' => __('Write the phone of operator'),
-            'email.email' => __('Write a valid email of operator'),
-            'email.unique' => __('Write a different email of operator'),
-            'birthdate.date' => __('Write a valid date of birth of operator'),
+            'name.required' => __('Enter the operator\'s name'),
+            'name.string' => __('Write a valid name for the operator'),
+            'lastname.required' => __('Enter the operator\'s lastname'),
+            'lastname.string' => __('Write a valid lastname for the operator'),
+            'phone.required' => __('Enter the operator\'s phone'),
+            'email.email' => __('Write a valid email for the operator'),
+            'email.unique' => __('Write another email for the operator'),
+            'birthdate.date' => __('Enter a valid date of birth of the operator'),
         ];
     }
 

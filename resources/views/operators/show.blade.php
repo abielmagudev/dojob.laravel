@@ -2,7 +2,6 @@
 @section('content')
 <a href="{{ route('operators.index') }}">Index</a>
 <h1>{{ $operator->fullname }}</h1>
-<a href="{{ route('operators.edit', $operator) }}">Edit</a>
 <ul>
     <li>
         <small>Phone</small>
@@ -21,7 +20,9 @@
         <span>{{ $operator->notes }}</span>
     </li>
 </ul>
-<form action="{{ route('operators.destroy', $operator) }}" method="post">
+<br>
+<a href="{{ route('operators.edit', $operator) }}">Edit</a>
+<form action="{{ route('operators.destroy', $operator) }}" method="post" style="display:inline">
     @csrf
     @method('delete')
     <button type="submit">Delete operator</button>

@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<form action="{{ route('operators.update', $operator) }}" method="post">
+<form action="{{ route('operators.update', $operator) }}" method="post" autocomplete="off">
     @csrf
     @method('put')
     @include('operators._form')

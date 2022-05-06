@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
-<h1>Operators ({{ $operators->count() }})</h1>
 <a href="{{ route('operators.create') }}">Create</a>
+<h1>Operators ({{ $operators->count() }})</h1>
 <ul>
     @foreach($operators as $operator)
     <li>
