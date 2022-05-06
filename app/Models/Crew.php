@@ -13,7 +13,7 @@ class Crew extends Model
         'name',
         'color',
         'description',
-        'available',
+        'enabled',
     ];
 
     public function hasColor()
@@ -21,8 +21,8 @@ class Crew extends Model
         return (bool) preg_match('/^#[a-f0-9]{6}|[a-f0-9]{3}$/i', $this->color);
     }
 
-    public function isAvailable()
+    public function isEnabled()
     {
-        return (bool) $this->available;
+        return (bool) $this->enabled;
     }
 }

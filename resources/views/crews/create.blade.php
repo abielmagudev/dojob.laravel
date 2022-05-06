@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<form action="{{ route('crews.store') }}" method="post">
+<form action="{{ route('crews.store') }}" method="post" autocomplete="off">
     @csrf
     @include('crews._form')
     <br>
