@@ -22,8 +22,8 @@ Route::get('/', function () {
 });
 
 Route::resources([
-    'jobs' => JobController::class,
     'clients' => ClientController::class,
-    'operators' => OperatorController::class,
     'crews' => CrewController::class,
+    'jobs' => JobController::class,
+    'operators' => OperatorController::class,
 ]);
