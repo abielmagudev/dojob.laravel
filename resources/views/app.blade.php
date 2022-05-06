@@ -8,9 +8,7 @@
 </head>
 <body>
     @include('layouts.message')
-
-    @dump($errors->all())
-
+    @include('layouts.errors')
     @yield('content')
 </body>
 </html>
