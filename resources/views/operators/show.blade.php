@@ -21,7 +21,7 @@
     </li>
     <li>
         <small>Crew</small>
-        <span>{{ $operator->belongsSomeCrew() ? $operator->crew->name : 'None' }}</span>
+        <span>{{ $operator->hasCrewed() ? $operator->crew->name : 'None' }}</span>
     </li>
 </ul>
 <br>

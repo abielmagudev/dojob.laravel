@@ -45,7 +45,7 @@ class Operator extends Model
         return $this->belongsTo(Crew::class);
     }
 
-    public function belongsSomeCrew()
+    public function hasCrewed()
     {
         if( is_null($this->crew_id) )
             return self::UNCREWED;
