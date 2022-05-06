@@ -33,6 +33,6 @@
 <form action="{{ route('clients.destroy', $client) }}" method="post" style="display:inline">
     @csrf
     @method('delete')
-    <button type="submit">Delete</button>
+    <button type="submit">Delete client</button>
 </form>
 @endsection
