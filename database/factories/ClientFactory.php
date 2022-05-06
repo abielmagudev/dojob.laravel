@@ -14,7 +14,7 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->firstName(),
             'lastname' => $this->faker->lastName(),
             'alias' => $this->faker->boolean() ? $this->faker->company() : null,
             'address' => $this->faker->streetAddress(),

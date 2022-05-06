@@ -24,7 +24,7 @@ class CreateClientsTable extends Migration
             $table->string('state', 64)->index();
             $table->string('country', 64);
             $table->string('phone', 32)->index();
-            $table->string('email', 32)->index()->nullable();
+            $table->string('email', 40)->index()->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });
