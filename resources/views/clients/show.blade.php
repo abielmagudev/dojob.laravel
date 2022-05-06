@@ -2,7 +2,6 @@
 @section('content')
 <a href="{{ route('clients.index') }}">Index</a>
 <h1>{{ $client->fullname }} <small>({{ $client->alias }})</small></h1>
-<a href="{{ route('clients.edit', $client) }}">Edit</a>
 <ul>
     <li>
         <small>Address</small>
@@ -29,7 +28,9 @@
         <span>{{ $client->notes }}</span>
     </li>
 </ul>
-<form action="{{ route('clients.destroy', $client) }}" method="post">
+<br>
+<a href="{{ route('clients.edit', $client) }}">Edit</a>
+<form action="{{ route('clients.destroy', $client) }}" method="post" style="display:inline">
     @csrf
     @method('delete')
     <button type="submit">Delete</button>

@@ -31,17 +31,17 @@ class ClientRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('Write the name of client'),
-            'name.string' => __('Write a valid name to client'),
-            'lastname.required' => __('Write the lastname of client'),
-            'lastname.string' => __('Write a valid lastname to client'),
-            'address.required' => __('Write the address of client'),
-            'zip_code.required' => __('Write the zip code of client'),
-            'city.required' => __('Write the city of client'),
-            'state.required' => __('Write the state of client'),
-            'country.required' => __('Write the country of client'),
-            'phone.required' => __('Write the phone of client'),
-            'email.email' => __('Write a valid email of client'),
+            'name.required' => __('Enter the client\'s name'),
+            'name.string' => __('Enter a valid name for the client'),
+            'lastname.required' => __('Enter the client\'s lastname'),
+            'lastname.string' => __('Enter a valid lastname for the client'),
+            'address.required' => __('Enter the client\'s address'),
+            'zip_code.required' => __('Enter the client\'s zip code'),
+            'city.required' => __('Enter the client\'s city'),
+            'state.required' => __('Enter the client\'s state'),
+            'country.required' => __('Enter the client\'s country'),
+            'phone.required' => __('Enter the client\'s phone'),
+            'email.email' => __('Write a valid email of the client'),
         ];
     }
 

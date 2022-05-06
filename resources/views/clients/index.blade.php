@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
-<h1>Clients ({{ $clients->count() }})</h1>
 <a href="{{ route('clients.create') }}">Create</a>
+<h1>Clients ({{ $clients->count() }})</h1>
 <ul>
     @foreach($clients as $client)
     <li>

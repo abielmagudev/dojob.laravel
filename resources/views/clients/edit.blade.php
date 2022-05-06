@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<form action="{{ route('clients.update', $client) }}" method="post">
+<form action="{{ route('clients.update', $client) }}" method="post" autocomplete="off">
     @csrf
     @method('put')
     @include('clients._form')
