@@ -25,7 +25,7 @@
         </ul>
     </li>
 </ul>
-<a href="{{ route('crews.operators', $crew) }}">Operators</a>
+<a href="{{ route('crews.operators', $crew) }}">Manage operators</a>
 <a href="{{ route('crews.edit', $crew) }}">Edit</a>
 <form action="{{ route('crews.destroy',$crew) }}" method="post" autocomplete="off" style="display:inline">
     @csrf
