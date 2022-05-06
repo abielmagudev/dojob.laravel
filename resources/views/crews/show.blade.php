@@ -16,7 +16,16 @@
         <small>Enabled</small>
         <span>{{ $crew->isEnabled() ? 'Yes' : 'No' }}</span>
     </li>
+    <li>
+        <small>Operators</small>
+        <ul>
+            @foreach($crew->operators as $operator)
+            <li>{{ $operator->fullname }}</li>  
+            @endforeach
+        </ul>
+    </li>
 </ul>
+<a href="{{ route('crews.operators', $crew) }}">Operators</a>
 <a href="{{ route('crews.edit', $crew) }}">Edit</a>
 <form action="{{ route('crews.destroy',$crew) }}" method="post" autocomplete="off" style="display:inline">
     @csrf

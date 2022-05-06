@@ -16,6 +16,11 @@ class Crew extends Model
         'enabled',
     ];
 
+    public function operators()
+    {
+        return $this->hasMany(Operator::class);
+    }
+
     public function hasColor()
     {
         return (bool) preg_match('/^#[a-f0-9]{6}|[a-f0-9]{3}$/i', $this->color);

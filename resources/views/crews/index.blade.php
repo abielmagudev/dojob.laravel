@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <a href="{{ route('crews.create') }}">Create</a>
-<h1>Crew ({{ $crews->count() }})</h1>
+<h1>Crews ({{ $crews->count() }})</h1>
 <ul>
     @foreach($crews as $crew)
     <li style="color:<?= $crew->hasColor() ? $crew->color : 'black' ?>">

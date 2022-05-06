@@ -21,6 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('crews/{crew}/operators')->group(function () {
+    Route::get('/', [CrewController::class, 'operators'])->name('crews.operators');
+    Route::match(['put','patch'], '/', [CrewController::class, 'manned'])->name('crews.operators.update');
+});
+
 Route::resources([
     'clients' => ClientController::class,
     'crews' => CrewController::class,

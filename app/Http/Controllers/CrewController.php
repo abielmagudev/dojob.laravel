@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Crew;
 use App\Http\Requests\CrewRequest;
+use App\Http\Requests\CrewOperatorsRequest;
+use App\Models\Crew;
+use App\Models\Operator;
 
 class CrewController extends Controller
 {
@@ -49,5 +51,23 @@ class CrewController extends Controller
             return back()->with('danger', 'Ups! crew not deleted');
 
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew deleted");
+    }
+
+    public function operators(Crew $crew)
+    {
+        return view('crews.operators', [
+            'crew' => $crew,
+            'operators' => Operator::all(),
+        ]);
+    }
+
+    public function manned(CrewOperatorsRequest $request, Crew $crew)
+    {
+        Operator::free($crew->id);
+
+        if( $request->filled('operators') )
+            Operator::crewed($request->operators, $crew->id);
+
+        return redirect()->route('crews.operators', $crew)->with('success', 'Operators of crew updated');
     }
 }
