@@ -25,6 +25,21 @@ class Operator extends Model
         return "{$this->name} {$this->lastname}";
     }
 
+    public function scopeFree($query, int $crew_id)
+    {
+        return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
+    }
+
+    public function scopeUncrewed($query, array $operators)
+    {
+        return $query->whereIn('id', $operators)->update(['crew_id' => null]);
+    }
+
+    public function scopeCrewed($query, array $operators, int $crew_id)
+    {
+        return $query->whereIn('id', $operators)->update(['crew_id' => $crew_id]);
+    }
+
     public function crew()
     {
         return $this->belongsTo(Crew::class);
