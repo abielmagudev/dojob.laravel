@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Operator;
 use App\Http\Requests\OperatorRequest;
+use App\Models\Operator;
+use App\Models\Crew;
 
 class OperatorController extends Controller
 {
@@ -32,7 +33,10 @@ class OperatorController extends Controller
 
     public function edit(Operator $operator)
     {
-        return view('operators.edit')->with('operator', $operator);
+        return view('operators.edit', [
+            'operator' => $operator,
+            'crews' => Crew::all(),
+        ]);
     }
 
     public function update(OperatorRequest $request, Operator $operator)

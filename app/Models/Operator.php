@@ -18,6 +18,7 @@ class Operator extends Model
         'email',
         'birthdate',
         'notes',
+        'crew_id',
     ];
 
     public function getFullnameAttribute()
