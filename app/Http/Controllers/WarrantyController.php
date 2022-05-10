@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\WarrantyRequest;
+use App\Models\Warranty;
+use App\Models\Work;
+
+class WarrantyController extends Controller
+{
+    public function index()
+    {
+        $warranties = Warranty::with('work')
+                        ->orderBy('expires','desc')
+                        ->get();
+                        
+        return view('warranties.index')->with('warranties', $warranties);
+    }
+
+    public function create(Work $work)
+    {
+        return view('warranties.create', [
+            'warranty' => new Warranty,
+            'work' => $work,
+        ]);
+    }
+
+    public function store(WarrantyRequest $request)
+    {
+        if(! $warranty = Warranty::create($request->validated()) )
+            return back()->with('danger', 'Oops! warranty not saved');
+
+        return redirect()->route('warranties.index')->with('success', "{$warranty->job_name} warranty saved");
+    }
+
+    public function show(Warranty $warranty)
+    {
+        return view('warranties.show')->with('warranty', $warranty);
+    }
+
+    public function edit(Warranty $warranty)
+    {
+        return view('warranties.edit')->with('warranty', $warranty);
+    }
+
+    public function update(WarrantyRequest $request, Warranty $warranty)
+    {
+        if(! $warranty->fill($request->validated())->save() )
+            return back()->with('danger', 'Oops! warranty not updated');
+
+        return redirect()->route('warranties.edit', $warranty)->with('success', "{$warranty->job_name} warranty updated");
+    }
+
+    public function destroy(Warranty $warranty)
+    {
+        if(! $warranty->delete() )
+            return back()->with('danger', 'Oops! warranty not deleted');
+
+        return redirect()->route('warranties.index')->with('success', "{$warranty->work->job->name} ({$warranty->expires}) warranty deleted");
+    }
+}
