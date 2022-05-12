@@ -25,7 +25,15 @@
     </li>
     <li>
         <small>Crew</small>
-        <span>{{ $operator->hasCrewed() ? $operator->crew->name : 'None' }}</span>
+
+        @if( $operator->hasCrewed() )
+        <span>{{ $operator->crew->name }}</span>
+        <a href="{{ route('crews.show', $operator->crew) }}">Show</a>
+
+        @else
+        <span>-</span>
+
+        @endif
     </li>
 </ul>
 
