@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Job;
+use App\Models\Plugin;
 
 class JobSeeder extends Seeder
 {
@@ -14,6 +15,18 @@ class JobSeeder extends Seeder
      */
     public function run()
     {
-        return Job::factory(10)->create();
+        $plugins = Plugin::all();
+
+        foreach(Job::defaults() as $job => $description) {
+            $saved = Job::create([
+                'name' => $job,
+                'description' => $description,
+                'custom' => (int) false,
+            ]);
+
+            $saved->plugins()->attach( $plugins->shift() );
+        };
+
+        return Job::factory(25)->create();
     }
 }
