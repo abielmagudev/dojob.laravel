@@ -2,6 +2,9 @@
 @section('content')
 <a href="{{ route('clients.index') }}">Index</a>
 <h1>{{ $client->fullname }} <small>({{ $client->alias }})</small></h1>
+<p>
+    <small>Information</small>
+</p>
 <ul>
     <li>
         <small>Address</small>
@@ -28,7 +31,17 @@
         <span>{{ $client->notes }}</span>
     </li>
 </ul>
-<br>
+<p>
+    <small>Works</small>
+</p>
+<ul>
+    @foreach($client->works->load('job') as $work)
+    <li>
+        <span>{{ $work->job_name }}</span>
+        <a href="{{ route('works.show', $work) }}">Show</a>
+    </li>
+    @endforeach
+</ul>
 <a href="{{ route('clients.edit', $client) }}">Edit</a>
 <form action="{{ route('clients.destroy', $client) }}" method="post" style="display:inline">
     @csrf
