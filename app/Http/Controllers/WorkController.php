@@ -14,7 +14,7 @@ class WorkController extends Controller
     public function index()
     {
         return view('works.index', [
-            'works' => Work::with(['client', 'crew', 'job'])->orderBy('id','desc')->get(),
+            'works' => Work::with(['client', 'crew', 'job'])->orderBy('scheduled_date','desc')->get(),
         ]);
     }
 
@@ -41,14 +41,16 @@ class WorkController extends Controller
 
     public function show(Work $work)
     {
-        return view('works.show', [
-            'work' => $work,
-        ]);
+        return view('works.show')->with('work', $work);
     }
 
     public function edit(Work $work)
     {
         return view('works.edit', [
+            'client' => $work->client,
+            'jobs' => Job::allEnabled()->sortBy('custom'),
+            'crews' => Crew::allEnabled()->sortBy('name'),
+            'operators' => Operator::all(),
             'work' => $work,
         ]);
     }

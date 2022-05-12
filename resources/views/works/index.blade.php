@@ -4,7 +4,12 @@
 <h1>Works ({{ $works->count() }})</h1>
 <ul>
     @foreach($works as $work)
-    <li>{{ $work->job->name }}</li>
+    <li>
+        <span>{{ $work->scheduled_date }}</span>
+        <span>-</span>
+        <span>{{ $work->job->name }}</span>
+        <a href="{{ route('works.show', $work) }}">Show</a>
+    </li>
     @endforeach
 </ul>
 @endsection
