@@ -34,6 +34,8 @@ class CrewRequest extends FormRequest
     {
         $this->crew_id = $this->route()->originalParameter('crew') ?? 0;
 
-        $this->merge(['enabled' => (int) ! $this->has('disabled')]);
+        $this->merge([
+            'enabled' => (int) $this->filled('enabled'),
+        ]);
     }
 }

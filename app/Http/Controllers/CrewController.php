@@ -22,7 +22,7 @@ class CrewController extends Controller
     public function store(CrewRequest $request)
     {
         if(! $crew = Crew::create($request->validated()) )
-            return back()->with('danger', 'Ups! crew not saved');
+            return back()->with('danger', 'Oops! crew not saved');
 
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew saved");
     }
@@ -40,15 +40,18 @@ class CrewController extends Controller
     public function update(CrewRequest $request, Crew $crew)
     {
         if(! $crew->fill($request->validated())->save() )
-            return back()->with('danger', 'Ups! crew not updated');
+            return back()->with('danger', 'Oops! crew not updated');
 
+        if( $crew->isDisabled() )
+            $crew->freeOperators();
+            
         return redirect()->route('crews.edit', $crew)->with('success', "{$crew->name} crew updated");
     }
 
     public function destroy(Crew $crew)
     {
         if(! $crew->delete() )
-            return back()->with('danger', 'Ups! crew not deleted');
+            return back()->with('danger', 'Oops! crew not deleted');
 
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew deleted");
     }
