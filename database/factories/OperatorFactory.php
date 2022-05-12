@@ -13,6 +13,8 @@ class OperatorFactory extends Factory
      */
     public function definition()
     {
+        $available = $this->faker->boolean();
+
         return [
             'name' => $this->faker->firstName(),
             'lastname' => $this->faker->lastName(),
@@ -21,8 +23,8 @@ class OperatorFactory extends Factory
             'birthdate' => $this->faker->boolean() ? $this->faker->date() : null,
             'position' => $this->faker->boolean ? $this->faker->jobTitle() : null,
             'notes' => $this->faker->boolean() ? $this->faker->paragraph() : null,
-            'available' => (int) $this->faker->boolean(),
-            'crew_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,5) : null,
+            'available' => (int) $available,
+            'crew_id' => $available ? $this->faker->numberBetween(1,5) : null,
         ];
     }
 }
