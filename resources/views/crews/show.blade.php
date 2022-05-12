@@ -20,7 +20,10 @@
         <small>Operators ({{$crew->operators->count()}})</small>
         <ul>
             @foreach($crew->operators as $operator)
-            <li>{{ $operator->fullname }}</li>  
+            <li>
+                <span>{{ $operator->fullname }}</span>
+                <a href="{{ route('operators.show', $operator) }}">Show</a>
+            </li>  
             @endforeach
         </ul>
     </li>
