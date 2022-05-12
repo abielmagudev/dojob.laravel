@@ -60,7 +60,7 @@ class CrewController extends Controller
     {
         return view('crews.operators', [
             'crew' => $crew,
-            'operators' => Operator::all(),
+            'operators' => Operator::allAvailable(),
         ]);
     }
 
