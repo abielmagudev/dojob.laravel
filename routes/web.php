@@ -5,6 +5,8 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\WarrantyController;
+use App\Http\Controllers\WorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,12 @@ Route::prefix('crews/{crew}/operators')->group(function () {
     Route::get('/', [CrewController::class, 'operators'])->name('crews.operators');
     Route::match(['put','patch'], '/', [CrewController::class, 'manned'])->name('crews.operators.update');
 });
+
+Route::get('works/create/{client?}', [WorkController::class, 'create'])->name('works.create');
+Route::resource('works', WorkController::class)->except('create');
+
+Route::get('warranties/create/{work}', [WarrantyController::class, 'create'])->name('warranties.create');
+Route::resource('warranties', WarrantyController::class)->except(['create']);
 
 Route::resources([
     'clients' => ClientController::class,
