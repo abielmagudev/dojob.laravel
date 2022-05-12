@@ -22,3 +22,21 @@
     <label for="textNotes">Notes</label>
     <textarea name="notes" id="textNotes" cols="30" rows="10" placeholder="Optional">{{ old('notes', $operator->notes) }}</textarea>
 </div>
+@if( $operator->id )
+<div>
+    <label for="selectCrew">Crew</label>
+    <select name="crew" id="selectCrew">
+        <option label="" selected></option>
+        @foreach($crews as $crew)
+        <option value="{{ $crew->id }}" {{ $crew->id <> $operator->crew_id ?: 'selected' }}>{{ $crew->name }}</option>
+        @endforeach
+    </select>
+</div>
+<br>
+<div>
+    <input type="checkbox" name="available" value="yes" id="checkboxAvailable" {{ old('available', $operator->available) <> 1 ?: 'checked' }}>
+    <label for="checkboxAvailable">Available</label>
+    <br>
+    <small>If you disable "Available", the operator will not appear in operators list to create a work and will be removed of any crew.</small>
+</div>
+@endif

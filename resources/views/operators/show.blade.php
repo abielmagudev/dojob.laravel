@@ -20,6 +20,10 @@
         <span>{{ $operator->notes }}</span>
     </li>
     <li>
+        <small>Available</small>
+        <span>{{ $operator->isAvailable() ? 'Yes' : 'No' }}</span>
+    </li>
+    <li>
         <small>Crew</small>
         <span>{{ $operator->hasCrewed() ? $operator->crew->name : 'None' }}</span>
     </li>
@@ -30,7 +34,10 @@
 </p>
 <ul>
     @foreach($operator->works as $work)
-    <li>{{ $work->job_name }}</li>
+    <li>
+        <span>{{ $work->job_name }}</span>
+        <a href="{{ route('works.show', $work) }}">Show</a>
+    </li>
     @endforeach
 </ul>
 <br>

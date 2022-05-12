@@ -20,7 +20,8 @@ class OperatorRequest extends FormRequest
             'email' => ['required','email','unique:operators,email,' . $this->operator_id],
             'birthdate' => ['nullable','date'],
             'notes' => ['nullable'],
-            'crew_id' => ['nullable', 'exists:crews,id']
+            'available' => ['boolean'],
+            'crew_id' => ['nullable', 'exists:crews,id,enabled,1']
         ];
     }
 
@@ -35,6 +36,7 @@ class OperatorRequest extends FormRequest
             'email.email' => __('Write a valid email for the operator'),
             'email.unique' => __('Write another email for the operator'),
             'birthdate.date' => __('Enter a valid date of birth of the operator'),
+            'available.boolean' => __('Enable or disbale option for available the operator'),
             'crew_id.exists' => __('Choose a valid crew for the operator'),
         ];
     }
@@ -42,6 +44,10 @@ class OperatorRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->operator_id = $this->route()->originalParameter('operator') ?? 0;
-        $this->merge(['crew_id' => $this->get('crew', null)]);
+
+        $this->merge([
+            'available' => (int) $this->filled('available'),
+            'crew_id' => $this->filled('available') ? $this->get('crew') : null,
+        ]);
     }
 }

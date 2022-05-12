@@ -19,12 +19,18 @@ class Operator extends Model
         'birthdate',
         'notes',
         'position',
+        'available',
         'crew_id',
     ];
 
     public function getFullnameAttribute()
     {
         return "{$this->name} {$this->lastname}";
+    }
+
+    public function scopeAllAvailable($query)
+    {
+        return $query->where('available', true)->get();
     }
 
     public function scopeFree($query, int $crew_id)
@@ -50,6 +56,11 @@ class Operator extends Model
     public function works()
     {
         return $this->belongsToMany(Work::class)->using(OperatorWork::class);
+    }
+
+    public function isAvailable()
+    {
+        return (bool) $this->available;
     }
 
     public function hasCrewed()

@@ -21,6 +21,7 @@ class OperatorFactory extends Factory
             'birthdate' => $this->faker->boolean() ? $this->faker->date() : null,
             'position' => $this->faker->boolean ? $this->faker->jobTitle() : null,
             'notes' => $this->faker->boolean() ? $this->faker->paragraph() : null,
+            'available' => (int) $this->faker->boolean(),
             'crew_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,5) : null,
         ];
     }
