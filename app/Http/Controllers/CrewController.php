@@ -63,10 +63,10 @@ class CrewController extends Controller
 
     public function manned(CrewOperatorsRequest $request, Crew $crew)
     {
-        Operator::free($crew->id);
+        $crew->freeOperators();
 
         if( $request->filled('operators') )
-            Operator::crewed($request->operators, $crew->id);
+            $crew->setOperators($request->operators);
 
         return redirect()->route('crews.operators', $crew)->with('success', 'Operators of crew updated');
     }

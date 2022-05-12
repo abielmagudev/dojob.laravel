@@ -17,7 +17,7 @@
         <span>{{ $crew->isEnabled() ? 'Yes' : 'No' }}</span>
     </li>
     <li>
-        <small>Operators</small>
+        <small>Operators ({{$crew->operators->count()}})</small>
         <ul>
             @foreach($crew->operators as $operator)
             <li>{{ $operator->fullname }}</li>  
@@ -25,7 +25,11 @@
         </ul>
     </li>
 </ul>
+@if( $crew->isEnabled() )
 <a href="{{ route('crews.operators', $crew) }}">Manage operators</a>
+@endif
+<br>
+<br>
 <a href="{{ route('crews.edit', $crew) }}">Edit</a>
 <form action="{{ route('crews.destroy',$crew) }}" method="post" autocomplete="off" style="display:inline">
     @csrf

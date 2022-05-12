@@ -36,6 +36,11 @@ class Crew extends Model
         return Operator::free($this->id);
     }
 
+    public function setOperators(array $operators_id)
+    {
+        return Operator::crewed($operators_id, $this->id);
+    }
+
     public function hasColor()
     {
         return (bool) preg_match('/^#[a-f0-9]{6}|[a-f0-9]{3}$/i', $this->color);
