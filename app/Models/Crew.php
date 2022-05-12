@@ -16,9 +16,19 @@ class Crew extends Model
         'enabled',
     ];
 
+    public function scopeAllEnabled($query)
+    {
+        return $query->where('enabled', 1)->get();
+    }
+
     public function operators()
     {
         return $this->hasMany(Operator::class);
+    }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
     }
 
     public function hasColor()
