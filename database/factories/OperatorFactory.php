@@ -19,6 +19,7 @@ class OperatorFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
             'birthdate' => $this->faker->boolean() ? $this->faker->date() : null,
+            'position' => $this->faker->boolean ? $this->faker->jobTitle() : null,
             'notes' => $this->faker->boolean() ? $this->faker->paragraph() : null,
             'crew_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,5) : null,
         ];
