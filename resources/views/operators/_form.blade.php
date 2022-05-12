@@ -37,6 +37,6 @@
     <input type="checkbox" name="available" value="yes" id="checkboxAvailable" {{ $operator->isUnavailable() ?: 'checked' }}>
     <label for="checkboxAvailable">Available</label>
     <br>
-    <small>If you disable "Available", the operator will not appear in operators list to create a work and will be removed of any crew.</small>
+    <small>If you uncheck "Available", the operator will not appear in operators list to create a work and will be removed of any crew.</small>
 </div>
 @endif
