@@ -24,6 +24,15 @@
         <span>{{ $operator->hasCrewed() ? $operator->crew->name : 'None' }}</span>
     </li>
 </ul>
+
+<p>
+    <small>Works ({{ $operator->works->count() }})</small>
+</p>
+<ul>
+    @foreach($operator->works as $work)
+    <li>{{ $work->job_name }}</li>
+    @endforeach
+</ul>
 <br>
 <a href="{{ route('operators.edit', $operator) }}">Edit</a>
 <form action="{{ route('operators.destroy', $operator) }}" method="post" style="display:inline">

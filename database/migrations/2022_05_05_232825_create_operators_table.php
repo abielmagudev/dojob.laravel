@@ -20,8 +20,9 @@ class CreateOperatorsTable extends Migration
             $table->string('phone', 32)->unique()->index();
             $table->string('email', 40)->unique()->index();
             $table->date('birthdate')->nullable();
+            $table->string('position', 64)->nullable();
             $table->text('notes')->nullable();
-            $table->integer('crew_id',false,true)->nullable();
+            $table->unsignedInteger('crew_id')->nullable();
             $table->timestamps();
         });
     }

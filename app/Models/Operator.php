@@ -18,6 +18,7 @@ class Operator extends Model
         'email',
         'birthdate',
         'notes',
+        'position',
         'crew_id',
     ];
 
@@ -44,6 +45,11 @@ class Operator extends Model
     public function crew()
     {
         return $this->belongsTo(Crew::class);
+    }
+
+    public function works()
+    {
+        return $this->belongsToMany(Work::class)->using(OperatorWork::class);
     }
 
     public function hasCrewed()
