@@ -18,8 +18,8 @@ class WorkSeeder extends Seeder
 
         foreach($works as $work)
         {
-            if(! isset($work->crew_id) )
-                $work->attachOperators( mt_rand(1,25) );
+            $operators = $work->hasCrew() ? $work->crew->operators : mt_rand(1, 25);
+            $work->attachOperators($operators);
         }
     }
 }
