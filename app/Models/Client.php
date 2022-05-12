@@ -32,4 +32,9 @@ class Client extends Model
     {
         return "{$this->city}, {$this->state}, {$this->country}";
     }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
 }
