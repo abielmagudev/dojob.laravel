@@ -14,6 +14,12 @@ class CrewSeeder extends Seeder
      */
     public function run()
     {
-        return Crew::factory(5)->create();
+        $crews = Crew::factory(7)->create();
+
+        foreach($crews as $crew)
+        {
+            if(! $crew->isEnabled() )
+                $crew->freeOperators();
+        }
     }
 }
