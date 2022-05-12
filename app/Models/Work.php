@@ -32,6 +32,26 @@ class Work extends Model
         return $this->job->name;
     }
 
+    public function getScheduledAtAttribute()
+    {
+        return "{$this->scheduled_date} {$this->scheduled_time}";
+    }
+
+    public function getStartedAtAttribute()
+    {
+        return "{$this->scheduled_date} {$this->scheduled_time}";
+    }
+
+    public function getFinishedAtAttribute()
+    {
+        return "{$this->scheduled_date} {$this->scheduled_time}";
+    }
+
+    public function getClosedAtAttribute()
+    {
+        return "{$this->scheduled_date} {$this->scheduled_time}";
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class);
