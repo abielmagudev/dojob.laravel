@@ -10,5 +10,6 @@
     @include('layouts.message')
     @include('layouts.errors')
     @yield('content')
+    @stack('scripts')
 </body>
 </html>
