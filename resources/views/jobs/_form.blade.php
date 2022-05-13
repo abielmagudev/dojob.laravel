@@ -6,3 +6,12 @@
     <label for="textDescription">Description</label>
     <textarea name="description" id="textDescription" cols="30" rows="10" placeholder="Optional">{{ old('description', $job->description) }}</textarea>
 </div>
+@if( $job->id )
+<br>
+<div>
+    <input type="checkbox" name="enabled" id="checkboxEnabled" value='yes' {{ $job->isDisabled() ?: 'checked' }}>
+    <label for="checkboxEnabled">Enabled</label>
+    <br>
+    <small>If you uncheck "Enabled", the job will not appear in jobs list to create a work.</small>
+</div>    
+@endif

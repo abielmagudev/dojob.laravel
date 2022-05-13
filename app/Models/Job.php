@@ -45,4 +45,9 @@ class Job extends Model
     {
         return (bool) $this->enabled;
     }
+
+    public function isDisabled()
+    {
+        return ! $this->isEnabled();
+    }
 }
