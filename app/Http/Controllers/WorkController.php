@@ -60,6 +60,9 @@ class WorkController extends Controller
 
     public function destroy(Work $work)
     {
-        return $work;
+        if(! $work->delete() )
+            return back()->with('danger', 'Oops! work not deleted');
+
+        return redirect()->route('works.index')->with('success', "{$work->job_name} work deleted");
     }
 }
