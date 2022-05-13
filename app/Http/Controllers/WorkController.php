@@ -18,13 +18,13 @@ class WorkController extends Controller
         ]);
     }
 
-    public function create(Client $client = null)
+    public function create(Client $client)
     {
         return view('works.create', [
-            'client' => $client ?? new Client,
+            'client' => $client,
             'crews' => Crew::allEnabled()->sortBy('name'),
             'jobs' => Job::allEnabled()->sortBy('custom'),
-            'operators' => Operator::all(),
+            'operators' => Operator::allAvailable(),
             'work' => new Work,
         ]);
     }
@@ -47,10 +47,8 @@ class WorkController extends Controller
     public function edit(Work $work)
     {
         return view('works.edit', [
-            'client' => $work->client,
-            'jobs' => Job::allEnabled()->sortBy('custom'),
             'crews' => Crew::allEnabled()->sortBy('name'),
-            'operators' => Operator::all(),
+            'operators' => Operator::allAvailable(),
             'work' => $work,
         ]);
     }

@@ -35,10 +35,12 @@
         <small>Dates and times</small>
         <br>
         <ul>
+            <li>Created: {{ $work->created_at }}</li>
             <li>Scheduled: {{ $work->scheduled_at }}</li>
             <li>Started: {{ $work->started_at }}</li>
             <li>Finished: {{ $work->finished_at }}</li>
             <li>Closed: {{ $work->closed_at }}</li>
+            <li>Updated: {{ $work->updated_at }}</li>
         </ul>
     </li>
     <li>
