@@ -67,7 +67,7 @@
     <input type="time" name="scheduled_time" value="{{ old('scheduled_time', $work->scheduled_time) }}" id="inputScheduledTime">
 </div>
 
-@isset($work->id)
+@if( $work->isReal() )
 <div>
     <label for="inputStartedDate">Started</label>
     <input type="date" name="started_date" value="{{ old('started_date', $work->started_date) }}" id="inputStartedDate">
@@ -93,7 +93,7 @@
         @endforeach
     </select>
 </div>
-@endisset
+@endif
 
 @push('scripts')
 <script>
@@ -120,7 +120,7 @@ const inputAssign = {
     }
 }
 
-<?php $assign_initial = $work->isReal() ? ($work->hasCrew() ? '"crew"' : '"operator"') : '"crew"' ?>
+<?php $assign_initial = $work->isUnreal() ? '"crew"' : ($work->hasCrew() ? '"crew"' : '"operator"'); ?>
 inputAssign.displaying(<?= $assign_initial ?>)
 inputAssign.listening()
 </script>  
