@@ -32,22 +32,30 @@
     </select>
 </div>
 @endisset
+<br>
 
 <div>
+    <input type="radio" name="assign" value="crew" id="radioCrew" {{ $work->hasCrew() ||! $work->isReal() ? 'checked' : '' }}>
+    <label for="radioCrew">Crew</label>
+    <input type="radio" name="assign" value="operator" id="radioOperator" {{ $work->isReal() &&! $work->hasCrew() ? 'checked' : '' }}>
+    <label for="radioOperator">Operator</label>
+</div>
+<br>
+<div id="elementCrew">
     <label for="selectCrew">Crew</label>
     <select name="crew" id="selectCrew">
         <option label="- No crew -" selected></option>
         @foreach($crews as $crew)
-        <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) <> $crew->id ?: 'selected' }}>{{ $crew->name }}</option>
+        <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) == $crew->id ? 'selected' : '' }}>{{ $crew->name }}</option>
         @endforeach
     </select>
 </div>
-<div>
+<div id="elementOperator">
     <label for="selectOperator">Operator</label>
     <select name="operator" id="selectOperator">
         <option label="- No operator -" selected></option>
         @foreach($operators as $operator)
-        <option value="{{ $operator->id }}" {{ old('operator') <> $operator->id ?: 'selected' }}>{{ $operator->fullname }}</option>
+        <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) ? 'selected' : '' }}>{{ $operator->fullname }}</option>
         @endforeach
     </select>
 </div>
@@ -86,3 +94,34 @@
     </select>
 </div>
 @endisset
+
+@push('scripts')
+<script>
+const inputAssign = {
+    elements: document.getElementsByName('assign'),
+    selectors: [
+        document.getElementById('selectCrew'),
+        document.getElementById('selectOperator')
+    ],
+    displaying: function (value) {
+        this.selectors.forEach( function (selector) {
+            selector.disabled = selector.name !== value
+            selector.parentElement.style.display = selector.name !== value ? 'none' : 'block'
+        })
+    },
+    listening: function () {
+        let self = this
+
+        self.elements.forEach( function(input) {
+            input.addEventListener('change', function (e) {
+                self.displaying(e.target.value)
+            })
+        })
+    }
+}
+
+<?php $assign_initial = $work->isReal() ? ($work->hasCrew() ? '"crew"' : '"operator"') : '"crew"' ?>
+inputAssign.displaying(<?= $assign_initial ?>)
+inputAssign.listening()
+</script>  
+@endpush
