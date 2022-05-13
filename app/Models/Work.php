@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Ahex\Zkaffold\Domain\HasExistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class Work extends Model
 {
-    use HasFactory;
+    use HasFactory, HasExistence;
 
     const NO_CREW = false;
 
@@ -103,11 +104,6 @@ class Work extends Model
             return self::NO_CREW;
 
         return $this->crew instanceof Crew;
-    }
-
-    public function isReal()
-    {
-        return isset($this->id);
     }
 
     public static function allStatus()
