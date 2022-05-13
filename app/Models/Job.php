@@ -15,15 +15,6 @@ class Job extends Model
         'enabled',
     ];
 
-    public static function defaults()
-    {
-        return [
-            'Inspection' => 'Inspect and approval of the work done',
-            'Maintenance' => 'Maintenance of a completed work',
-            'Repair' => 'Repair a job done',
-        ];
-    }
-
     public function scopeAllEnabled($query)
     {
         return $query->where('enabled', 1)->get();
@@ -49,5 +40,14 @@ class Job extends Model
     public function isDisabled()
     {
         return ! $this->isEnabled();
+    }
+
+    public static function defaults()
+    {
+        return [
+            'Inspection' => 'Inspect and approval of the work done',
+            'Maintenance' => 'Maintenance of a completed work',
+            'Repair' => 'Repair a job done',
+        ];
     }
 }
