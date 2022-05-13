@@ -13,10 +13,9 @@ class Work extends Model
 
     protected $fillable = [
         'client_id',
-        'job_id',
         'crew_id',
+        'job_id',
         'priority',
-        'status',
         'scheduled_date',
         'scheduled_time',
         'started_date',
@@ -25,6 +24,7 @@ class Work extends Model
         'finished_time',
         'closed_date',
         'closed_time',
+        'status',
     ];
 
     public function getJobNameAttribute()
