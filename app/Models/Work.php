@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class Work extends Model
 {
     use HasFactory;
 
-    const WITHOUT_CREW = false;
+    const NO_CREW = false;
 
     protected $fillable = [
         'client_id',
@@ -26,6 +27,8 @@ class Work extends Model
         'closed_time',
         'status',
     ];
+
+    public $operators_cache = null;
 
     public function getJobNameAttribute()
     {
@@ -80,12 +83,31 @@ class Work extends Model
         return $this->operators()->attach($this->crew->operators);
     }
 
+    private function operatorsCache()
+    {
+        if( is_a($this->operators_cache, EloquentCollection::class) )
+            return $this->operators_cache;
+
+        return $this->operators_cache = $this->operators;
+    }
+
+    public function hasOperator($operator)
+    {            
+        $operator_id = is_a($operator, Operator::class) ? $operator->id : $operator;
+        return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
+    }
+
     public function hasCrew()
     {
         if(! isset($this->crew_id) )
-            return self::WITHOUT_CREW;
+            return self::NO_CREW;
 
         return $this->crew instanceof Crew;
+    }
+
+    public function isReal()
+    {
+        return isset($this->id);
     }
 
     public static function allStatus()
