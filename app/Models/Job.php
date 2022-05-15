@@ -15,12 +15,12 @@ class Job extends Model
         'enabled',
     ];
 
-    public function scopeAllEnabled($query)
+    public function scopeOnlyEnabled($query)
     {
         return $query->where('enabled', 1)->get();
     }
 
-    public function scopeAllCustom($query)
+    public function scopeOnlyCustom($query)
     {
         return $query->where('custom', 1)->get();
     }

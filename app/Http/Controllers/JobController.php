@@ -9,7 +9,7 @@ class JobController extends Controller
 {
     public function index()
     {
-        return view('jobs.index')->with('jobs', Job::allCustom()->sortBy('name'));
+        return view('jobs.index')->with('jobs', Job::onlyCustom()->sortBy('name'));
     }
 
     public function create()
