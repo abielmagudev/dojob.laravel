@@ -14,7 +14,7 @@ class CrewOperatorsRequest extends FormRequest
     public function rules()
     {
         return [
-            'operators' => 'array',
+            'operators' => ['required','array'],
             'operators.*' => 'exists:operators,id,available,1',
         ];
     }
@@ -22,8 +22,9 @@ class CrewOperatorsRequest extends FormRequest
     public function messages()
     {
         return [
-            'operators.array' => __('Choose from the list of operators'),
-            'operators.*.exists' => __('Choose one or several valid operators from the list'),
+            'operators.required' => __('Choose one or more operators from the list'),
+            'operators.array' => __('Choose only from the list of operators'),
+            'operators.*.exists' => __('Choose one or more available operators from the list'),
         ];
     }
 }

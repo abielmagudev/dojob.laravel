@@ -43,7 +43,7 @@ class CrewController extends Controller
             return back()->with('danger', 'Oops! crew not updated');
 
         if( $crew->isDisabled() )
-            $crew->freeOperators();
+            $crew->removeOperators();
             
         return redirect()->route('crews.edit', $crew)->with('success', "{$crew->name} crew updated");
     }
@@ -53,6 +53,8 @@ class CrewController extends Controller
         if(! $crew->delete() )
             return back()->with('danger', 'Oops! crew not deleted');
 
+        $crew->removeOperators();
+
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew deleted");
     }
 
@@ -60,17 +62,17 @@ class CrewController extends Controller
     {
         return view('crews.operators', [
             'crew' => $crew,
-            'operators' => Operator::allAvailable(),
+            'operators' => Operator::onlyAvailable()->get(),
         ]);
     }
 
-    public function manned(CrewOperatorsRequest $request, Crew $crew)
+    public function addOperators(CrewOperatorsRequest $request, Crew $crew)
     {
-        $crew->freeOperators();
+        $crew->removeOperators();
 
         if( $request->filled('operators') )
-            $crew->setOperators($request->operators);
+            $crew->attachOperators($request->operators);
 
-        return redirect()->route('crews.operators', $crew)->with('success', 'Operators of crew updated');
+        return redirect()->route('crews.operators', $crew)->with('success', 'Added crew operators');
     }
 }

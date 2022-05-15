@@ -9,6 +9,8 @@ class Crew extends Model
 {
     use HasFactory;
 
+    const REGEXP_COLOR = '/^#[a-f0-9]{6}|[a-f0-9]{3}$/i';
+
     protected $fillable = [
         'name',
         'color',
@@ -16,9 +18,14 @@ class Crew extends Model
         'enabled',
     ];
 
-    public function scopeAllEnabled($query)
+    public function scopeOnlyEnabled($query)
     {
-        return $query->where('enabled', 1)->get();
+        return $query->where('enabled', 1);
+    }
+
+    public function scopeOnlyUsable($query)
+    {
+        return $query->has('operators')->where('enabled', 1);
     }
 
     public function operators()
@@ -31,19 +38,19 @@ class Crew extends Model
         return $this->hasMany(Work::class);
     }
 
-    public function freeOperators()
+    public function attachOperators(array $operators_id)
     {
-        return Operator::free($this->id);
+        return Operator::attachCrew($operators_id, $this->id);
     }
 
-    public function setOperators(array $operators_id)
+    public function removeOperators()
     {
-        return Operator::crewed($operators_id, $this->id);
+        return Operator::removeCrew($this->id);
     }
 
     public function hasColor()
     {
-        return (bool) preg_match('/^#[a-f0-9]{6}|[a-f0-9]{3}$/i', $this->color);
+        return (bool) preg_match(self::REGEXP_COLOR, $this->color);
     }
 
     public function isEnabled()

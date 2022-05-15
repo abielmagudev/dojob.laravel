@@ -2,6 +2,9 @@
 @section('content')
 <a href="{{ route('crews.index') }}">Index</a>
 <h1>{{ $crew->name }}</h1>
+@if( $crew->isEnabled() )
+<a href="{{ route('crews.operators', $crew) }}">Manage operators</a>
+@endif
 <ul>
     <li>
         <small>Color</small>
@@ -28,15 +31,6 @@
         </ul>
     </li>
 </ul>
-@if( $crew->isEnabled() )
-<a href="{{ route('crews.operators', $crew) }}">Manage operators</a>
-@endif
-<br>
 <br>
 <a href="{{ route('crews.edit', $crew) }}">Edit</a>
-<form action="{{ route('crews.destroy',$crew) }}" method="post" autocomplete="off" style="display:inline">
-    @csrf
-    @method('delete')
-    <button type="submit">Delete crew</button>
-</form>
 @endsection

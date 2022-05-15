@@ -25,7 +25,7 @@ Route::get('/', function () {
 
 Route::prefix('crews/{crew}/operators')->group(function () {
     Route::get('/', [CrewController::class, 'operators'])->name('crews.operators');
-    Route::match(['put','patch'], '/', [CrewController::class, 'manned'])->name('crews.operators.update');
+    Route::match(['put','patch'], '/', [CrewController::class, 'addOperators'])->name('crews.operators.update');
 });
 
 Route::get('works/create/{client?}', [WorkController::class, 'create'])->name('works.create');

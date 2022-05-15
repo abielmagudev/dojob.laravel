@@ -8,13 +8,13 @@
         @foreach($operators as $operator)
         <?php $checkbox_id = "checkbox{$operator->id}" ?>
         <li>
-            <input type="checkbox" name="operators[]" value="{{ $operator->id }}" id="{{ $checkbox_id }}" {{ $operator->crew_id <> $crew->id ?: 'checked' }}>
+            <input type="checkbox" name="operators[]" value="{{ $operator->id }}" id="{{ $checkbox_id }}" {{ $operator->crew_id == $crew->id ? 'checked' : '' }}>
             <label for="{{ $checkbox_id }}">{{ $operator->fullname }}</label>
         </li>
         @endforeach
     </ul>
     <br>
-    <button type="submit">Set operators</button>
+    <button type="submit">Add operators</button>
     <a href="{{ route('crews.show', $crew) }}">Back</a>
 </form>
 @endsection
