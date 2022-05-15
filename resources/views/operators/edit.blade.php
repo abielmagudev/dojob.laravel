@@ -8,4 +8,10 @@
     <button type="submit">Update operator</button>
     <a href="{{ route('operators.show', $operator) }}">Back</a>
 </form>
+<hr>
+<form action="{{ route('operators.destroy', $operator) }}" method="post" style="display:inline">
+    @csrf
+    @method('delete')
+    <button type="submit">Delete operator</button>
+</form>
 @endsection

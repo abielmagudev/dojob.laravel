@@ -22,7 +22,8 @@
     <label for="textNotes">Notes</label>
     <textarea name="notes" id="textNotes" cols="30" rows="10" placeholder="Optional">{{ old('notes', $operator->notes) }}</textarea>
 </div>
-@if( $operator->id )
+<br>
+@if( $operator->isAvailable() )
 <div>
     <label for="selectCrew">Crew</label>
     <select name="crew" id="selectCrew">
@@ -33,10 +34,13 @@
     </select>
 </div>
 <br>
+@endif
+@if( $operator->isReal() )
 <div>
-    <input type="checkbox" name="available" value="yes" id="checkboxAvailable" {{ $operator->isUnavailable() ?: 'checked' }}>
+    <input type="checkbox" name="available" value="yes" id="checkboxAvailable" {{ $operator->isAvailable() ? 'checked' : '' }}>
     <label for="checkboxAvailable">Available</label>
     <br>
     <small>If you uncheck "Available", the operator will not appear in operators list to create a work and will be removed of any crew.</small>
 </div>
+<br>
 @endif

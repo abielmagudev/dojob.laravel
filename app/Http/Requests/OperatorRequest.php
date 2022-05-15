@@ -47,7 +47,7 @@ class OperatorRequest extends FormRequest
 
         $this->merge([
             'available' => (int) $this->filled('available'),
-            'crew_id' => $this->filled('available') ? $this->get('crew') : null,
+            'crew_id' => $this->filled('available') ? $this->crew : null,
         ]);
     }
 }

@@ -26,7 +26,7 @@
     <li>
         <small>Crew</small>
 
-        @if( $operator->hasCrewed() )
+        @if( $operator->hasCrew() )
         <span>{{ $operator->crew->name }}</span>
         <a href="{{ route('crews.show', $operator->crew) }}">Show</a>
 
@@ -50,9 +50,4 @@
 </ul>
 <br>
 <a href="{{ route('operators.edit', $operator) }}">Edit</a>
-<form action="{{ route('operators.destroy', $operator) }}" method="post" style="display:inline">
-    @csrf
-    @method('delete')
-    <button type="submit">Delete operator</button>
-</form>
 @endsection

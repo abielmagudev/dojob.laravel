@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Ahex\Zkaffold\Domain\HasExistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Operator extends Model
 {
-    use HasFactory;
+    use HasFactory, HasExistence;
 
     const UNCREWED = false;
 
@@ -28,24 +29,24 @@ class Operator extends Model
         return "{$this->name} {$this->lastname}";
     }
 
-    public function scopeAllAvailable($query)
+    public function scopeOnlyAvailable($query)
     {
-        return $query->where('available', true)->get();
+        return $query->where('available', 1);
     }
 
-    public function scopeFree($query, int $crew_id)
+    public function scopeUpdateCrew($query, array $operators_id, int $crew_id)
+    {
+        return $query->whereIn('id', $operators_id)->update(['crew_id' => $crew_id]);
+    }
+
+    public function scopeRemoveCrew($query, array $operators_id)
+    {
+        return $query->whereIn('id', $operators_id)->update(['crew_id' => null]);
+    }
+
+    public function scopeCleanCrew($query, int $crew_id)
     {
         return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
-    }
-
-    public function scopeUncrewed($query, array $operators)
-    {
-        return $query->whereIn('id', $operators)->update(['crew_id' => null]);
-    }
-
-    public function scopeCrewed($query, array $operators, int $crew_id)
-    {
-        return $query->whereIn('id', $operators)->update(['crew_id' => $crew_id]);
     }
 
     public function crew()
@@ -63,16 +64,11 @@ class Operator extends Model
         return (bool) $this->available;
     }
 
-    public function isUnavailable()
+    public function hasCrew()
     {
-        return (bool) $this->available;
-    }
+        if(! is_null($this->crew_id) )
+            return $this->crew instanceof Crew;
 
-    public function hasCrewed()
-    {
-        if( is_null($this->crew_id) )
-            return self::UNCREWED;
-
-        return $this->crew instanceof Crew;
+        return self::UNCREWED;
     }
 }

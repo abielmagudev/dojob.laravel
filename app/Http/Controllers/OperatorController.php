@@ -35,7 +35,7 @@ class OperatorController extends Controller
     {
         return view('operators.edit', [
             'operator' => $operator,
-            'crews' => Crew::allEnabled(),
+            'crews' => Crew::onlyEnabled()->get(),
         ]);
     }
 

@@ -4,7 +4,7 @@
     @csrf
     @include('operators._form')
     <br>
-    <button type="submit">Save operator</button>
+    <button type="submit">Create operator</button>
     <a href="{{ route('operators.index') }}">Cancel</a>
 </form>
 @endsection
