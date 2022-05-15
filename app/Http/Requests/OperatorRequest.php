@@ -45,9 +45,12 @@ class OperatorRequest extends FormRequest
     {
         $this->operator_id = $this->route()->originalParameter('operator') ?? 0;
 
-        $this->merge([
-            'available' => (int) $this->filled('available'),
-            'crew_id' => $this->filled('available') ? $this->crew : null,
-        ]);
+        if( $this->isMethod('put') || $this->isMethod('patch') )
+        {
+            $this->merge([
+                'available' => (int) $this->filled('available'),
+                'crew_id' => $this->filled('available') ? $this->crew : null,
+            ]);
+        }
     }
 }
