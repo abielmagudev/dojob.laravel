@@ -34,17 +34,17 @@ class Operator extends Model
         return $query->where('available', 1);
     }
 
-    public function scopeAddCrew($query, array $operators_id, int $crew_id)
+    public function scopeAttachCrew($query, array $operators_id, int $crew_id)
     {
         return $query->whereIn('id', $operators_id)->update(['crew_id' => $crew_id]);
     }
 
-    public function scopeRemoveCrew($query, array $operators_id)
+    public function scopeDetachCrew($query, array $operators_id)
     {
         return $query->whereIn('id', $operators_id)->update(['crew_id' => null]);
     }
 
-    public function scopeCleanCrew($query, int $crew_id)
+    public function scopeRemoveCrew($query, int $crew_id)
     {
         return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
     }
