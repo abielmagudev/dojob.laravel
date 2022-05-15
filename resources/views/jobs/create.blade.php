@@ -4,7 +4,7 @@
     @csrf
     @include('jobs._form')
     <br>
-    <button type="submit">Save job</button>
+    <button type="submit">Create job</button>
     <a href="{{ route('jobs.index') }}">Cancel</a>
 </form>
 @endsection

@@ -14,9 +14,4 @@
 </ul>
 <br>
 <a href="{{ route('jobs.edit', $job) }}">Edit</a>
-<form action="{{ route('jobs.destroy', $job) }}" method="post" style="display:inline">
-    @csrf
-    @method('delete')
-    <button type="submit">Delete job</button>
-</form>
 @endsection

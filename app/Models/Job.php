@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Ahex\Zkaffold\Domain\HasExistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    use HasFactory;
+    use HasFactory, HasExistence;
 
     protected $fillable = [
         'name',
@@ -17,12 +18,12 @@ class Job extends Model
 
     public function scopeOnlyEnabled($query)
     {
-        return $query->where('enabled', 1)->get();
+        return $query->where('enabled', 1);
     }
 
     public function scopeOnlyCustom($query)
     {
-        return $query->where('custom', 1)->get();
+        return $query->where('custom', 1);
     }
 
     public function plugins()
@@ -35,11 +36,6 @@ class Job extends Model
     public function isEnabled()
     {
         return (bool) $this->enabled;
-    }
-
-    public function isDisabled()
-    {
-        return ! $this->isEnabled();
     }
 
     public static function defaults()

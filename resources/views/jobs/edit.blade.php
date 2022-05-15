@@ -8,4 +8,10 @@
     <button type="submit">Update job</button>
     <a href="{{ route('jobs.show', $job) }}">Back</a>
 </form>
+<hr>
+<form action="{{ route('jobs.destroy', $job) }}" method="post" style="display:inline">
+    @csrf
+    @method('delete')
+    <button type="submit">Delete job</button>
+</form>
 @endsection

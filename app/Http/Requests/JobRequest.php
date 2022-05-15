@@ -34,8 +34,11 @@ class JobRequest extends FormRequest
     {
         $this->job_id = $this->route()->originalParameter('job') ?? 0;
 
-        $this->merge([
-            'enabled' => (int) $this->filled('enabled')
-        ]);
+        if( $this->isMethod('put') || $this->isMethod('patch') )
+        {
+            $this->merge([
+                'enabled' => (int) $this->filled('enabled')
+            ]);
+        }
     }
 }
