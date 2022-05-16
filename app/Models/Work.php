@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Ahex\Zkaffold\Domain\HasExistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
@@ -76,14 +76,6 @@ class Work extends Model
         return $this->belongsToMany(Operator::class)->using(OperatorWork::class);
     }
 
-    public function attachOperators($operator_id = null)
-    {
-        if(! $this->hasCrew() )
-            return $this->operators()->attach($operator_id);
-
-        return $this->operators()->attach($this->crew->operators);
-    }
-
     private function operatorsCache()
     {
         if( is_a($this->operators_cache, EloquentCollection::class) )
@@ -92,9 +84,20 @@ class Work extends Model
         return $this->operators_cache = $this->operators;
     }
 
-    public function hasOperator($operator)
+    public function attachOperators(array $operators_id)
+    {
+        return $this->operators()->attach($operators_id);
+    }
+
+    /**
+     * Check if work has a specific operators
+     * 
+     * @param object Operator | int operator id
+     * 
+     * @return bool
+     */
+    public function hasOperator($operator_id)
     {            
-        $operator_id = is_a($operator, Operator::class) ? $operator->id : $operator;
         return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
     }
 
