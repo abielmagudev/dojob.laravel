@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class WorkRequest extends FormRequest
+class WorkStoreRequest extends FormRequest
 {
+    const REGEXP_TIME = '/^([0-2]\d):([0-5]\d):?([0-5]\d)?$/';
+
     public function authorize()
     {
         return true;
@@ -17,10 +18,11 @@ class WorkRequest extends FormRequest
         return [
             'client_id' => ['required','exists:clients,id'],
             'job_id' => ['required','exists:jobs,id,enabled,1'],
-            'crew_id' => ['exists:crews,id,enabled,1'],
-            'operator_id' => ['required_without:crew_id','exists:operators,id'],
+            'assign' => ['required','in:crew,operator'],
+            'crew_id' => ['nullable','exists:crews,id,enabled,1'],
+            'operator_id' => ['required_if:assign,operator','exists:operators,id,available,1'],
             'scheduled_date' => ['required','date'],
-            'scheduled_time' => ['required','date_format:H:i'],
+            'scheduled_time' => ['required','regex:' . self::REGEXP_TIME],
         ];
     }
 
@@ -31,23 +33,25 @@ class WorkRequest extends FormRequest
             'client_id.exists' => __('Choose a valid client'),
             'job_id.required' => __('Choose a job'),
             'job_id.exists' => __('Choose a valid and enabled job'),
+            'assign.required' => __('Choose an assignment'),
+            'assign.in' => __('Choose a valid assignment'),
             'crew_id.exists' => __('Choose a valid and enabled crew'),
-            'operator_id.required_without' => __('Choose a operator'),
+            'operator_id.required_if' => __('Choose a operator'),
             'operator_id.exists' => __('Choose a valid operator'),
             'scheduled_date.required' => __('Enter the scheduled date'),
+            'scheduled_date.date' => __('Enter a valid scheduled date'),
             'scheduled_time.required' => __('Enter the scheduled time'),
+            'scheduled_time.regex' => __('Enter a valid scheduled time'),
         ];
     }
 
     public function prepareForValidation()
     {
         $this->merge([
-            'client_id' => $this->get('client'),
-            'job_id' => $this->get('job'),
-            'crew_id' => $this->get('crew'),
+            'client_id' => $this->client,
+            'crew_id' => $this->crew,
+            'job_id' => $this->job,
+            'operator_id' => $this->operator,
         ]);
-
-        if(! $this->filled('crew') )
-            $this->merge(['operator_id' => $this->get('operator')]);
     }
 }

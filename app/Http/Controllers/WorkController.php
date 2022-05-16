@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\WorkRequest;
+use App\Http\Requests\WorkStoreRequest;
+use App\Http\Requests\WorkUpdateRequest;
 use App\Models\Work;
 use App\Models\Client;
 use App\Models\Job;
@@ -14,7 +15,9 @@ class WorkController extends Controller
     public function index()
     {
         return view('works.index', [
-            'works' => Work::with(['client', 'crew', 'job'])->orderBy('scheduled_date','desc')->get(),
+            'works' => Work::with(['client', 'crew', 'job'])
+                            ->orderBy('scheduled_date','desc')
+                            ->get(),
         ]);
     }
 
@@ -22,20 +25,21 @@ class WorkController extends Controller
     {
         return view('works.create', [
             'client' => $client,
-            'crews' => Crew::allEnabled()->sortBy('name'),
-            'jobs' => Job::allEnabled()->sortBy('custom'),
-            'operators' => Operator::allAvailable(),
+            'jobs' => Job::onlyEnabled()->orderBy('custom')->get(),
+            'crews' => Crew::onlyUsable()->orderBy('name')->get(),
+            'operators' => Operator::onlyAvailable()->get(),
             'work' => new Work,
         ]);
     }
 
-    public function store(WorkRequest $request)
+    public function store(WorkStoreRequest $request)
     {
         if(! $work = Work::create( $request->validated() ) )
             return back()->with('danger', 'Oops! work not saved');
 
-        $work->attachOperators($request->get('operator_id'));
-
+        $operators_id = $work->hasCrew() ? $work->crew->operators : [$request->operator_id];
+        $work->attachOperators($operators_id);
+        
         return redirect()->route('works.index')->with('success', "{$work->job_name}");
     }
 
@@ -53,7 +57,7 @@ class WorkController extends Controller
         ]);
     }
 
-    public function update(WorkRequest $request, Work $work)
+    public function update(WorkUpdateRequest $request, Work $work)
     {
         return $request->validated();
     }
