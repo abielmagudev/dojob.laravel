@@ -19,7 +19,7 @@
     @csrf
     @include('works._form')
     <br>
-    <button type="submit">Save work</button>
+    <button type="submit">Create work</button>
     <a href="{{ route('works.index') }}">Cancel</a>
 </form>
 @endsection
