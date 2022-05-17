@@ -28,14 +28,19 @@ class Crew extends Model
         return $query->has('operators')->where('enabled', 1);
     }
 
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
+
     public function operators()
     {
         return $this->hasMany(Operator::class);
     }
 
-    public function works()
+    public function operatorsId()
     {
-        return $this->hasMany(Work::class);
+        return $this->operators->pluck('id')->toArray();
     }
 
     public function attachOperators(array $operators_id)
