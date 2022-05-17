@@ -90,15 +90,15 @@ class Work extends Model
     }
 
     /**
-     * Check if work has a specific operators
+     * Check if a work has specific operators
      * 
-     * @param object Operator | int operator id
+     * @param object App\Models\Operator || int operator_id
      * 
      * @return bool
      */
-    public function hasOperator($operator_id)
+    public function hasOperator($operator)
     {            
-        return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
+        return (bool) $this->operatorsCache()->firstWhere('id', $operator);
     }
 
     public function hasCrew()

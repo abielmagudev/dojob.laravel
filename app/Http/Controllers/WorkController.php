@@ -37,9 +37,12 @@ class WorkController extends Controller
         if(! $work = Work::create( $request->validated() ) )
             return back()->with('danger', 'Oops! work not saved');
 
-        $operators_id = $work->hasCrew() ? $work->crew->operators : [$request->operator_id];
+        $operators_id = ! $work->hasCrew() 
+                        ? $request->only('operator_id')
+                        : $work->crew->operators->pluck('id')->toArray();
+
         $work->attachOperators($operators_id);
-        
+
         return redirect()->route('works.index')->with('success', "{$work->job_name}");
     }
 

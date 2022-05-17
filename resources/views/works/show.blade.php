@@ -18,16 +18,16 @@
         </ul>        
     </li>
     <li>
-        <small>Crew</small>
+        <small>Assign</small>
         <ul>
-            <li>{{ $work->crew->name ?? '-' }}</li>
+            <li>{{ $work->hasCrew() ? 'Crew: ' . $work->crew->name : 'Operator' }}</li>
         </ul>
     </li>
     <li>
         <small>Operator(s)</small>
         <ul>
             @foreach($work->operators as $operator)
-            <li>{{ $operator->fullname }} ({{ $operator->position ?? '-' }})</li>
+            <li>{{ $operator->fullname }} ({{ $operator->position ?? '?' }})</li>
             @endforeach
         </ul>        
     </li>
