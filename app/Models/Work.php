@@ -92,7 +92,7 @@ class Work extends Model
     /**
      * Check if a work has specific operators
      * 
-     * @param object App\Models\Operator || int operator_id
+     * @param App\Models\Operator|integer $operator
      * 
      * @return bool
      */
