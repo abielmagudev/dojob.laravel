@@ -123,6 +123,15 @@ class Work extends Model
         ];
     }
 
+    public static function allCloseStatus()
+    {
+        return [
+            'completed',
+            'canceled',
+            'denialed',
+        ];
+    }
+
     public static function defaultStatus()
     {
         return self::allStatus()[0];

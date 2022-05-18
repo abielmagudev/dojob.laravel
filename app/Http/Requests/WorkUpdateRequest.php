@@ -64,8 +64,8 @@ class WorkUpdateRequest extends FormRequest
             'started_time' => $this->status == 'started' && is_null($this->started_time) ? now()->toTimeString() : $this->started_time,
             'finished_date' => $this->status == 'finished' && is_null($this->finished_date) ? now()->toDateString() : $this->finished_date,
             'finished_time' => $this->status == 'finished' && is_null($this->finished_time) ? now()->toTimeString() : $this->finished_time,
-            'closed_date' => in_array($this->status, ['completed','canceled','denialed']) && is_null($this->closed_date) ? now()->toDateString() : $this->closed_date,
-            'closed_time' => in_array($this->status, ['completed','canceled','denialed']) && is_null($this->closed_time) ? now()->toTimeString() : $this->closed_time,
+            'closed_date' => in_array($this->status, Work::allCloseStatus()) && is_null($this->closed_date) ? now()->toDateString() : $this->closed_date,
+            'closed_time' => in_array($this->status, Work::allCloseStatus()) && is_null($this->closed_time) ? now()->toTimeString() : $this->closed_time,
         ]);
 
         // Set existence rules for crew or operator depending on value received
