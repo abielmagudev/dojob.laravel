@@ -43,17 +43,17 @@ class Work extends Model
 
     public function getStartedAtAttribute()
     {
-        return "{$this->scheduled_date} {$this->scheduled_time}";
+        return "{$this->started_date} {$this->started_time}";
     }
 
     public function getFinishedAtAttribute()
     {
-        return "{$this->scheduled_date} {$this->scheduled_time}";
+        return "{$this->finished_date} {$this->finished_time}";
     }
 
     public function getClosedAtAttribute()
     {
-        return "{$this->scheduled_date} {$this->scheduled_time}";
+        return "{$this->closed_date} {$this->closed_time}";
     }
 
     public function client()
