@@ -48,11 +48,10 @@ class WorkStoreRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        // $this->dd();
         $this->merge([
             'client_id' => $this->client,
-            'crew_id' => $this->crew,
             'job_id' => $this->job,
+            'crew_id' => $this->crew,
             'operator_id' => $this->operator,
         ]);
     }
