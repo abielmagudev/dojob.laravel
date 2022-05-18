@@ -20,7 +20,7 @@
     <li>
         <small>Assign</small>
         <ul>
-            <li>{{ $work->hasCrew() ? 'Crew: ' . $work->crew->name : 'Operator' }}</li>
+            <li>{{ $work->hasCrew() ? "{$work->crew->name} Crew" : 'Operator' }}</li>
         </ul>
     </li>
     <li>

@@ -39,7 +39,7 @@ class WorkController extends Controller
 
         $operators_id = ! $work->hasCrew() 
                         ? $request->only('operator_id')
-                        : $work->crew->operators->pluck('id')->toArray();
+                        : $work->crew->operatorsId();
 
         $work->attachOperators($operators_id);
 
@@ -54,15 +54,25 @@ class WorkController extends Controller
     public function edit(Work $work)
     {
         return view('works.edit', [
-            'crews' => Crew::allEnabled()->sortBy('name'),
-            'operators' => Operator::allAvailable(),
+            'crews' => Crew::onlyUsable()->orderBy('name')->get(),
+            'operators' => Operator::onlyAvailable()->orderBy('name')->get(),
+            'operator_unavailable' => $work->operators()->firstWhere('available', false),
             'work' => $work,
         ]);
     }
 
     public function update(WorkUpdateRequest $request, Work $work)
     {
-        return $request->validated();
+        if(! $work->fill($request->validated())->save() )
+            return back()->with('danger', 'Oops! Work not updated');
+
+        if( array_key_exists('crew_id', $work->getChanges()) && $work->hasCrew() )
+            $work->attachOperators( $work->crew->operatorsId() );
+
+        if( array_key_exists('operator_id', $request->validated()) &&! $work->hasCrew() )
+            $work->attachOperators( $request->only('operator_id') );
+
+        return redirect()->route('works.edit', $work)->with('success', "{$work->job_name} work #{$work->id} was updated");
     }
 
     public function destroy(Work $work)

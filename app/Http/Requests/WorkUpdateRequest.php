@@ -16,8 +16,8 @@ class WorkUpdateRequest extends FormRequest
     {
         return [
             'assign' => ['required','in:crew,operator'],
-            'crew_id' => ['nullable','exists:crews,id,enabled,1'],
-            'operator_id' => ['required_if:assign,operator','exists:operators,id,available,1'],
+            'crew_id' => ['nullable',$this->rule_exists->crew],
+            'operator_id' => ['exclude_if:assign,crew',$this->rule_exists->operator],
             'scheduled_date' => ['required','date'],
             'scheduled_time' => ['required','regex:' . WorkStoreRequest::REGEXP_TIME],
             'started_date' => ['nullable','date'],
@@ -26,7 +26,7 @@ class WorkUpdateRequest extends FormRequest
             'finished_time' => ['nullable','regex:' . WorkStoreRequest::REGEXP_TIME],
             'closed_date' => ['nullable','date'],
             'closed_time' => ['nullable','regex:' . WorkStoreRequest::REGEXP_TIME],
-            'status' => ['required','in:' . implode(',', Work::allStatus())],
+            'status' => ['required',"in:{$this->all_status}"],
         ];
     }
 
@@ -36,7 +36,7 @@ class WorkUpdateRequest extends FormRequest
             'assign.required' => __('Choose an assignment'),
             'assign.in' => __('Choose a valid assignment'),
             'crew_id.exists' => __('Choose a valid and enabled crew'),
-            'operator_id.required_if' => __('Choose a operator'),
+            'operator_id.exclude_if' => __('Choose a operator'),
             'operator_id.exists' => __('Choose a valid operator'),
             'scheduled_date.required' => __('Enter the scheduled date'),
             'scheduled_date.date' => __('Enter a valid scheduled date'),
@@ -55,9 +55,16 @@ class WorkUpdateRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        $this->all_status = implode(',', Work::allStatus());
+
+        $this->rule_exists = (object) [
+            'crew' => $this->filled('crew') ? 'exists:crews,id,enabled,1' : 'exists:crews,id',
+            'operator' => $this->filled('operator') ? 'exists:operators,id,available,1' : 'exists:operators,id',
+        ];
+
         $this->merge([
-            'crew_id' => $this->crew,
-            'operator_id' => $this->operator,
+            'crew_id' => $this->assign === 'crew' ? ($this->crew ?? $this->work->crew_id) : null,
+            'operator_id' => $this->assign === 'operator' ? ($this->operator ?? $this->work->operators->first()->id) : null,
         ]);
     }
 }

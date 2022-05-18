@@ -22,7 +22,7 @@
 @endisset
 
 @isset($client)
-<div style="display: none;">
+<div style="display:none">
     <label for="selectWork">Work</label>
     <select name="work" id="selectWork">
         <option disabled selected></option>
@@ -35,29 +35,39 @@
 <br>
 
 <div>
-    <input type="radio" name="assign" value="crew" id="radioCrew" {{ $work->hasCrew() ||! $work->isReal() ? 'checked' : '' }}>
-    <label for="radioCrew">Crew</label>
-    <input type="radio" name="assign" value="operator" id="radioOperator" {{ $work->isReal() &&! $work->hasCrew() ? 'checked' : '' }}>
-    <label for="radioOperator">Operator</label>
-</div>
-<br>
-<div id="elementCrew">
-    <label for="selectCrew">Crew</label>
-    <select name="crew" id="selectCrew">
-        <option label="- No crew -" selected></option>
-        @foreach($crews as $crew)
-        <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) == $crew->id ? 'selected' : '' }}>{{ $crew->name }}</option>
-        @endforeach
-    </select>
-</div>
-<div id="elementOperator">
-    <label for="selectOperator">Operator</label>
-    <select name="operator" id="selectOperator">
-        <option label="- No operator -" selected></option>
-        @foreach($operators as $operator)
-        <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) ? 'selected' : '' }}>{{ $operator->fullname }}</option>
-        @endforeach
-    </select>
+    <div>
+        <input type="radio" name="assign" value="crew" id="radioCrew" {{ $work->hasCrew() ||! $work->isReal() ? 'checked' : '' }}>
+        <label for="radioCrew">Crew</label>
+        <input type="radio" name="assign" value="operator" id="radioOperator" {{ $work->isReal() &&! $work->hasCrew() ? 'checked' : '' }}>
+        <label for="radioOperator">Operator</label>
+    </div>
+    <br>
+    <div id="elementCrew">
+        <label for="selectCrew">Crew</label>
+        <select name="crew" id="selectCrew" {{ $work->isUnreal() ? 'required' : '' }}>
+            <option label="..." disabled selected></option>
+            @foreach($crews as $crew)
+            <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) == $crew->id ? 'selected' : '' }}>{{ $crew->name }}</option>
+            @endforeach
+
+            @if( $work->hasCrew() && $work->crew->isDisabled() )
+            <option label="{{ $work->crew->name }} (Disabled)" selected></option>
+            @endif
+        </select>
+    </div>
+    <div id="elementOperator">
+        <label for="selectOperator">Operator</label>
+        <select name="operator" id="selectOperator" {{ $work->isUnreal() ? 'required' : '' }}>
+            <option label="..." disabled selected></option>
+            @foreach($operators as $operator)
+            <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
+            @endforeach
+
+            @if(! $work->hasCrew() && is_object($operator_unavailable) )
+            <option label="{{ $operator_unavailable->fullname }} (Unavailable)" selected></option>
+            @endif
+        </select>
+    </div>
 </div>
 <br>
 
@@ -95,6 +105,7 @@
 </div>
 @endif
 
+@once
 @push('scripts')
 <script>
 const inputAssign = {
@@ -125,3 +136,4 @@ inputAssign.displaying(<?= $assign_initial ?>)
 inputAssign.listening()
 </script>  
 @endpush
+@endonce
