@@ -71,6 +71,11 @@ class Work extends Model
         return $this->belongsTo(Job::class);
     }
 
+    public function warranties()
+    {
+        return $this->hasMany(Warranty::class);
+    }
+
     public function operators()
     {
         return $this->belongsToMany(Operator::class)->using(OperatorWork::class);

@@ -82,4 +82,9 @@ class WorkController extends Controller
 
         return redirect()->route('works.index')->with('success', "{$work->job_name} work deleted");
     }
+
+    public function warranties(Work $work)
+    {
+        return view('works.warranties')->with('work', $work);
+    }
 }

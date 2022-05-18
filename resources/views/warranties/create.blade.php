@@ -6,6 +6,6 @@
     @include('warranties._form')
     <br>
     <button type="submit">Save work</button>
-    <a href="{{ route('warranties.index') }}">Cancel</a>
+    <a href="{{ route('works.warranties', $work) }}">Cancel</a>
 </form>
 @endsection

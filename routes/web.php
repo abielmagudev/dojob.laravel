@@ -29,6 +29,7 @@ Route::prefix('crews/{crew}/operators')->group(function () {
 });
 
 Route::get('works/create/{client?}', [WorkController::class, 'create'])->name('works.create');
+Route::get('works/{work}/warranties', [WorkController::class, 'warranties'])->name('works.warranties');
 Route::resource('works', WorkController::class)->except('create');
 
 Route::get('warranties/create/{work}', [WarrantyController::class, 'create'])->name('warranties.create');

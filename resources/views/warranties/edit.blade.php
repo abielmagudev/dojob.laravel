@@ -6,7 +6,7 @@
     @method('put')
     @include('warranties._form')
     <br>
-    <button type="submit">Update work</button>
-    <a href="{{ route('warranties.show', $warranty) }}">Back</a>
+    <button type="submit">Update warranty</button>
+    <a href="{{ route('works.warranties', $warranty->work_id) }}">Back</a>
 </form>
 @endsection
