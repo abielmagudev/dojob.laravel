@@ -86,7 +86,7 @@ class Work extends Model
 
     public function attachOperators(array $operators_id)
     {
-        return $this->operators()->attach($operators_id);
+        return $this->operators()->sync($operators_id);
     }
 
     /**
@@ -97,8 +97,9 @@ class Work extends Model
      * @return bool
      */
     public function hasOperator($operator)
-    {            
-        return (bool) $this->operatorsCache()->firstWhere('id', $operator);
+    {   
+        $operator_id = is_a($operator, Operator::class) ? $operator->id : $operator;
+        return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
     }
 
     public function hasCrew()
