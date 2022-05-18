@@ -19,7 +19,7 @@ class CrewSeeder extends Seeder
         foreach($crews as $crew)
         {
             if(! $crew->isEnabled() )
-                $crew->freeOperators();
+                $crew->removeOperators();
         }
     }
 }
