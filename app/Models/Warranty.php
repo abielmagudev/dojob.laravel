@@ -15,21 +15,8 @@ class Warranty extends Model
         'work_id',
     ];
 
-    public function getJobNameAttribute()
-    {
-        return $this->work->job->name;
-    }
-
     public function work()
     {
         return $this->belongsTo(Work::class)->with('job');
-    }
-
-    public function belongsWork()
-    {
-        if(! isset($this->work_id) )
-            return false;
-
-        return $this->work instanceof Work;
     }
 }

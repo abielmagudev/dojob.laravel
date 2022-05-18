@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<h1>{{ $warranty->job_name }}</h1>
+<h1>{{ $warranty->work->job_name }}</h1>
 <form action="{{ route('warranties.update', $warranty) }}" method="post" autocomplete="off">
     @csrf
     @method('put')

@@ -33,7 +33,7 @@ Route::get('works/{work}/warranties', [WorkController::class, 'warranties'])->na
 Route::resource('works', WorkController::class)->except('create');
 
 Route::get('warranties/create/{work}', [WarrantyController::class, 'create'])->name('warranties.create');
-Route::resource('warranties', WarrantyController::class)->except(['create']);
+Route::resource('warranties', WarrantyController::class)->except(['create','show']);
 
 Route::resources([
     'clients' => ClientController::class,

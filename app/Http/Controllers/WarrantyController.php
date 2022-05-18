@@ -33,11 +33,6 @@ class WarrantyController extends Controller
         return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->work->job_name} warranty saved");
     }
 
-    public function show(Warranty $warranty)
-    {
-        return view('warranties.show')->with('warranty', $warranty);
-    }
-
     public function edit(Warranty $warranty)
     {
         return view('warranties.edit')->with('warranty', $warranty);
