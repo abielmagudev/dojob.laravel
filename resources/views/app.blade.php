@@ -7,9 +7,16 @@
     <title>{{ config('app.name') }}</title>
 </head>
 <body>
-    @include('layouts.message')
-    @include('layouts.errors')
-    @yield('content')
+    <div style="display:inline-block; vertical-align:top; margin-right:2rem">
+        @include('layouts.navigation')
+    </div>
+
+    <div style="display:inline-block">
+        @include('layouts.message')
+        @include('layouts.errors')
+        @yield('content')
+    </div>
+
     @stack('scripts')
 </body>
 </html>
