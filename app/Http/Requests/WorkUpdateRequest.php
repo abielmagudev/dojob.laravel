@@ -55,13 +55,26 @@ class WorkUpdateRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        // Get all status of Work in string
         $this->all_status = implode(',', Work::allStatus());
 
+        // Set datetimes depending on status value
+        $this->merge([
+            'started_date' => $this->status == 'started' && is_null($this->started_date) ? now()->toDateString() : $this->started_date,
+            'started_time' => $this->status == 'started' && is_null($this->started_time) ? now()->toTimeString() : $this->started_time,
+            'finished_date' => $this->status == 'finished' && is_null($this->finished_date) ? now()->toDateString() : $this->finished_date,
+            'finished_time' => $this->status == 'finished' && is_null($this->finished_time) ? now()->toTimeString() : $this->finished_time,
+            'closed_date' => in_array($this->status, ['completed','canceled','denialed']) && is_null($this->closed_date) ? now()->toDateString() : $this->closed_date,
+            'closed_time' => in_array($this->status, ['completed','canceled','denialed']) && is_null($this->closed_time) ? now()->toTimeString() : $this->closed_time,
+        ]);
+
+        // Set existence rules for crew or operator depending on value received
         $this->rule_exists = (object) [
             'crew' => $this->filled('crew') ? 'exists:crews,id,enabled,1' : 'exists:crews,id',
             'operator' => $this->filled('operator') ? 'exists:operators,id,available,1' : 'exists:operators,id',
         ];
 
+        // Configure inputs to validate with new values ​​or saved values ​​based on assigned value
         $this->merge([
             'crew_id' => $this->assign === 'crew' ? ($this->crew ?? $this->work->crew_id) : null,
             'operator_id' => $this->assign === 'operator' ? ($this->operator ?? $this->work->operators->first()->id) : null,
