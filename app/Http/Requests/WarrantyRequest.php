@@ -13,33 +13,30 @@ class WarrantyRequest extends FormRequest
 
     public function rules()
     {
-        $rules = [
-            'expires' => ['required','date','after:today'],
+        return [
+            'title' => ['required','string'],
             'notes' => 'nullable',
-            'work_id' => ['required','exists:works,id'],
+            'expires' => $this->isMethod('post') ? ['required','date','after:today'] : ['required','date'],
+            'work_id' => $this->isMethod('post') ? ['required','exists:works,id'] : 'exclude',
         ];
-        
-        if(! $this->isMethod('post') )
-            unset( $rules['expires'][2] ); // Remove validation after:today when is update
-
-        return $rules;
     }
 
     public function messages()
     {
         return [
+            'title.required' => __('Enter warranty\'s title'),
+            'title.string' => __('Enter a valid warranty\'s title'),
             'expires.required' => __('Enter the warranty expiration date'),
             'expires.date' => __('Enter a valid warranty expiration date'),
             'expires.after' => __('Enter the warranty expiration date after today'),
-            'work_id.required' => __('Choose a job for the guarantee'),
-            'work_id.exists' => __('choose a valid job for the guarantee'),
+            'work_id.required' => __('Choose a work for the guarantee'),
+            'work_id.exists' => __('Choose a valid job for the guarantee'),
         ];
     }
 
     public function prepareForValidation()
     {
-        $this->merge([
-            'work_id' => $this->isMethod('post') ? $this->get('work') : $this->warranty->work_id,
-        ]);
+        if( $this->isMethod('post') )
+            $this->merge(['work_id' => $this->get('work')]);
     }
 }

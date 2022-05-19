@@ -2,9 +2,6 @@
 @section('content')
 <a href="{{ route('works.index') }}">Index</a>
 <h1>{{ $work->job_name }}</h1>
-<p>
-    <a href="{{ route('works.warranties', $work) }}">Manage warranties</a>
-</p>
 <ul>
     <li>
         <small>Status</small>
@@ -55,8 +52,14 @@
     <li>
         <small>Warranties</small>
         <ul>
-            @foreach($work->warranties as $warranty) 
-            <li>{{ $warranty->expires }}</li>
+            <li>
+                <a href="{{ route('works.warranties', $work) }}">Manage warranties</a>
+            </li>
+            @foreach($work->warranties->sortByDesc('id') as $warranty) 
+            <li>
+                <span>{{ $warranty->title }}</span>
+                <span>({{ $work->scheduled_date }} to {{ $warranty->expires }})</span>
+            </li>
             @endforeach
         </ul>
     </li>

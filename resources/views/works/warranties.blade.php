@@ -5,9 +5,11 @@
 <h2>Warranties</h2>
 <a href="{{ route('warranties.create',$work) }}">Create</a>
 <ul>
-    @foreach($work->warranties as $warranty)
+    @foreach($work->warranties->sortByDesc('id') as $warranty)
     <li>
-        <span>Expires {{ $warranty->expires }}</span>
+        <span>{{ $warranty->title }}</span> 
+        <span>({{ $warranty->expires }})</span>
+        <br>
         <a href="{{ route('warranties.edit',$warranty) }}">Edit</a>
         <button type="button" data-delete="{{ $warranty->id }}">Delete</button>
     </li>

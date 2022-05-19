@@ -14,8 +14,10 @@ class WarrantyFactory extends Factory
     public function definition()
     {
         return [
-            'work_id' => $this->faker->numberBetween(1,500),
             'expires' => $this->faker->date(),
+            'title' => $this->faker->randomElement(['Replace component', 'Maintenance preventive', 'Evaulation function', 'Installation basic','Instructions advanced for custom']),
+            'notes' => $this->faker->paragraph(),
+            'work_id' => $this->faker->numberBetween(1,500),
         ];
     }
 }
