@@ -30,22 +30,32 @@
             <li>{{ $work->intermediary->name }}</li>
             <li>{{ $work->intermediary->contact }}</li>
             <li>{{ $work->intermediary->phone }}</li>
+
+            @else
+            <li></li>
+            
             @endif
         </ul>
     </li>
     <li>
-        <small>Assign</small>
+        @if( $work->hasCrew() )
+        <small>Crew assigned</small>
         <ul>
-            <li>{{ $work->hasCrew() ? "{$work->crew->name} Crew" : 'Operator' }}</li>
+            <li>{{ $work->crew->name }}</li>
+            <ul>
+                @foreach($work->operators as $operator)
+                <li>{{ $operator->fullname }} ({{ $operator->position ?? '?' }})</li>
+                @endforeach
+            </ul>
         </ul>
-    </li>
-    <li>
-        <small>Operator(s)</small>
+            
+        @else
+        <small>Operator assigned</small>
         <ul>
-            @foreach($work->operators as $operator)
-            <li>{{ $operator->fullname }} ({{ $operator->position ?? '?' }})</li>
-            @endforeach
-        </ul>        
+            <li>{{ $work->singleOperator()->fullname }}</li>
+        </ul>
+
+        @endif
     </li>
     <li>
         <small>Dates and times</small>
