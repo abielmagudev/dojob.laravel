@@ -63,8 +63,8 @@
             <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
             @endforeach
 
-            @if(! $work->hasCrew() && is_object($operator_unavailable) )
-            <option label="{{ $operator_unavailable->fullname }} (Unavailable)" selected></option>
+            @if(! $work->hasCrew() && $work->hasOnlyOneOperator() && $work->onlyOneOperator->isUnavailable() )
+            <option label="{{ $work->onlyOneOperator->fullname }} (Unavailable)" selected></option>
             @endif
         </select>
     </div>
