@@ -4,6 +4,7 @@ $routes = [
     'Dashboard' => url('/'),
     'Clients' => route('clients.index'),
     'Crews' => route('crews.index'),
+    'Intermediaries' => route('intermediaries.index'),
     'Jobs' => route('jobs.index'),
     'Operators' => route('operators.index'),
     // 'Users' => route('users.index'),

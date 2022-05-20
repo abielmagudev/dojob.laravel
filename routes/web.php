@@ -5,6 +5,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\IntermediaryController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
 
@@ -38,6 +39,7 @@ Route::resource('warranties', WarrantyController::class)->except(['create','show
 Route::resources([
     'clients' => ClientController::class,
     'crews' => CrewController::class,
+    'intermediaries' => IntermediaryController::class,
     'jobs' => JobController::class,
     'operators' => OperatorController::class,
 ]);
