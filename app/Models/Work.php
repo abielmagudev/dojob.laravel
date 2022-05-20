@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
-    use HasFactory, HasExistence;
+    use HasExistence, HasFactory;
+
+    private $operators_cache = null;
 
     const NO_CREW = false;
 
@@ -30,8 +32,6 @@ class Work extends Model
         'closed_time',
         'status',
     ];
-
-    public $operators_cache = null;
 
     public function getJobNameAttribute()
     {
@@ -88,12 +88,7 @@ class Work extends Model
         return $this->belongsToMany(Operator::class)->using(OperatorWork::class);
     }
 
-    public function onlyOneOperator()
-    {
-        return $this->operatorsCache()->first();
-    }
-
-    private function operatorsCache()
+    public function operatorsCache()
     {
         if(! is_a($this->operators_cache, EloquentCollection::class) )
             $this->operators_cache = $this->operators;
@@ -101,27 +96,32 @@ class Work extends Model
         return $this->operators_cache;
     }
 
-    public function attachOperators(array $operators_id)
+    public function singleOperator()
     {
-        return $this->operators()->sync($operators_id);
+        return $this->operatorsCache()->first();
     }
 
+    public function hasOperators()
+    {
+        return (bool) $this->operatorsCache()->count();
+    }
+    
+    public function hasSingleOperator()
+    {
+        return $this->operatorsCache()->count() == 1;
+    }
+    
     /**
-     * Check if a work has specific operators
+     * Check if a work has specific operator
      * 
-     * @param App\Models\Operator|integer $operator ID
+     * @param App\Models\Operator|integer operator_id
      * 
      * @return bool
      */
-    public function hasOperator($operator)
+    public function hasOperatorById($operator)
     {   
         $operator_id = is_a($operator, Operator::class) ? $operator->id : $operator;
         return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
-    }
-
-    public function hasOnlyOneOperator()
-    {
-        return $this->operatorsCache()->count() == 1;
     }
 
     public function hasCrew()
@@ -138,6 +138,16 @@ class Work extends Model
             return self::NO_INTERMEDIARY;
 
         return $this->intermediary instanceof Intermediary;
+    }
+
+    public function wasSingleOperatorAssigned()
+    {
+        return $this->hasSingleOperator() &&! $this->hasCrew();
+    }
+
+    public function attachOperators(array $operators_id)
+    {
+        return $this->operators()->sync($operators_id);
     }
 
     public static function allStatus()

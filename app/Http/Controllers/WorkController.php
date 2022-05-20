@@ -56,7 +56,6 @@ class WorkController extends Controller
         return view('works.edit', [
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
             'operators' => Operator::onlyAvailable()->orderBy('name')->get(),
-            'operator_unavailable' => $work->operators()->firstWhere('available', false),
             'work' => $work,
         ]);
     }

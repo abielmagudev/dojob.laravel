@@ -45,7 +45,7 @@
     <div id="elementCrew">
         <label for="selectCrew">Crew</label>
         <select name="crew" id="selectCrew" {{ $work->isUnreal() ? 'required' : '' }}>
-            <option label="..." disabled selected></option>
+            <option disabled selected></option>
             @foreach($crews as $crew)
             <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) == $crew->id ? 'selected' : '' }}>{{ $crew->name }}</option>
             @endforeach
@@ -58,13 +58,13 @@
     <div id="elementOperator">
         <label for="selectOperator">Operator</label>
         <select name="operator" id="selectOperator" {{ $work->isUnreal() ? 'required' : '' }}>
-            <option label="..." disabled selected></option>
+            <option label="" disabled selected></option>
             @foreach($operators as $operator)
-            <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
+            <option value="{{ $operator->id }}" {{ $work->hasOperatorById($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
             @endforeach
 
-            @if(! $work->hasCrew() && $work->hasOnlyOneOperator() && $work->onlyOneOperator->isUnavailable() )
-            <option label="{{ $work->onlyOneOperator->fullname }} (Unavailable)" selected></option>
+            @if( $work->wasSingleOperatorAssigned() && $work->singleOperator()->isUnavailable() )
+            <option label="{{ $work->singleOperator()->fullname }} (Unavailable)" selected></option>
             @endif
         </select>
     </div>
