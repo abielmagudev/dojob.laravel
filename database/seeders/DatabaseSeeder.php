@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             JobSeeder::class,
             OperatorSeeder::class,
             PluginSeeder::class,
+            SkillSeeder::class,
             UserSeeder::class,
             WarrantySeeder::class,
             WorkSeeder::class,

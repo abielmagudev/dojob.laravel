@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\IntermediaryController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
 
@@ -42,4 +43,5 @@ Route::resources([
     'intermediaries' => IntermediaryController::class,
     'jobs' => JobController::class,
     'operators' => OperatorController::class,
+    'skills' => SkillController::class,
 ]);
