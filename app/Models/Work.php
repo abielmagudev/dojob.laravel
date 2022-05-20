@@ -13,6 +13,8 @@ class Work extends Model
 
     const NO_CREW = false;
 
+    const NO_INTERMEDIARY = false;
+
     protected $fillable = [
         'client_id',
         'crew_id',
@@ -61,9 +63,9 @@ class Work extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function crew()
+    public function intermediary()
     {
-        return $this->belongsTo(Crew::class);
+        return $this->belongsTo(Intermediary::class);
     }
 
     public function job()
@@ -76,17 +78,27 @@ class Work extends Model
         return $this->hasMany(Warranty::class);
     }
 
+    public function crew()
+    {
+        return $this->belongsTo(Crew::class);
+    }
+
     public function operators()
     {
         return $this->belongsToMany(Operator::class)->using(OperatorWork::class);
     }
 
+    public function onlyOneOperator()
+    {
+        return $this->operatorsCache()->first();
+    }
+
     private function operatorsCache()
     {
-        if( is_a($this->operators_cache, EloquentCollection::class) )
-            return $this->operators_cache;
-
-        return $this->operators_cache = $this->operators;
+        if(! is_a($this->operators_cache, EloquentCollection::class) )
+            $this->operators_cache = $this->operators;
+        
+        return $this->operators_cache;
     }
 
     public function attachOperators(array $operators_id)
@@ -97,7 +109,7 @@ class Work extends Model
     /**
      * Check if a work has specific operators
      * 
-     * @param App\Models\Operator|integer $operator
+     * @param App\Models\Operator|integer $operator ID
      * 
      * @return bool
      */
@@ -107,12 +119,25 @@ class Work extends Model
         return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
     }
 
+    public function hasOnlyOneOperator()
+    {
+        return $this->operatorsCache()->count() == 1;
+    }
+
     public function hasCrew()
     {
         if(! isset($this->crew_id) )
             return self::NO_CREW;
 
         return $this->crew instanceof Crew;
+    }
+
+    public function hasIntermediary()
+    {
+        if(! isset($this->intermediary_id))
+            return self::NO_INTERMEDIARY;
+
+        return $this->intermediary instanceof Intermediary;
     }
 
     public static function allStatus()
