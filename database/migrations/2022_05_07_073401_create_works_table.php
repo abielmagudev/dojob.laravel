@@ -17,6 +17,7 @@ class CreateWorksTable extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('client_id');
+            $table->unsignedInteger('intermediary_id')->nullable();
             $table->unsignedInteger('crew_id')->nullable();
             $table->unsignedInteger('job_id'); 
             $table->unsignedTinyInteger('priority')->default(1);

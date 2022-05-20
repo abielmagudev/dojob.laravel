@@ -17,6 +17,7 @@ class WorkStoreRequest extends FormRequest
     {
         return [
             'client_id' => ['required','exists:clients,id'],
+            'intermediary_id' => ['nullable','exists:intermediaries,id'],
             'job_id' => ['required','exists:jobs,id,enabled,1'],
             'assign' => ['required','in:crew,operator'],
             'crew_id' => ['exclude_if:assign,operator','exists:crews,id,enabled,1'],
@@ -31,6 +32,7 @@ class WorkStoreRequest extends FormRequest
         return [
             'client_id.required' => __('Choose a client'),
             'client_id.exists' => __('Choose a valid client'),
+            'intermediary_id.exists' => __('Choose a valid intermediary'),
             'job_id.required' => __('Choose a job'),
             'job_id.exists' => __('Choose a valid and enabled job'),
             'assign.required' => __('Choose an assignment'),
@@ -50,6 +52,7 @@ class WorkStoreRequest extends FormRequest
     {
         $this->merge([
             'client_id' => $this->client,
+            'intermediary_id' => $this->intermediary,
             'job_id' => $this->job,
             'crew_id' => $this->crew,
             'operator_id' => $this->operator,

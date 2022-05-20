@@ -19,6 +19,7 @@ class WorkFactory extends Factory
 
         return [
             'client_id' => $this->faker->numberBetween(1,50),
+            'intermediary_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,10) : null,
             'job_id' => $this->faker->numberBetween(1,25),
             'crew_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,10) : null,
             'priority' => $this->faker->numberBetween(1,10),

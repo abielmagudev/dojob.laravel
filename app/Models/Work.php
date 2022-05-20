@@ -19,6 +19,7 @@ class Work extends Model
 
     protected $fillable = [
         'client_id',
+        'intermediary_id',
         'crew_id',
         'job_id',
         'priority',
@@ -105,7 +106,7 @@ class Work extends Model
     {
         return (bool) $this->operatorsCache()->count();
     }
-    
+
     public function hasSingleOperator()
     {
         return $this->operatorsCache()->count() == 1;

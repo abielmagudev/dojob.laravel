@@ -15,6 +15,7 @@ class WorkUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'intermediary_id' => ['nullable','exists:intermediaries,id'],
             'assign' => ['required','in:crew,operator'],
             'crew_id' => ['nullable',$this->rule_exists->crew],
             'operator_id' => ['exclude_if:assign,crew',$this->rule_exists->operator],
@@ -33,6 +34,7 @@ class WorkUpdateRequest extends FormRequest
     public function messages()
     {
         return [
+            'intermediary_id.exists' => __('Choose a valid intermediary'),
             'assign.required' => __('Choose an assignment'),
             'assign.in' => __('Choose a valid assignment'),
             'crew_id.exists' => __('Choose a valid and enabled crew'),
@@ -57,6 +59,11 @@ class WorkUpdateRequest extends FormRequest
     {
         // Get all status of Work in string
         $this->all_status = implode(',', Work::allStatus());
+
+        // Basic
+        $this->merge([
+            'intermediary_id' => $this->intermediary ?? $this->work->intermediary_id,
+        ]);
 
         // Set datetimes depending on status value
         $this->merge([

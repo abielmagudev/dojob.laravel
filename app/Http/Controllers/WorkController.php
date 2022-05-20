@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\WorkStoreRequest;
 use App\Http\Requests\WorkUpdateRequest;
-use App\Models\Work;
 use App\Models\Client;
-use App\Models\Job;
 use App\Models\Crew;
+use App\Models\Intermediary;
+use App\Models\Job;
 use App\Models\Operator;
+use App\Models\Work;
 
 class WorkController extends Controller
 {
@@ -25,6 +26,7 @@ class WorkController extends Controller
     {
         return view('works.create', [
             'client' => $client,
+            'intermediaries' => Intermediary::onlyAvailable()->orderBy('name')->get(),
             'jobs' => Job::onlyEnabled()->orderBy('custom')->get(),
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
             'operators' => Operator::onlyAvailable()->get(),
@@ -54,6 +56,7 @@ class WorkController extends Controller
     public function edit(Work $work)
     {
         return view('works.edit', [
+            'intermediaries' => Intermediary::onlyAvailable()->orderBy('name')->get(),
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
             'operators' => Operator::onlyAvailable()->orderBy('name')->get(),
             'work' => $work,
