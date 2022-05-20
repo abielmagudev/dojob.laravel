@@ -64,6 +64,11 @@ class Operator extends Model
         return (bool) $this->available;
     }
 
+    public function isUnavailable()
+    {
+        return ! $this->isAvailable();
+    }
+
     public function hasCrew()
     {
         if(! is_null($this->crew_id) )
