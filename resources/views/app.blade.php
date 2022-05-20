@@ -11,7 +11,7 @@
         @include('layouts.navigation')
     </div>
 
-    <div style="display:inline-block">
+    <div style="display:inline-block; word-break:break-all">
         @include('layouts.message')
         @include('layouts.errors')
         @yield('content')
