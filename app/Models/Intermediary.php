@@ -25,6 +25,11 @@ class Intermediary extends Model
         return $query->where('available', true);
     }
 
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
+
     public function isAvailable()
     {
         return (bool) $this->available;
