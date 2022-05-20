@@ -76,9 +76,4 @@
 </ul>
 <br>
 <a href="{{ route('works.edit',$work) }}">Edit</a>
-<form action="{{ route('works.destroy', $work) }}" method="post" style="display:inline">
-    @csrf
-    @method('delete')
-    <button type="submit">Delete work</button>
-</form>
 @endsection

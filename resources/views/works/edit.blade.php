@@ -20,4 +20,10 @@
     <button type="submit">Update work</button>
     <a href="{{ route('works.show', $work) }}">Back</a>
 </form>
+<hr>
+<form action="{{ route('works.destroy', $work) }}" method="post" style="display:inline">
+    @csrf
+    @method('delete')
+    <button type="submit">Delete work</button>
+</form>
 @endsection
