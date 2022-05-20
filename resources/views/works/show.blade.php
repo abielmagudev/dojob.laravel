@@ -24,6 +24,16 @@
         </ul>        
     </li>
     <li>
+        <small>Intermediary</small>
+        <ul>
+            @if( $work->hasIntermediary() )
+            <li>{{ $work->intermediary->name }}</li>
+            <li>{{ $work->intermediary->contact }}</li>
+            <li>{{ $work->intermediary->phone }}</li>
+            @endif
+        </ul>
+    </li>
+    <li>
         <small>Assign</small>
         <ul>
             <li>{{ $work->hasCrew() ? "{$work->crew->name} Crew" : 'Operator' }}</li>
