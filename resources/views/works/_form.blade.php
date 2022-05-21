@@ -75,10 +75,10 @@
         <select name="operator" id="selectOperator" {{ $work->isUnreal() ? 'required' : '' }}>
             <option label="" disabled selected></option>
             @foreach($operators as $operator)
-            <option value="{{ $operator->id }}" {{ $work->hasOperatorById($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
+            <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
             @endforeach
 
-            @if( $work->wasSingleOperatorAssigned() && $work->singleOperator()->isUnavailable() )
+            @if( $work->hasSingleOperatorAssigned() && $work->singleOperator()->isUnavailable() )
             <option label="{{ $work->singleOperator()->fullname }} (Unavailable)" selected></option>
             @endif
         </select>

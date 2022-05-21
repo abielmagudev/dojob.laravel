@@ -11,11 +11,11 @@ class Work extends Model
 {
     use HasExistence, HasFactory;
 
-    private $operators_cache = null;
-
+    const NO_INTERMEDIARY = false;
+    
     const NO_CREW = false;
 
-    const NO_INTERMEDIARY = false;
+    private $operators_cache = null;
 
     protected $fillable = [
         'client_id',
@@ -112,14 +112,7 @@ class Work extends Model
         return $this->operatorsCache()->count() == 1;
     }
     
-    /**
-     * Check if a work has specific operator
-     * 
-     * @param App\Models\Operator|integer operator_id
-     * 
-     * @return bool
-     */
-    public function hasOperatorById($operator)
+    public function hasOperator($operator)
     {   
         $operator_id = is_a($operator, Operator::class) ? $operator->id : $operator;
         return $this->operatorsCache()->contains('id', $operator_id);
@@ -141,7 +134,7 @@ class Work extends Model
         return $this->intermediary instanceof Intermediary;
     }
 
-    public function wasSingleOperatorAssigned()
+    public function hasSingleOperatorAssigned()
     {
         return $this->hasSingleOperator() &&! $this->hasCrew();
     }
