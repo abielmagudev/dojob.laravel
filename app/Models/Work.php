@@ -86,7 +86,7 @@ class Work extends Model
 
     public function operators()
     {
-        return $this->belongsToMany(Operator::class)->using(OperatorWork::class);
+        return $this->belongsToMany(Operator::class);
     }
 
     public function operatorsCache()
@@ -122,7 +122,7 @@ class Work extends Model
     public function hasOperatorById($operator)
     {   
         $operator_id = is_a($operator, Operator::class) ? $operator->id : $operator;
-        return (bool) $this->operatorsCache()->firstWhere('id', $operator_id);
+        return $this->operatorsCache()->contains('id', $operator_id);
     }
 
     public function hasCrew()
@@ -148,7 +148,7 @@ class Work extends Model
 
     public function attachOperators(array $operators_id)
     {
-        return $this->operators()->sync($operators_id);
+        return $this->operators()->syncWithPivotValues($operators_id, ['created_at' => now()]);
     }
 
     public static function allStatus()
