@@ -18,7 +18,7 @@ class WorkSeeder extends Seeder
 
         foreach($works as $work)
         {
-            $operators_id = $work->hasCrew() ? $work->crew->operatorsId() : [mt_rand(1, 25)];
+            $operators_id = $work->hasCrew() && $work->crew->isEnabled() ? $work->crew->operatorsId() : [mt_rand(1, 25)];
             $work->attachOperators($operators_id);
         }
     }
