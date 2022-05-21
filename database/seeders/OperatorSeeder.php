@@ -21,7 +21,8 @@ class OperatorSeeder extends Seeder
             if( (bool) mt_rand(0,1) )
             {
                 $skills_id = range(1, mt_rand(2,8));
-                $operator->skills()->attach( $skills_id );
+                $attributes = ['created_at' => now()];
+                $operator->attachSkills($skills_id, $attributes);
             }
         }
     }

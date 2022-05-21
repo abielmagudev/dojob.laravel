@@ -74,9 +74,9 @@ class Operator extends Model
         return $this->belongsTo(Crew::class);
     }
 
-    public function attachSkills(array $skills_id, $attributes = [])
+    public function attachSkills(array $skills_id)
     {
-        return $this->skills()->syncWithPivotValues($skills_id, $attributes);
+        return $this->skills()->syncWithPivotValues($skills_id, ['created_at' => now()]);
     }
 
     public function isAvailable()

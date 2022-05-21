@@ -16,6 +16,7 @@ class CreateOperatorSkillTable extends Migration
         Schema::create('operator_skill', function (Blueprint $table) {
             $table->foreignId('operator_id');
             $table->foreignId('skill_id');
+            $table->dateTime('created_at');
         });
     }
 
