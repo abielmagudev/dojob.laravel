@@ -13,11 +13,11 @@ class IntermediaryFactory extends Factory
      */
     public function definition()
     {
-        $company_name = $this->faker->company();
+        $company_name = $this->faker->unique(true)->company();
 
         return [
             'name' => $company_name,
-            'alias' => \App\Models\Intermediary::generateAlias($company_name),
+            'alias' => \App\Models\Intermediary::generateAlias($company_name) . 'i' . mt_rand(1,24),
             'contact' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->safeEmail(),

@@ -19,7 +19,7 @@ class CreateIntermediariesTable extends Migration
             $table->string('alias', 16)->unique();
             $table->string('contact', 40)->nullable();
             $table->string('phone', 32)->unique();
-            $table->string('email', 32)->unique();
+            $table->string('email', 40)->unique();
             $table->boolean('available')->default(true)->index();
             $table->text('notes')->nullable();
             $table->timestamps();

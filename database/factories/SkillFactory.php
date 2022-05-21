@@ -14,7 +14,7 @@ class SkillFactory extends Factory
     public function definition()
     {
         return [
-            'name' => "{$this->faker->colorName()} ability",
+            'name' => $this->faker->unique(true)->colorName() . ' ability' . mt_rand(1,24),
             'description' => $this->faker->boolean() ? $this->faker->paragraph() : null,
         ];
     }

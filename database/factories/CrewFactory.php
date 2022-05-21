@@ -14,7 +14,7 @@ class CrewFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->colorName(),
+            'name' => $this->faker->unique(true)->colorName(),
             'color' => $this->faker->hexcolor(),
             'description' => $this->faker->paragraph(),
             'enabled' => (int) $this->faker->boolean(),
