@@ -37,6 +37,18 @@
 @endif
 @if( $operator->isReal() )
 <div>
+    <label>Skills</label>
+    @foreach($skills as $skill)
+    <?php $checkbox_id = "skill{$skill->id}" ?>
+    <div>
+        <input type="checkbox" name="skills[]" value="{{ $skill->id }}" id="{{ $checkbox_id }}" {{ $operator->hasSkill($skill) ? 'checked' : '' }}>
+        <label for="{{ $checkbox_id }}">{{ $skill->name }}</label>
+    </div>
+    @endforeach
+</div>
+<br>
+
+<div>
     <input type="checkbox" name="available" value="yes" id="checkboxAvailable" {{ $operator->isAvailable() ? 'checked' : '' }}>
     <label for="checkboxAvailable">Available</label>
     <br>

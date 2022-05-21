@@ -14,6 +14,15 @@ class OperatorSeeder extends Seeder
      */
     public function run()
     {
-        return Operator::factory(25)->create();
+        $operators = Operator::factory(25)->create();
+
+        foreach($operators as $operator)
+        {
+            if( (bool) mt_rand(0,1) )
+            {
+                $skills_id = range(1, mt_rand(2,8));
+                $operator->skills()->attach( $skills_id );
+            }
+        }
     }
 }

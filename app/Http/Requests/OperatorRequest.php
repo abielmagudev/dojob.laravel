@@ -21,7 +21,9 @@ class OperatorRequest extends FormRequest
             'birthdate' => ['nullable','date'],
             'notes' => ['nullable'],
             'available' => ['boolean'],
-            'crew_id' => ['nullable', 'exists:crews,id,enabled,1']
+            'crew_id' => ['nullable', 'exists:crews,id,enabled,1'],
+            'skills' => ['array'],
+            'skills.*' => ['exists:skills,id'],
         ];
     }
 
@@ -38,6 +40,8 @@ class OperatorRequest extends FormRequest
             'birthdate.date' => __('Enter a valid date of birth of the operator'),
             'available.boolean' => __('Enable or disbale option for available the operator'),
             'crew_id.exists' => __('Choose a valid crew for the operator'),
+            'skills.array' => __('Choose skills from the list'),
+            'skills.*.exists' => __('Choose valid skills from the list'),
         ];
     }
 

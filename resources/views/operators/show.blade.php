@@ -4,6 +4,10 @@
 <h1>{{ $operator->fullname }}</h1>
 <ul>
     <li>
+        <small>Available</small>
+        <span>{{ $operator->isAvailable() ? 'Yes' : 'No' }}</span>
+    </li>
+    <li>
         <small>Phone</small>
         <span>{{ $operator->phone }}</span>
     </li>
@@ -20,10 +24,6 @@
         <span>{{ $operator->notes }}</span>
     </li>
     <li>
-        <small>Available</small>
-        <span>{{ $operator->isAvailable() ? 'Yes' : 'No' }}</span>
-    </li>
-    <li>
         <small>Crew</small>
 
         @if( $operator->hasCrew() )
@@ -35,13 +35,21 @@
 
         @endif
     </li>
+    <li>
+        <small>Skills</small>
+        <ul>
+            @foreach($operator->skills as $skill)
+            <li>{{ $skill->name }}</li>
+            @endforeach
+        </ul>
+    </li>
 </ul>
 
 <p>
     <small>Works ({{ $operator->works->count() }})</small>
 </p>
 <ul>
-    @foreach($operator->works as $work)
+    @foreach($operator->works->load('job') as $work)
     <li>
         <span>{{ $work->job_name }}</span>
         <a href="{{ route('works.show', $work) }}">Show</a>

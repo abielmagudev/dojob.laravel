@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OperatorRequest;
 use App\Models\Operator;
 use App\Models\Crew;
+use App\Models\Skill;
 
 class OperatorController extends Controller
 {
@@ -36,6 +37,7 @@ class OperatorController extends Controller
         return view('operators.edit', [
             'operator' => $operator,
             'crews' => Crew::onlyEnabled()->get(),
+            'skills' => Skill::all()->sortBy('id'),
         ]);
     }
 
@@ -43,6 +45,8 @@ class OperatorController extends Controller
     {
         if(! $operator->fill($request->validated())->save() )
             return back()->with('danger', 'Ups! operator not updated');
+
+        $operator->attachSkills($request->skills ?? []);
 
         return redirect()->route('operators.edit', $operator)->with('success', "{$operator->fullname} operator updated");
     }

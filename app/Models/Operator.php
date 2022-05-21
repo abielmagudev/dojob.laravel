@@ -12,6 +12,8 @@ class Operator extends Model
 
     const UNCREWED = false;
 
+    private $skills_cache = null;
+
     protected $fillable = [
         'name',
         'lastname',
@@ -49,14 +51,32 @@ class Operator extends Model
         return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
     }
 
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
+
+    public function skillsCache()
+    {
+        if( is_null($this->skills_cache) )
+            $this->skills_cache = $this->skills;
+
+        return $this->skills_cache;
+    }
+
+    public function works()
+    {
+        return $this->belongsToMany(Work::class);
+    }
+
     public function crew()
     {
         return $this->belongsTo(Crew::class);
     }
 
-    public function works()
+    public function attachSkills(array $skills_id, $attributes = [])
     {
-        return $this->belongsToMany(Work::class)->using(OperatorWork::class);
+        return $this->skills()->syncWithPivotValues($skills_id, $attributes);
     }
 
     public function isAvailable()
@@ -67,6 +87,17 @@ class Operator extends Model
     public function isUnavailable()
     {
         return ! $this->isAvailable();
+    }
+
+    public function hasSkills()
+    {
+        return (bool) $this->skills->count();
+    }
+
+    public function hasSkill($skill)
+    {
+        $skill_id = is_a($skill, Skill::class) ? $skill->id : $skill;
+        return $this->skillsCache()->contains('id', $skill_id);
     }
 
     public function hasCrew()

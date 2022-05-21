@@ -13,4 +13,14 @@ class Skill extends Model
         'name',
         'description',
     ];
+
+    public function operators()
+    {
+        return $this->belongsToMany(Operator::class);
+    }
+
+    public function hasOperators()
+    {
+        return (bool) $this->operators->count();
+    }
 }
