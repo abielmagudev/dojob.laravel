@@ -13,10 +13,8 @@ class JobFactory extends Factory
      */
     public function definition()
     {
-        $emojis = [':smirk:', ':smile:', ':hushed:', '\u{1F603}'];
-
         return [
-            'name' => $this->faker->unique(true)->jobTitle() . ' ' . $this->faker->randomElement($emojis),
+            'name' => $this->faker->unique(true)->jobTitle() . mt_rand(1,24),
             'description' => $this->faker->paragraph(),
             'enabled' => $this->faker->boolean(),
         ];

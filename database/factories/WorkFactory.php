@@ -15,13 +15,12 @@ class WorkFactory extends Factory
     public function definition()
     {
         $status = $this->faker->randomElement( Work::allStatus() );
-        $closed_status = ['completed','canceled','denialed'];
 
         return [
             'client_id' => $this->faker->numberBetween(1,50),
-            'intermediary_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,10) : null,
+            'intermediary_id' => $this->faker->optional()->numberBetween(1,10),
             'job_id' => $this->faker->numberBetween(1,25),
-            'crew_id' => $this->faker->boolean() ? $this->faker->numberBetween(1,10) : null,
+            'crew_id' => $this->faker->optional()->numberBetween(1,10),
             'priority' => $this->faker->numberBetween(1,10),
             'status' => $status,
             'scheduled_date' => $this->faker->date(),
@@ -30,8 +29,8 @@ class WorkFactory extends Factory
             'started_time' => $status == 'started' ? $this->faker->time() : null,
             'finished_date' => $status == 'finished' ? $this->faker->date() : null,
             'finished_time' => $status == 'finished' ? $this->faker->time() : null,
-            'closed_date' => in_array($status, $closed_status) ? $this->faker->date() : null,
-            'closed_time' => in_array($status, $closed_status) ? $this->faker->time() : null,
+            'closed_date' => in_array($status, Work::allCloseStatus()) ? $this->faker->date() : null,
+            'closed_time' => in_array($status, Work::allCloseStatus()) ? $this->faker->time() : null,
         ];
     }
 }

@@ -15,7 +15,7 @@ class SkillFactory extends Factory
     {
         return [
             'name' => $this->faker->unique(true)->colorName() . ' ability' . mt_rand(1,24),
-            'description' => $this->faker->boolean() ? $this->faker->paragraph() : null,
+            'description' => $this->faker->optional()->paragraph(),
         ];
     }
 }

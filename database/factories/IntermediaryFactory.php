@@ -17,11 +17,11 @@ class IntermediaryFactory extends Factory
 
         return [
             'name' => $company_name,
-            'alias' => \App\Models\Intermediary::generateAlias($company_name) . 'i' . mt_rand(1,24),
+            'alias' => \App\Models\Intermediary::generateAlias($company_name) . 'i' . $this->faker->randomNumber(),
             'contact' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->safeEmail(),
-            'notes' => $this->faker->boolean() ? $this->faker->paragraph() : null,
+            'notes' => $this->faker->optional()->paragraph(),
             'available' => (int) $this->faker->boolean(),
         ];
     }

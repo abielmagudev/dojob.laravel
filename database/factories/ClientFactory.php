@@ -16,7 +16,7 @@ class ClientFactory extends Factory
         return [
             'name' => $this->faker->firstName(),
             'lastname' => $this->faker->lastName(),
-            'alias' => $this->faker->boolean() ? $this->faker->company() : null,
+            'alias' => $this->faker->optional()->company(),
             'address' => $this->faker->streetAddress(),
             'zip_code' => $this->faker->postcode(),
             'city' => $this->faker->city(),
@@ -24,7 +24,7 @@ class ClientFactory extends Factory
             'country' => $this->faker->country(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
-            'notes' => $this->faker->boolean() ? $this->faker->paragraph() : null,
+            'notes' => $this->faker->optional()->paragraph(),
         ];
     }
 }
