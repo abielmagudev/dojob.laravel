@@ -17,11 +17,11 @@ class WarrantyFactory extends Factory
     public function definition()
     {
         $titles = [
-            'Replace component',
-            'Maintenance preventive',
-            'Evaulation function',
-            'Installation basic',
-            'Instructions advanced for custom',
+            'Replace component fan',
+            'Motor preventive maintenance',
+            'Performance Evaulation Equipment',
+            'Basic installation',
+            'Advanced instructions for custom',
         ];
 
         return [
