@@ -26,10 +26,10 @@ class CreateWorksTable extends Migration
             $table->time('finished_time')->nullable();
             $table->date('closed_date')->nullable();   
             $table->time('closed_time')->nullable();
-            $table->foreignId('client_id');
+            $table->foreignId('job_id')->constrained()->restrictOnDelete(); 
+            $table->foreignId('client_id')->constrained()->restrictOnDelete();
             $table->foreignId('intermediary_id')->nullable();
             $table->foreignId('crew_id')->nullable();
-            $table->foreignId('job_id'); 
             $table->timestamps();
 
             $table->index(

@@ -33,9 +33,9 @@ class WorkFactory extends Factory
             'finished_time' => $status == 'finished' ? $this->faker->time() : null,
             'closed_date' => in_array($status, Work::allCloseStatus()) ? $this->faker->date() : null,
             'closed_time' => in_array($status, Work::allCloseStatus()) ? $this->faker->time() : null,
+            'job_id' => $this->faker->numberBetween(1, JobSeeder::TOTAL),
             'client_id' => $this->faker->numberBetween(1, ClientSeeder::TOTAL),
             'intermediary_id' => $this->faker->optional()->numberBetween(1, IntermediarySeeder::TOTAL),
-            'job_id' => $this->faker->numberBetween(1, JobSeeder::TOTAL),
             'crew_id' => $this->faker->optional()->numberBetween(1, CrewSeeder::TOTAL),
         ];
     }
