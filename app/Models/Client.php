@@ -37,4 +37,9 @@ class Client extends Model
     {
         return $this->hasMany(Work::class);
     }
+
+    public function hasWorks()
+    {
+        return (bool) $this->works->count();
+    }
 }
