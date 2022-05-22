@@ -12,7 +12,29 @@ class Plugin extends Model
     public function jobs()
     {
         return $this->belongstoMany(Job::class)
-                    ->using(JobPlugin::class)
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->using(JobPlugin::class);
+    }
+
+    public function attachJobs(array $jobs_id)
+    {
+        return $this->jobs()->attach($jobs_id, [
+            'created_at' => now(),
+        ]);
+    }
+
+    public function attachJob(int $job_id)
+    {
+        return $this->attachJobs([$job_id]);
+    }
+
+    public function detachJobs(array $jobs_id)
+    {
+        return $this->jobs()->detach($jobs_id);
+    }
+
+    public function detachJob(int $job_id)
+    {
+        return $this->detachJobs([$job_id]);
     }
 }

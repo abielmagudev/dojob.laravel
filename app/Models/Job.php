@@ -31,7 +31,21 @@ class Job extends Model
 
     public function plugins()
     {
-        return $this->belongsToMany(Plugin::class);
+        return $this->belongsToMany(Plugin::class)
+                    ->withTimestamps()
+                    ->using(JobPlugin::class);
+    }
+
+    public function attachPlugin(int $plugin_id)
+    {
+        return $this->plugins()->attach($plugin_id, [
+            'created_at' => now(),
+        ]);
+    }
+
+    public function detachPlugin(int $plugin_id)
+    {
+        return $this->plugins()->detach($plugin_id);
     }
 
     public function isEnabled()

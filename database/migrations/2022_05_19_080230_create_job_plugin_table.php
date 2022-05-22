@@ -16,6 +16,8 @@ class CreateJobPluginTable extends Migration
         Schema::create('job_plugin', function (Blueprint $table) {
             $table->foreignId('job_id');
             $table->foreignId('plugin_id');
+            $table->boolean('is_enabled')->default(true);
+            $table->timestamps();
         });
     }
 
