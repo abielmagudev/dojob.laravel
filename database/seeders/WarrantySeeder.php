@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Warranty;
 
 class WarrantySeeder extends Seeder
 {
@@ -14,6 +13,6 @@ class WarrantySeeder extends Seeder
      */
     public function run()
     {
-        return Warranty::factory(250)->create();
+        return \App\Models\Warranty::factory(250)->create();
     }
 }

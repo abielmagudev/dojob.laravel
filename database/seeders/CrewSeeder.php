@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Crew;
 
 class CrewSeeder extends Seeder
 {
+    const TOTAL = 8;
     /**
      * Run the database seeds.
      *
@@ -14,12 +14,6 @@ class CrewSeeder extends Seeder
      */
     public function run()
     {
-        $crews = Crew::factory(7)->create();
-
-        foreach($crews as $crew)
-        {
-            if(! $crew->isEnabled() )
-                $crew->removeOperators();
-        }
+       return \App\Models\Crew::factory( self::TOTAL )->create();
     }
 }

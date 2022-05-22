@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 
 class IntermediarySeeder extends Seeder
 {
+    const TOTAL = 10;
+
     /**
      * Run the database seeds.
      *
@@ -13,6 +15,6 @@ class IntermediarySeeder extends Seeder
      */
     public function run()
     {
-        return \App\Models\Intermediary::factory(10)->create();
+        return \App\Models\Intermediary::factory( self::TOTAL )->create();
     }
 }

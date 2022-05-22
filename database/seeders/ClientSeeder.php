@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Client;
 
 class ClientSeeder extends Seeder
 {
+    const TOTAL = 50;
+
     /**
      * Run the database seeds.
      *
@@ -14,6 +15,6 @@ class ClientSeeder extends Seeder
      */
     public function run()
     {
-        return Client::factory(50)->create();
+        return \App\Models\Client::factory( self::TOTAL )->create();
     }
 }
