@@ -15,7 +15,7 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 80)->unique();
+            $table->string('name', 88)->unique();
             $table->text('description')->nullable();
             $table->boolean('custom')->default(true);
             $table->boolean('enabled')->default(true);
