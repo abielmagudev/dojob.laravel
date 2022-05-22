@@ -45,9 +45,12 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
-        if(! $client->delete() )
-            return back()->with('danger', 'Ups! client not deleted');
-
-        return redirect()->route('clients.index')->with('success', "{$client->fullname} client deleted");
+        try {
+            $client->delete();
+            return redirect()->route('clients.index')->with('success', "{$client->fullname} client deleted");
+        }
+        catch (\Exception $e) {
+            return back()->with('danger', 'Ups! client not deleted, make sure this client still not has works.');
+        }
     }
 }
