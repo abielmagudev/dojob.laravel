@@ -31,9 +31,7 @@ class Job extends Model
 
     public function plugins()
     {
-        return $this->belongsToMany(Plugin::class)
-                    ->using(JobPlugin::class)
-                    ->withTimestamps();
+        return $this->belongsToMany(Plugin::class);
     }
 
     public function isEnabled()
