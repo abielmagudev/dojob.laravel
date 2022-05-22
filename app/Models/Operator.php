@@ -4,11 +4,14 @@ namespace App\Models;
 
 use App\Ahex\Zkaffold\Domain\HasExistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Operator extends Model
 {
-    use HasFactory, HasExistence;
+    use HasExistence,
+        HasFactory,
+        SoftDeletes;
 
     const UNCREWED = false;
 

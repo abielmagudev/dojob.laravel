@@ -25,6 +25,7 @@ class CreateOperatorsTable extends Migration
             $table->boolean('available')->default(true)->index();
             $table->unsignedInteger('crew_id')->nullable()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

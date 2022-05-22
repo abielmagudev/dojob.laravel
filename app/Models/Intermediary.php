@@ -4,11 +4,14 @@ namespace App\Models;
 
 use App\Ahex\Zkaffold\Domain\HasExistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Intermediary extends Model
 {
-    use HasExistence, HasFactory;
+    use HasExistence,
+        HasFactory,
+        SoftDeletes;
 
     protected $fillable = [
         'name',

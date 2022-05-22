@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Crew extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        SoftDeletes;
 
     const REGEXP_COLOR = '/^#[a-f0-9]{6}|[a-f0-9]{3}$/i';
 

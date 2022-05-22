@@ -20,6 +20,7 @@ class CreateCrewsTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('enabled')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

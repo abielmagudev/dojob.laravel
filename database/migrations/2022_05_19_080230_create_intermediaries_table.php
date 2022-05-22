@@ -23,6 +23,7 @@ class CreateIntermediariesTable extends Migration
             $table->boolean('available')->default(true)->index();
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

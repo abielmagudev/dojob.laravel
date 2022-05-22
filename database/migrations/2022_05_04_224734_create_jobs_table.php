@@ -20,6 +20,7 @@ class CreateJobsTable extends Migration
             $table->boolean('custom')->default(true);
             $table->boolean('enabled')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

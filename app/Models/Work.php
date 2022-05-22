@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
-    use HasExistence, HasFactory;
+    use HasExistence,
+        HasFactory;
 
     const NO_INTERMEDIARY = false;
     
