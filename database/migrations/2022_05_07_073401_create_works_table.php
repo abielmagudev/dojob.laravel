@@ -16,10 +16,6 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('client_id');
-            $table->unsignedInteger('intermediary_id')->nullable();
-            $table->unsignedInteger('crew_id')->nullable();
-            $table->unsignedInteger('job_id'); 
             $table->unsignedTinyInteger('priority')->default(1);
             $table->enum('status', Work::allStatus())->default(Work::defaultStatus())->index();
             $table->date('scheduled_date');   
@@ -30,18 +26,16 @@ class CreateWorksTable extends Migration
             $table->time('finished_time')->nullable();
             $table->date('closed_date')->nullable();   
             $table->time('closed_time')->nullable();
+            $table->foreignId('client_id');
+            $table->foreignId('intermediary_id')->nullable();
+            $table->foreignId('crew_id')->nullable();
+            $table->foreignId('job_id'); 
             $table->timestamps();
 
-            $table->index([
-                'client_id',
-                'crew_id',
-                'job_id',
-            ]);
-
-            $table->index([
+            $table->index(
                 'scheduled_date',
                 'scheduled_time',
-            ]);
+            );
         });
     }
 

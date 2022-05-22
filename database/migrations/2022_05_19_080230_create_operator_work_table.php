@@ -15,7 +15,7 @@ class CreateOperatorWorkTable extends Migration
     {
         Schema::create('operator_work', function (Blueprint $table) {
             $table->foreignId('operator_id');
-            $table->foreignId('work_id');
+            $table->foreignId('work_id')->constrained()->cascadeOnDelete();
             $table->dateTime('created_at');
         });
     }

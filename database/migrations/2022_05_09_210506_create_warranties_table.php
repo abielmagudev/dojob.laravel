@@ -18,7 +18,7 @@ class CreateWarrantiesTable extends Migration
             $table->string('title', 32);
             $table->text('notes')->nullable();
             $table->date('expires')->index();
-            $table->unsignedInteger('work_id')->index();
+            $table->foreignId('work_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
