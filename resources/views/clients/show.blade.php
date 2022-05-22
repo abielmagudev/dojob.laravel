@@ -43,9 +43,4 @@
     @endforeach
 </ul>
 <a href="{{ route('clients.edit', $client) }}">Edit</a>
-<form action="{{ route('clients.destroy', $client) }}" method="post" style="display:inline">
-    @csrf
-    @method('delete')
-    <button type="submit">Delete client</button>
-</form>
 @endsection
