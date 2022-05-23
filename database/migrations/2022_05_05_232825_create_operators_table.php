@@ -22,7 +22,7 @@ class CreateOperatorsTable extends Migration
             $table->date('birthdate')->nullable();
             $table->string('position', 64)->nullable();
             $table->text('notes')->nullable();
-            $table->boolean('available')->default(true)->index();
+            $table->boolean('is_available')->default(true)->index();
             $table->foreignId('crew_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();

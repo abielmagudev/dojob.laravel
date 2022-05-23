@@ -25,7 +25,7 @@ class Operator extends Model
         'birthdate',
         'notes',
         'position',
-        'available',
+        'is_available',
         'crew_id',
     ];
 
@@ -36,7 +36,7 @@ class Operator extends Model
 
     public function scopeOnlyAvailable($query)
     {
-        return $query->where('available', 1);
+        return $query->where('is_available', 1);
     }
 
     public function scopeAttachCrew($query, array $operators_id, int $crew_id)
@@ -84,7 +84,7 @@ class Operator extends Model
 
     public function isAvailable()
     {
-        return (bool) $this->available;
+        return (bool) $this->is_available;
     }
 
     public function isUnavailable()

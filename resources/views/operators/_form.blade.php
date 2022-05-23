@@ -23,18 +23,6 @@
     <textarea name="notes" id="textNotes" cols="30" rows="10" placeholder="Optional">{{ old('notes', $operator->notes) }}</textarea>
 </div>
 <br>
-@if( $operator->isAvailable() )
-<div>
-    <label for="selectCrew">Crew</label>
-    <select name="crew" id="selectCrew">
-        <option label="" selected></option>
-        @foreach($crews as $crew)
-        <option value="{{ $crew->id }}" {{ $crew->id <> $operator->crew_id ?: 'selected' }}>{{ $crew->name }}</option>
-        @endforeach
-    </select>
-</div>
-<br>
-@endif
 @if( $operator->isReal() )
 <div>
     <label>Skills</label>
@@ -47,7 +35,18 @@
     @endforeach
 </div>
 <br>
-
+@if( $operator->isAvailable() )
+<div>
+    <label for="selectCrew">Crew</label>
+    <select name="crew" id="selectCrew">
+        <option label="" selected></option>
+        @foreach($crews as $crew)
+        <option value="{{ $crew->id }}" {{ $crew->id <> $operator->crew_id ?: 'selected' }}>{{ $crew->name }}</option>
+        @endforeach
+    </select>
+</div>
+<br>
+@endif
 <div>
     <input type="checkbox" name="available" value="yes" id="checkboxAvailable" {{ $operator->isAvailable() ? 'checked' : '' }}>
     <label for="checkboxAvailable">Available</label>

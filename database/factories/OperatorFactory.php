@@ -28,7 +28,7 @@ class OperatorFactory extends Factory
             'birthdate' => $this->faker->optional()->date(),
             'position' => $this->faker->optional()->jobTitle(),
             'notes' => $this->faker->optional()->paragraph(),
-            'available' => (int) $available,
+            'is_available' => (int) $available,
             'crew_id' => $available ? $this->faker->numberBetween(1, CrewSeeder::TOTAL) : null,
         ];
     }
