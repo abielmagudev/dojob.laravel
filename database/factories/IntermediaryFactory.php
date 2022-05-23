@@ -22,7 +22,7 @@ class IntermediaryFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->safeEmail(),
             'notes' => $this->faker->optional()->paragraph(),
-            'available' => (int) $this->faker->boolean(),
+            'is_available' => (int) $this->faker->boolean(),
         ];
     }
 }

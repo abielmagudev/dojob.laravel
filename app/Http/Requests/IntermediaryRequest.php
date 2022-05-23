@@ -20,7 +20,7 @@ class IntermediaryRequest extends FormRequest
             'contact' => ['nullable', 'string'],
             'phone' =>  ['required','unique:intermediaries,phone,' . $this->intermediary_id],
             'email' => ['required','unique:intermediaries,email,' . $this->intermediary_id],
-            'available' => ['boolean'],
+            'is_available' => ['boolean'],
         ];
     }
 
@@ -36,7 +36,7 @@ class IntermediaryRequest extends FormRequest
             'phone.unique' => __('Enter another intermediary\'s phone'),
             'email.required' => __('Enter intermediary\'s email'),
             'email.unique' => __('Enter another intermediary\'s email'),
-            'available' => __('Choose a valid option to available or unavailable the intermediary'),
+            'is_available' => __('Choose a valid option to available or unavailable the intermediary'),
         ];
     }
 
@@ -46,7 +46,7 @@ class IntermediaryRequest extends FormRequest
 
         $this->merge([
             'alias' => $this->filled('name') &&! $this->filled('alias') ? Intermediary::generateAlias($this->name) : $this->alias,
-            'available' => (int) $this->filled('available'),
+            'is_available' => (int) $this->filled('available'),
         ]);
     }
 }

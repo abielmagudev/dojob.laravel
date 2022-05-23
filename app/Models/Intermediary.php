@@ -20,12 +20,12 @@ class Intermediary extends Model
         'phone',
         'email',
         'notes',
-        'available',
+        'is_available',
     ];
 
     public function scopeOnlyAvailable($query)
     {
-        return $query->where('available', true);
+        return $query->where('is_available', true);
     }
 
     public function works()
@@ -35,7 +35,7 @@ class Intermediary extends Model
 
     public function isAvailable()
     {
-        return (bool) $this->available;
+        return (bool) $this->is_available;
     }
 
     public static function generateAlias(string $name)
