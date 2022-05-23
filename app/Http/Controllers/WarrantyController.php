@@ -9,12 +9,8 @@ use App\Models\Work;
 class WarrantyController extends Controller
 {
     public function index()
-    {
-        $warranties = Warranty::with('work')
-                        ->orderBy('expires','desc')
-                        ->get();
-                        
-        return view('warranties.index')->with('warranties', $warranties);
+    {                        
+        return view('warranties.index')->with('warranties', Warranty::with('work')->orderBy('expires','desc')->get());
     }
 
     public function create(Work $work)
@@ -28,9 +24,9 @@ class WarrantyController extends Controller
     public function store(WarrantyRequest $request)
     {
         if(! $warranty = Warranty::create($request->validated()) )
-            return back()->with('danger', 'Oops! warranty not saved');
+            return back()->with('danger', 'Oops! warranty not created');
 
-        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->work->job_name} warranty saved");
+        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->about} warranty created");
     }
 
     public function edit(Warranty $warranty)
@@ -43,7 +39,7 @@ class WarrantyController extends Controller
         if(! $warranty->fill($request->validated())->save() )
             return back()->with('danger', 'Oops! warranty not updated');
 
-        return redirect()->route('warranties.edit', $warranty)->with('success', "{$warranty->work->job_name} warranty updated");
+        return redirect()->route('warranties.edit', $warranty)->with('success', "{$warranty->about} warranty updated");
     }
 
     public function destroy(Warranty $warranty)
@@ -51,6 +47,6 @@ class WarrantyController extends Controller
         if(! $warranty->delete() )
             return back()->with('danger', 'Oops! warranty not deleted');
 
-        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->work->job_name} ({$warranty->expires}) warranty deleted");
+        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->about} ({$warranty->expires}) warranty deleted");
     }
 }

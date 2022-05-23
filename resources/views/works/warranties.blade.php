@@ -7,7 +7,7 @@
 <ul>
     @foreach($work->warranties->sortByDesc('id') as $warranty)
     <li>
-        <span>{{ $warranty->title }}</span> 
+        <span>{{ $warranty->about }}</span> 
         <span>({{ $warranty->expires }})</span>
         <br>
         <a href="{{ route('warranties.edit',$warranty) }}">Edit</a>

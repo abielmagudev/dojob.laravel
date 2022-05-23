@@ -15,8 +15,8 @@ class CreateWarrantiesTable extends Migration
     {
         Schema::create('warranties', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 32);
-            $table->text('notes')->nullable();
+            $table->string('about', 32);
+            $table->text('description')->nullable();
             $table->date('expires')->index();
             $table->foreignId('work_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

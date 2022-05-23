@@ -25,9 +25,9 @@ class WarrantyFactory extends Factory
         ];
 
         return [
+            'about' => $this->faker->randomElement($titles),
+            'description' => $this->faker->paragraph(),
             'expires' => $this->faker->date(),
-            'title' => $this->faker->randomElement($titles),
-            'notes' => $this->faker->paragraph(),
             'work_id' => $this->faker->numberBetween(1, WorkSeeder::TOTAL),
         ];
     }

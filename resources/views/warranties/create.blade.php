@@ -5,7 +5,7 @@
     @csrf
     @include('warranties._form')
     <br>
-    <button type="submit">Save warranty</button>
+    <button type="submit">Create warranty</button>
     <a href="{{ route('works.warranties', $work) }}">Cancel</a>
 </form>
 @endsection

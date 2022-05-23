@@ -1,15 +1,15 @@
 <div>
-    <label for="inputTitle">Title</label>
-    <input type="text" name="title" id="inputTile" value="{{ old('title', $warranty->title) }}">
+    <label for="inputAbout">About</label>
+    <input type="text" name="about" id="inputAbout" value="{{ old('about', $warranty->about) }}" placeholder='Example: Maintenance' required>
 </div>
 <div>
-    <label for="textareaNotes">Notes</label>
-    <textarea name="notes" id="textareaNotes" cols="30" rows="10" placeholder="Optional">{{ old('notes', $warranty->notes) }}</textarea>
+    <label for="textareaDescription">Detailed description</label>
+    <textarea name="description" id="textareaDescription" cols="30" rows="10" placeholder="Optional">{{ old('description', $warranty->description) }}</textarea>
 </div>
 <div>
     <label for="inputExpires">Expires</label>
     <input type="date" name="expires" id="inputExpires" value="{{ old('expires', $warranty->expires) }}">
 </div>
-@if( isset($work) )
+@isset($work)
 <input type="hidden" name="work" value="{{ $work->id }}">
-@endif
+@endisset
