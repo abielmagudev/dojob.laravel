@@ -15,7 +15,7 @@ class CrewOperatorsRequest extends FormRequest
     {
         return [
             'operators' => ['required','array'],
-            'operators.*' => 'exists:operators,id,available,1',
+            'operators.*' => 'exists:operators,id,is_available,1',
         ];
     }
 
