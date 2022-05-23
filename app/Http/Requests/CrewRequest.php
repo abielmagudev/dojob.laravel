@@ -17,7 +17,7 @@ class CrewRequest extends FormRequest
             'name' => ['required','unique:crews,name,' . $this->crew_id],
             'color' => 'nullable',
             'description' => 'nullable',
-            'enabled' => 'boolean',
+            'is_enabled' => 'boolean',
         ];
     }
 
@@ -26,7 +26,7 @@ class CrewRequest extends FormRequest
         return [
             'name.required' => __('Enter the crew\'s name'),
             'name.unique' => __('Write another name for the crew'),
-            'enabled.boolean' => __('Choose a valid option for enable or disable the crew'),
+            'is_enabled.boolean' => __('Choose a valid option for enable or disable the crew'),
         ];
     }
 
@@ -37,7 +37,7 @@ class CrewRequest extends FormRequest
         if( $this->isMethod('put') || $this->isMethod('patch') )
         {
             $this->merge([
-                'enabled' => (int) $this->filled('enabled'),
+                'is_enabled' => (int) $this->filled('enabled'),
             ]);
         }
     }

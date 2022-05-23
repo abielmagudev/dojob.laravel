@@ -18,7 +18,7 @@ class CreateCrewsTable extends Migration
             $table->string('name', 32)->unique()->index();
             $table->string('color', 16)->nullable();
             $table->text('description')->nullable();
-            $table->boolean('enabled')->default(true);
+            $table->boolean('is_enabled')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

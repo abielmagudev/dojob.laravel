@@ -17,17 +17,17 @@ class Crew extends Model
         'name',
         'color',
         'description',
-        'enabled',
+        'is_enabled',
     ];
 
     public function scopeOnlyEnabled($query)
     {
-        return $query->where('enabled', 1);
+        return $query->where('is_enabled', 1);
     }
 
     public function scopeOnlyUsable($query)
     {
-        return $query->has('operators')->where('enabled', 1);
+        return $query->has('operators')->where('is_enabled', 1);
     }
 
     public function works()
@@ -62,7 +62,7 @@ class Crew extends Model
 
     public function isEnabled()
     {
-        return (bool) $this->enabled;
+        return (bool) $this->is_enabled;
     }
 
     public function isDisabled()
