@@ -20,7 +20,7 @@ class JobSeeder extends Seeder
             Job::create([
                 'name' => $job,
                 'description' => $description,
-                'custom' => (int) false,
+                'is_custom' => (int) false,
             ]);
         };
 

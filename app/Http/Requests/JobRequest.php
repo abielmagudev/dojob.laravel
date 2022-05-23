@@ -16,7 +16,7 @@ class JobRequest extends FormRequest
         return [
             'name' => ['required','string','unique:jobs,name,' . $this->job_id],
             'description' => ['nullable'],
-            'enabled' => ['boolean'],
+            'is_enabled' => ['boolean'],
         ];
     }
 
@@ -26,7 +26,7 @@ class JobRequest extends FormRequest
             'name.required' => __('Enter the job\'s name'),
             'name.string' => __('Write a valid name for the job'),
             'name.unique' => __('Write another name for the job'),
-            'enabled.boolead' => __('Choose a valid option to enable or disable the job'),
+            'is_enabled.boolead' => __('Choose a valid option to enable or disable the job'),
         ];
     }
 
@@ -37,7 +37,7 @@ class JobRequest extends FormRequest
         if( $this->isMethod('put') || $this->isMethod('patch') )
         {
             $this->merge([
-                'enabled' => (int) $this->filled('enabled')
+                'is_enabled' => (int) $this->filled('enabled')
             ]);
         }
     }

@@ -16,17 +16,17 @@ class Job extends Model
     protected $fillable = [
         'name',
         'description',
-        'enabled',
+        'is_enabled',
     ];
 
     public function scopeOnlyEnabled($query)
     {
-        return $query->where('enabled', 1);
+        return $query->where('is_enabled', 1);
     }
 
     public function scopeOnlyCustom($query)
     {
-        return $query->where('custom', 1);
+        return $query->where('is_custom', 1);
     }
 
     public function plugins()
@@ -50,7 +50,7 @@ class Job extends Model
 
     public function isEnabled()
     {
-        return (bool) $this->enabled;
+        return (bool) $this->is_enabled;
     }
 
     public static function defaults()
