@@ -7,9 +7,11 @@
     <title>{{ config('app.name') }}</title>
 </head>
 <body>
+    @if(! isset($navigation_hidden) )      
     <div style="display:inline-block; vertical-align:top; margin-right:2rem">
         @include('layouts.navigation')
     </div>
+    @endif
 
     <div style="display:inline-block; word-break:break-all">
         @include('layouts.message')
