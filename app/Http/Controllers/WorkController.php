@@ -24,10 +24,13 @@ class WorkController extends Controller
 
     public function create(Client $client)
     {
+        $jobs = Job::onlyEnabled()->orderBy('name')->get();
+
         return view('works.create', [
             'client' => $client,
             'intermediaries' => Intermediary::onlyAvailable()->orderBy('name')->get(),
-            'jobs' => Job::onlyEnabled()->orderBy('custom')->get(),
+            'non_custom_jobs' => $jobs->where('is_custom', false),
+            'jobs' => $jobs->where('is_custom', true),
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
             'operators' => Operator::onlyAvailable()->get(),
             'work' => new Work,

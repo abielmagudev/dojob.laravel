@@ -23,12 +23,12 @@
     <select name="job" id="selectJob">
         <option disabled selected></option>
         <optgroup label="Application">
-            @foreach($jobs->where('custom', false) as $job)
+            @foreach($non_custom_jobs as $job)
             <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ?: 'selected' }}>{{ $job->name }}</option>
             @endforeach
         </optgroup>
         <optgroup label="New">
-            @foreach($jobs->where('custom', true)->sortBy('name') as $job)
+            @foreach($jobs as $job)
             <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ?: 'selected' }}>{{ $job->name }}</option>
             @endforeach
         </optgroup>
