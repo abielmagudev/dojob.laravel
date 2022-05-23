@@ -25,10 +25,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('crews/{crew}/operators')->group(function () {
+Route::prefix('crews/{crew}/operators')->middleware('crew.manage_operators')->group(function () {
     Route::get('/', [CrewController::class, 'operators'])->name('crews.operators');
     Route::match(['put','patch'], '/', [CrewController::class, 'addOperators'])->name('crews.operators.update');
 });
+Route::resource('crews', CrewController::class);
 
 Route::get('works/create/{client?}', [WorkController::class, 'create'])->name('works.create');
 Route::get('works/{work}/warranties', [WorkController::class, 'warranties'])->name('works.warranties');
@@ -39,7 +40,6 @@ Route::resource('warranties', WarrantyController::class)->except(['create','show
 
 Route::resources([
     'clients' => ClientController::class,
-    'crews' => CrewController::class,
     'intermediaries' => IntermediaryController::class,
     'jobs' => JobController::class,
     'operators' => OperatorController::class,
