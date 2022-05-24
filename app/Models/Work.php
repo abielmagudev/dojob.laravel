@@ -19,11 +19,8 @@ class Work extends Model
     private $operators_cache = null;
 
     protected $fillable = [
-        'client_id',
-        'intermediary_id',
-        'crew_id',
-        'job_id',
         'priority',
+        'status',
         'scheduled_date',
         'scheduled_time',
         'started_date',
@@ -32,7 +29,11 @@ class Work extends Model
         'finished_time',
         'closed_date',
         'closed_time',
-        'status',
+        'client_id',
+        'intermediary_id',
+        'job_id',
+        'crew_id',
+        'notes',
     ];
 
     public function getJobNameAttribute()

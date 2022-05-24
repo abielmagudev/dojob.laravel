@@ -30,6 +30,7 @@ class CreateWorksTable extends Migration
             $table->foreignId('client_id')->constrained()->restrictOnDelete();
             $table->foreignId('intermediary_id')->nullable();
             $table->foreignId('crew_id')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
 
             $table->index(

@@ -28,6 +28,7 @@ class WorkUpdateRequest extends FormRequest
             'closed_date' => ['nullable','date'],
             'closed_time' => ['nullable','regex:' . WorkStoreRequest::REGEXP_TIME],
             'status' => ['required',"in:{$this->all_status}"],
+            'notes' => 'nullable',
         ];
     }
 

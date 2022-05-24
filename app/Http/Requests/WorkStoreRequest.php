@@ -24,6 +24,7 @@ class WorkStoreRequest extends FormRequest
             'operator_id' => ['exclude_if:assign,crew','exists:operators,id,available,1'],
             'scheduled_date' => ['required','date'],
             'scheduled_time' => ['required','regex:' . self::REGEXP_TIME],
+            'notes' => 'nullable',
         ];
     }
 
