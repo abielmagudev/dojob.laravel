@@ -120,6 +120,11 @@ class Work extends Model
         return $this->operatorsCache()->contains('id', $operator_id);
     }
 
+    public function hasSingleOperatorAssigned()
+    {
+        return $this->hasSingleOperator() &&! $this->hasCrew();
+    }
+
     public function hasCrew()
     {
         if(! isset($this->crew_id) )
@@ -136,9 +141,19 @@ class Work extends Model
         return $this->intermediary instanceof Intermediary;
     }
 
-    public function hasSingleOperatorAssigned()
+    public function hasStarted()
     {
-        return $this->hasSingleOperator() &&! $this->hasCrew();
+        return isset($this->started_date) && isset($this->started_time);
+    }
+
+    public function hasFinished()
+    {
+        return isset($this->finished_date) && isset($this->finished_time);
+    }
+
+    public function hasStatus(string $status)
+    {
+        return $this->status == $status;
     }
 
     public function attachOperators(array $operators_id)

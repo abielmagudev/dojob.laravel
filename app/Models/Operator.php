@@ -17,6 +17,8 @@ class Operator extends Model
 
     private $skills_cache = null;
 
+    private $works_cache = null;
+
     protected $fillable = [
         'name',
         'lastname',
@@ -72,6 +74,14 @@ class Operator extends Model
         return $this->belongsToMany(Work::class);
     }
 
+    public function worksCache()
+    {
+        if( is_null($this->works_cache) )
+            $this->works_cache = $this->works;
+
+        return $this->works_cache; 
+    }
+
     public function crew()
     {
         return $this->belongsTo(Crew::class);
@@ -109,5 +119,16 @@ class Operator extends Model
             return $this->crew instanceof Crew;
 
         return self::UNCREWED;
+    }
+
+    public function hasWorks()
+    {
+        return (bool) $this->worksCache()->count();
+    }
+
+    public function hasWork($work)
+    {
+        $work_id = is_a($work, Work::class) ? $work->id : $work;
+        return $this->worksCache()->contains('id', $work_id);
     }
 }
