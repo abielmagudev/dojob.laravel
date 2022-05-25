@@ -1,6 +1,6 @@
 @extends('app', ['navigation_hidden' => true])
 @section('content')
-<a href="{{ route('operators_auth.dashboard') }}">Dashboard</a>
+<a href="{{ route('operators_auth.index') }}">Index</a>
 <h1>{{ $work->job_name }}</h1>
 <p>{{ $work->notes }}</p>
 

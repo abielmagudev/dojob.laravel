@@ -43,7 +43,7 @@ class WorkUpdateByOperatorRequest extends FormRequest
             'started_date' => $this->filled('start') ? now()->toDateString() : $this->route()->work->started_date,
             'started_time' => $this->filled('start') ? now()->toTimeString() : $this->route()->work->started_time,
             'finished_date' => $this->filled('finish') ? now()->toDateString() : $this->route()->work->finished_date,
-            'finished_time' => $this->filled('finish') ? now()->toTimeString() : $this->route()->work->finished_date,
+            'finished_time' => $this->filled('finish') ? now()->toTimeString() : $this->route()->work->finished_time,
         ]);
     }
 }

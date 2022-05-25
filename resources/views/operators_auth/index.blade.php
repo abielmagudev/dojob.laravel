@@ -1,6 +1,6 @@
 @extends('app', ['navigation_hidden' => true])
 @section('content')
-<h1>Operator dashboard</h1>
+<h1>Operator index</h1>
 <table>
     <thead>
         <tr>

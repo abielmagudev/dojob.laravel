@@ -8,11 +8,11 @@ use App\Models\Work;
 
 class OperatorAuthController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         $operator = Operator::find(5);
         
-        return view('operators_auth.dashboard', [
+        return view('operators_auth.index', [
             'operator' => $operator,
             'works' => $operator->works()
                                 ->whereIn('status', Work::allOpenStatus())
