@@ -47,9 +47,8 @@ Route::resources([
     'skills' => SkillController::class,
 ]);
 
-
 Route::prefix('operator')->group(function () {
-    Route::get('/', [OperatorAuthController::class, 'dashboard'])->name('operators_auth.dashboard');
+    Route::get('/', [OperatorAuthController::class, 'index'])->name('operators_auth.index');
     Route::get('/{work}', [OperatorAuthController::class, 'show'])->name('operators_auth.show');
     Route::patch('/{work}', [OperatorAuthController::class, 'update'])->name('operators_auth.update');
 });
