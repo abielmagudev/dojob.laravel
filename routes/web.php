@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JobController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\CrewController;
+use App\Http\Controllers\IntermediaryAuthController;
 use App\Http\Controllers\IntermediaryController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\OperatorAuthController;
+use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
@@ -51,4 +52,9 @@ Route::prefix('operator')->group(function () {
     Route::get('/', [OperatorAuthController::class, 'index'])->name('operators_auth.index');
     Route::get('/{work}', [OperatorAuthController::class, 'show'])->name('operators_auth.show');
     Route::patch('/{work}', [OperatorAuthController::class, 'update'])->name('operators_auth.update');
+});
+
+Route::prefix('intermediary')->group(function () {
+    Route::get('/', [IntermediaryAuthController::class, 'index'])->name('intermediaries_auth.index');
+    Route::get('/{work}', [IntermediaryAuthController::class, 'show'])->name('intermediaries_auth.show');
 });
