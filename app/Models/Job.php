@@ -13,6 +13,8 @@ class Job extends Model
         HasFactory,
         SoftDeletes;
 
+    private $plugins_cache;
+
     protected $fillable = [
         'name',
         'description',
@@ -37,20 +39,28 @@ class Job extends Model
     public function plugins()
     {
         return $this->belongsToMany(Plugin::class)
+                    ->withPivot('is_enabled')
                     ->withTimestamps()
                     ->using(JobPlugin::class);
     }
 
-    public function attachPlugin(int $plugin_id)
+    public function pluginsCache()
     {
-        return $this->plugins()->attach($plugin_id, [
-            'created_at' => now(),
-        ]);
+        if( is_null($this->plugins_cache) )
+            $this->plugins_cache = $this->plugins;
+
+        return $this->plugins_cache;
     }
 
-    public function detachPlugin(int $plugin_id)
+    public function syncPlugins(array $plugins_id, $detach = true)
     {
-        return $this->plugins()->detach($plugin_id);
+        return $this->plugins()->sync($plugins_id, $detach);
+    }
+
+    public function hasPlugin($plugin)
+    {
+        $plugin_id = is_a($plugin, Plugin::class) ? $plugin->id : $plugin;
+        return (bool) $this->pluginsCache()->where('id', $plugin_id)->first();
     }
 
     public function isEnabled()

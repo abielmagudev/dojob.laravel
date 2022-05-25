@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Plugin;
 use App\Http\Requests\JobRequest;
+use App\Http\Requests\JobPluginRequest;
+use App\Models\JobPlugin;
 
 class JobController extends Controller
 {
@@ -49,5 +52,34 @@ class JobController extends Controller
             return back()->with('danger', 'Oops! job not deleted');
         
         return redirect()->route('jobs.index')->with('success', "{$job->name} job deleted");
+    }
+
+    public function plugins(Job $job)
+    {
+        return view('jobs.plugins', [
+            'job' => $job,
+            'plugins' => Plugin::all(),
+        ]);
+    }
+
+    public function pluginsUpdate(JobPluginRequest $request, Job $job)
+    {
+        $plugins = $job->plugins->mapWithKeys(function ($plugin) use ($request) {
+            return [
+                $plugin->id => [
+                    'is_enabled' => (int) in_array($plugin->id, $request->get('plugins', []))
+                ]
+            ];
+        });
+
+        $job->syncPlugins($plugins->all(), false);
+
+        return redirect()->route('jobs.show', $job)->with('success', "Plugin's {$job->name} updated");
+    }
+
+    public function pluginsConnect(JobPluginRequest $request, Job $job)
+    {
+        $job->syncPlugins($request->get('plugins', []));
+        return redirect()->route('jobs.plugins', $job)->with('success', "Plugin's {$job->name} updated");
     }
 }

@@ -33,6 +33,13 @@ Route::prefix('crews/{crew}/operators')->middleware('crew.manage_operators')->gr
 });
 Route::resource('crews', CrewController::class);
 
+Route::prefix('jobs/{job}/plugins')->group(function () {
+    Route::get('/', [JobController::class, 'plugins'])->name('jobs.plugins');
+    Route::put('/', [JobController::class, 'pluginsConnect'])->name('jobs.plugins.connect');
+    Route::patch('/', [JobController::class, 'pluginsUpdate'])->name('jobs.plugins.update');
+});
+Route::resource('jobs', JobController::class);
+
 Route::get('works/create/{client?}', [WorkController::class, 'create'])->name('works.create');
 Route::get('works/{work}/warranties', [WorkController::class, 'warranties'])->name('works.warranties');
 Route::resource('works', WorkController::class)->except('create');
@@ -43,7 +50,6 @@ Route::resource('warranties', WarrantyController::class)->except(['create','show
 Route::resources([
     'clients' => ClientController::class,
     'intermediaries' => IntermediaryController::class,
-    'jobs' => JobController::class,
     'operators' => OperatorController::class,
     'skills' => SkillController::class,
 ]);
