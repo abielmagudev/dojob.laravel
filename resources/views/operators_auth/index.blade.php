@@ -1,11 +1,14 @@
 @extends('app', ['navigation_hidden' => true])
 @section('content')
-<h1>Operator index</h1>
+<small>Authenticated operator</small>
+<h1>{{ $operator->fullname }} ({{ $operator->position ?? '?' }})</h1>
 <table>
     <thead>
         <tr>
             <th>Job</th>
             <th>Client</th>
+            <th>Intermediary</th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
@@ -18,6 +21,8 @@
                 <span>{{ $work->client->location }}</span><br>
                 <small>{{ $work->client->fullname }} / {{ $work->client->phone }}</small><br>
             </td>
+            <td>{{ $work->hasIntermediary() ? $work->intermediary->alias : '-'  }}</td>
+            <td>{{ ucfirst($work->status) }}</td>
             <td>
                 <a href="{{ route('operators_auth.show', $work) }}">Show</a>
             </td>
@@ -27,15 +32,17 @@
 </table>
 @if( $operator->hasCrew() )
 <hr>
-<p>
+<h3>
     <span>{{ $operator->crew->name }}</span>
     <small>(Crew)</small>
-</p>
+</h3>
 <table>
     <thead>
         <tr>
             <th>Job</th>
             <th>Client</th>
+            <th>Intermediary</th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
@@ -48,6 +55,8 @@
                 <span>{{ $work->client->location }}</span><br>
                 <small>{{ $work->client->fullname }} / {{ $work->client->phone }}</small><br>
             </td>
+            <td>{{ $work->hasIntermediary() ? $work->intermediary->alias : '-'  }}</td>
+            <td>{{ ucfirst($work->status) }}</td>
             <td>
                 <a href="{{ route('operators_auth.show', $work) }}">Show</a>
             </td>

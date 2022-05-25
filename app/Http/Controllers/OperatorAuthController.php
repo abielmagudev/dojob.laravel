@@ -14,11 +14,7 @@ class OperatorAuthController extends Controller
         
         return view('operators_auth.index', [
             'operator' => $operator,
-            'works' => $operator->works()
-                                ->whereIn('status', Work::allOpenStatus())
-                                ->orderBy('priority')
-                                ->get()
-                                ->load(['job','client']),
+            'works' => $operator->works()->with(['job','client','intermediary'])->whereIn('status', Work::allOpenStatus())->orderBy('priority')->get(),
         ]);
     }
 
