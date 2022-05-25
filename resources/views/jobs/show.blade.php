@@ -2,10 +2,11 @@
 @section('content')
 <a href="{{ route('jobs.index') }}">Index</a>
 <h1>{{ $job->name }}</h1>
+<p>{{ $job->description }}</p>
 <ul>
     <li>
-        <small>Description</small>
-        <span>{{ $job->description }}</span>
+        <small>Works</small>
+        <span>{{ $job->works->count() }}</span>
     </li>
     <li>
         <small>Enabled</small>
