@@ -2,6 +2,10 @@
 @section('content')
 <a href="{{ route('intermediaries_auth.index') }}">Index</a>
 <h1>{{ $work->job_name }}</h1>
+<p>
+    <small>Notes</small><br>
+    <span>{{ $work->notes }}</span>
+</p>
 <ul>
     <li>
         <small>Scheduled</small><br>
@@ -18,10 +22,6 @@
             <li>{{ $work->client->address }}</li>
             <li>{{ $work->client->location }}</li>
         </ul>
-    </li>
-    <li>
-        <small>Notes</small><br>
-        <span>{{ $work->notes }}</span>
     </li>
 </ul>
 @endsection
