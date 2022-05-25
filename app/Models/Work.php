@@ -36,6 +36,11 @@ class Work extends Model
         'notes',
     ];
 
+    public function scopeWhereHasOpenStatus($query)
+    {
+        return $query->whereIn('status', self::allOpenStatus());
+    }
+
     public function getJobNameAttribute()
     {
         return $this->job->name;
@@ -171,6 +176,15 @@ class Work extends Model
             'canceled',
             'denialed',
             'pending',
+        ];
+    }
+
+    public static function allOpenStatus()
+    {
+        return [
+            'waiting',
+            'started',
+            'finished',
         ];
     }
 
