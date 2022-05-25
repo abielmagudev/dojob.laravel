@@ -64,15 +64,10 @@ class JobController extends Controller
 
     public function pluginsUpdate(JobPluginRequest $request, Job $job)
     {
-        $plugins = $job->plugins->mapWithKeys(function ($plugin) use ($request) {
-            return [
-                $plugin->id => [
-                    'is_enabled' => (int) in_array($plugin->id, $request->get('plugins', []))
-                ]
-            ];
+        $job->plugins->each(function ($plugin) use ($request) {
+            $plugin->pivot->is_enabled = (int) in_array($plugin->id, $request->get('plugins', []));
+            $plugin->pivot->save();
         });
-
-        $job->syncPlugins($plugins->all(), false);
 
         return redirect()->route('jobs.show', $job)->with('success', "Plugin's {$job->name} updated");
     }
