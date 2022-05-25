@@ -29,6 +29,11 @@ class Job extends Model
         return $query->where('is_custom', 1);
     }
 
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
+
     public function plugins()
     {
         return $this->belongsToMany(Plugin::class)
