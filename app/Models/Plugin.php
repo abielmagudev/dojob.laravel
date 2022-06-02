@@ -9,6 +9,11 @@ class Plugin extends Model
 {
     use HasFactory;
 
+    public function catalog()
+    {
+        return $this->belongsTo(Catalog::class);
+    }
+
     public function jobs()
     {
         return $this->belongstoMany(Job::class)

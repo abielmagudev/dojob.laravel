@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Catalog;
 use App\Models\Plugin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -21,7 +22,7 @@ class PluginSeeder extends Seeder
             'price' => 50.50,
             'version' => 1.0,
             'hashed' => Str::random(16), 
-            'catalog_id' => mt_rand(1,16),
+            'catalog_id' => mt_rand(1, CatalogSeeder::TOTAL),
         ]);
 
         Plugin::create([
@@ -30,7 +31,7 @@ class PluginSeeder extends Seeder
             'price' => 175.00,
             'version' => 2.3,
             'hashed' => Str::random(16), 
-            'catalog_id' => mt_rand(1,16),
+            'catalog_id' => mt_rand(1, CatalogSeeder::TOTAL),
         ]);
 
         Plugin::create([
@@ -39,7 +40,7 @@ class PluginSeeder extends Seeder
             'price' => 315.25,
             'version' => 1.5,
             'hashed' => Str::random(16), 
-            'catalog_id' => mt_rand(1,16),
+            'catalog_id' => mt_rand(1, CatalogSeeder::TOTAL),
         ]);
     }
 }
