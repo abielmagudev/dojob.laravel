@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <a href="{{ route('intermediaries.create') }}">Create</a>
-<h1>Intermediaries</h1>
+<h1>Intermediaries ({{ $intermediaries->count() }})</h1>
 <ul>
     @foreach($intermediaries as $intermediary)
     <li>

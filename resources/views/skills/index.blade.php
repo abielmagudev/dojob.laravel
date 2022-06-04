@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 <a href="{{ route('skills.create') }}">Create</a>
-<h1>Skills</h1>
+<h1>Skills ({{ $skills->count() }})</h1>
 <ul>
     @foreach($skills as $skill)
     <li>
