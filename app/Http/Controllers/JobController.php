@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Catalog;
 use App\Models\Job;
 use App\Models\Plugin;
-use App\Http\Requests\JobRequest;
 use App\Http\Requests\JobPluginRequest;
-use App\Models\JobPlugin;
+use App\Http\Requests\JobRequest;
+use Illuminate\Http\Request;
+
 
 class JobController extends Controller
 {
@@ -54,11 +56,15 @@ class JobController extends Controller
         return redirect()->route('jobs.index')->with('success', "{$job->name} job deleted");
     }
 
-    public function plugins(Job $job)
+    public function plugins(Request $request, Job $job)
     {
+        $catalog = $request->filled('catalog') ? Catalog::byName($request->catalog)->first() : new Catalog;
+
         return view('jobs.plugins', [
+            'catalog_selected' => is_object($catalog) && $catalog->isReal() ? $catalog->id : 0,
+            'catalogs' => Catalog::all(),
+            'plugins' => is_object($catalog) && $catalog->isReal() ? $catalog->plugins : Plugin::all(),
             'job' => $job,
-            'plugins' => Plugin::all(),
         ]);
     }
 
