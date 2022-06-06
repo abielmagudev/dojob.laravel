@@ -10,7 +10,7 @@ $routes = [
     'Skills' => route('skills.index'),
     'Warranties' => route('warranties.index'),
     'Works' => route('works.index'),
-    // 'Users' => route('users.index'),
+    'Users' => route('users.index'),
 ];
 
 ?>

@@ -9,6 +9,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\OperatorAuthController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
 
@@ -52,6 +53,7 @@ Route::resources([
     'intermediaries' => IntermediaryController::class,
     'operators' => OperatorController::class,
     'skills' => SkillController::class,
+    'users' => UserController::class,
 ]);
 
 Route::prefix('operator')->group(function () {
