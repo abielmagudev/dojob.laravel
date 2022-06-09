@@ -56,7 +56,7 @@ class JobController extends Controller
         return redirect()->route('jobs.index')->with('success', "{$job->name} job deleted");
     }
 
-    public function plugins(Request $request, Job $job)
+    public function managePlugins(Request $request, Job $job)
     {
         $catalog = $request->filled('catalog') ? Catalog::byName($request->catalog)->first() : new Catalog;
 
@@ -68,19 +68,19 @@ class JobController extends Controller
         ]);
     }
 
-    public function pluginsUpdate(JobPluginRequest $request, Job $job)
+    public function connectPlugins(JobPluginRequest $request, Job $job)
+    {
+        $job->syncPlugins($request->get('plugins', []));
+        return redirect()->route('jobs.plugins.manage', $job)->with('success', "Plugin {$job->name} updated");
+    }
+
+    public function updatePlugins(JobPluginRequest $request, Job $job)
     {
         $job->plugins->each(function ($plugin) use ($request) {
             $plugin->pivot->is_enabled = (int) in_array($plugin->id, $request->get('plugins', []));
             $plugin->pivot->save();
         });
 
-        return redirect()->route('jobs.show', $job)->with('success', "Plugin's {$job->name} updated");
-    }
-
-    public function pluginsConnect(JobPluginRequest $request, Job $job)
-    {
-        $job->syncPlugins($request->get('plugins', []));
-        return redirect()->route('jobs.plugins', $job)->with('success', "Plugin's {$job->name} updated");
+        return redirect()->route('jobs.show', $job)->with('success', "Plugin {$job->name} updated");
     }
 }

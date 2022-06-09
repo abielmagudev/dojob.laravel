@@ -19,10 +19,10 @@ Route::controller(CrewController::class)->group( function () {
 Route::resource('crews', CrewController::class);
 
 // JOB
-Route::prefix('jobs/{job}/plugins')->group(function () {
-    Route::get('/', [JobController::class, 'plugins'])->name('jobs.plugins');
-    Route::put('/', [JobController::class, 'pluginsConnect'])->name('jobs.plugins.connect');
-    Route::patch('/', [JobController::class, 'pluginsUpdate'])->name('jobs.plugins.update');
+Route::controller(JobController::class)->group( function () {
+    Route::get('jobs/{job}/plugins', 'managePlugins')->name('jobs.plugins.manage');
+    Route::put('jobs/{job}/plugins', 'connectPlugins')->name('jobs.plugins.connect');
+    Route::patch('jobs/{job}/plugins', 'updatePlugins')->name('jobs.plugins.update');
 });
 Route::resource('jobs', JobController::class);
 

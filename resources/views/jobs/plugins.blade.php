@@ -2,8 +2,8 @@
 @section('content')
 <a href="{{ route('jobs.show', $job) }}">Show</a>
 <h1>{{ $job->name }}</h1>
-<h2>Plugins manager</h2>
-<form action="{{ route('jobs.plugins', $job) }}" method="get">
+<h2>Manage plugins</h2>
+<form action="{{ route('jobs.plugins.manage', $job) }}" method="get">
     <div>
         <label for="selectCatalog">Catalog</label>
         <select name="catalog" id="selectCatalog" onchange="submit()" required>

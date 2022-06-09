@@ -17,7 +17,7 @@
 <a href="{{ route('jobs.edit', $job) }}">Edit</a>
 <hr>
 <p>
-    <a href="{{ route('jobs.plugins', $job) }}">Plugins manager</a>
+    <a href="{{ route('jobs.plugins.manage', $job) }}">Manage plugins</a>
 </p>
 <form action="{{ route('jobs.plugins.update', $job) }}" method="post">
     @csrf
