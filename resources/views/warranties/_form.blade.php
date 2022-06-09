@@ -1,6 +1,6 @@
 <div>
-    <label for="inputAbout">About</label>
-    <input type="text" name="about" id="inputAbout" value="{{ old('about', $warranty->about) }}" placeholder='Example: Maintenance' required>
+    <label for="inputName">Name</label>
+    <input type="text" name="name" id="inputName" value="{{ old('name', $warranty->name) }}" placeholder='Example: Maintenance' required>
 </div>
 <div>
     <label for="textareaDescription">Detailed description</label>

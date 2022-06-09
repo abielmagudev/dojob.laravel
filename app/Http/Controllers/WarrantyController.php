@@ -26,7 +26,7 @@ class WarrantyController extends Controller
         if(! $warranty = Warranty::create($request->validated()) )
             return back()->with('danger', 'Oops! warranty not created');
 
-        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->about} warranty created");
+        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->name} warranty created");
     }
 
     public function edit(Warranty $warranty)
@@ -39,7 +39,7 @@ class WarrantyController extends Controller
         if(! $warranty->fill($request->validated())->save() )
             return back()->with('danger', 'Oops! warranty not updated');
 
-        return redirect()->route('warranties.edit', $warranty)->with('success', "{$warranty->about} warranty updated");
+        return redirect()->route('warranties.edit', $warranty)->with('success', "{$warranty->name} warranty updated");
     }
 
     public function destroy(Warranty $warranty)
@@ -47,6 +47,6 @@ class WarrantyController extends Controller
         if(! $warranty->delete() )
             return back()->with('danger', 'Oops! warranty not deleted');
 
-        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->about} ({$warranty->expires}) warranty deleted");
+        return redirect()->route('works.warranties', $warranty->work_id)->with('success', "{$warranty->name} ({$warranty->expires}) warranty deleted");
     }
 }

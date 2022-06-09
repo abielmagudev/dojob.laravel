@@ -14,7 +14,7 @@ class WarrantyRequest extends FormRequest
     public function rules()
     {
         return [
-            'about' => ['required','string'],
+            'name' => ['required','string'],
             'description' => 'nullable',
             'expires' => $this->isMethod('post') ? ['required','date','after:today'] : ['required','date'],
             'work_id' => $this->isMethod('post') ? ['required','exists:works,id'] : 'exclude',
@@ -24,8 +24,8 @@ class WarrantyRequest extends FormRequest
     public function messages()
     {
         return [
-            'about.required' => __('Enter warranty\'s about'),
-            'about.string' => __('Enter a valid warranty\'s about'),
+            'name.required' => __('Enter warranty\'s name'),
+            'name.string' => __('Enter a valid warranty\'s name'),
             'expires.required' => __('Enter the warranty expiration date'),
             'expires.date' => __('Enter a valid warranty expiration date'),
             'expires.after' => __('Enter the warranty expiration date after today'),

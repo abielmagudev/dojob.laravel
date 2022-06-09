@@ -10,7 +10,7 @@ class Warranty extends Model
     use HasFactory;
 
     protected $fillable = [
-        'about',
+        'name',
         'description',
         'expires',
         'work_id',

@@ -84,7 +84,7 @@
     <tbody>
         @foreach($work->warranties->sortByDesc('id') as $warranty) 
         <tr>
-            <td>{{ $warranty->about }}</td>
+            <td>{{ $warranty->name }}</td>
             <td width="384px">{{ $warranty->description }}</td>
             <td>{{ $work->scheduled_date }}</td>
             <td>{{ $warranty->expires }}</td>

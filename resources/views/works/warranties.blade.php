@@ -15,7 +15,7 @@
     <tbody>
         @foreach($work->warranties->sortByDesc('id') as $warranty)
         <tr>
-            <td>{{ $warranty->about }}</td> 
+            <td>{{ $warranty->name }}</td> 
             <td>{{ $warranty->expires }}</td>
             <td>
                 <a href="{{ route('warranties.edit',$warranty) }}">Edit</a>

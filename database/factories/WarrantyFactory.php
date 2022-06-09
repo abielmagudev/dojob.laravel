@@ -16,7 +16,7 @@ class WarrantyFactory extends Factory
      */
     public function definition()
     {
-        $titles = [
+        $names = [
             'Replace component fan',
             'Motor preventive maintenance',
             'Performance Evaulation Equipment',
@@ -25,7 +25,7 @@ class WarrantyFactory extends Factory
         ];
 
         return [
-            'about' => $this->faker->randomElement($titles),
+            'name' => $this->faker->randomElement($names),
             'description' => $this->faker->paragraph(),
             'expires' => $this->faker->date(),
             'work_id' => $this->faker->numberBetween(1, WorkSeeder::TOTAL),
