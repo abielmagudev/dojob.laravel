@@ -69,21 +69,29 @@
             <li>Updated: {{ $work->updated_at }}</li>
         </ul>
     </li>
-    <li>
-        <small>Warranties</small>
-        <ul>
-            <li>
-                <a href="{{ route('works.warranties', $work) }}">Manage warranties</a>
-            </li>
-            @foreach($work->warranties->sortByDesc('id') as $warranty) 
-            <li>
-                <span>{{ $warranty->title }}</span>
-                <span>({{ $work->scheduled_date }} to {{ $warranty->expires }})</span>
-            </li>
-            @endforeach
-        </ul>
-    </li>
 </ul>
+<br>
+<a href="{{ route('works.warranties', $work) }}">Manage warranties</a>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Expires</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($work->warranties->sortByDesc('id') as $warranty) 
+        <tr>
+            <td>{{ $warranty->about }}</td>
+            <td width="384px">{{ $warranty->description }}</td>
+            <td>{{ $work->scheduled_date }}</td>
+            <td>{{ $warranty->expires }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 <br>
 <a href="{{ route('works.edit',$work) }}">Edit</a>
 @endsection

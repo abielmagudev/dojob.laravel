@@ -4,17 +4,27 @@
 <h1>{{ $work->job_name }} #{{ $work->id }}</h1>
 <h2>Warranties</h2>
 <a href="{{ route('warranties.create',$work) }}">Create</a>
-<ul>
-    @foreach($work->warranties->sortByDesc('id') as $warranty)
-    <li>
-        <span>{{ $warranty->about }}</span> 
-        <span>({{ $warranty->expires }})</span>
-        <br>
-        <a href="{{ route('warranties.edit',$warranty) }}">Edit</a>
-        <button type="button" data-delete="{{ $warranty->id }}">Delete</button>
-    </li>
-    @endforeach
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Expires</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($work->warranties->sortByDesc('id') as $warranty)
+        <tr>
+            <td>{{ $warranty->about }}</td> 
+            <td>{{ $warranty->expires }}</td>
+            <td>
+                <a href="{{ route('warranties.edit',$warranty) }}">Edit</a>
+                <button type="button" data-delete="{{ $warranty->id }}">Delete</button>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 <form action="#!" method="post" id="formWarrantyDelete">
     @csrf
     @method('delete')

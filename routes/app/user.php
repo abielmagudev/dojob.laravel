@@ -31,8 +31,10 @@ Route::get('warranties/create/{work}', [WarrantyController::class, 'create'])->n
 Route::resource('warranties', WarrantyController::class)->except(['create','show']);
 
 // WORK
-Route::get('works/create/{client?}', [WorkController::class, 'create'])->name('works.create');
-Route::get('works/{work}/warranties', [WorkController::class, 'warranties'])->name('works.warranties');
+Route::controller(WorkController::class)->group( function () {
+    Route::get('works/create/{client?}', 'create')->name('works.create');
+    Route::get('works/{work}/warranties', 'warranties')->name('works.warranties');
+});
 Route::resource('works', WorkController::class)->except('create');
 
 // RESOURCES
