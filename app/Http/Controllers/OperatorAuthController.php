@@ -10,7 +10,7 @@ class OperatorAuthController extends Controller
 {
     public function index()
     {
-        $operator = Operator::find(5);
+        $operator = Operator::all()->random(1)->first();
         
         return view('operators_auth.index', [
             'operator' => $operator,

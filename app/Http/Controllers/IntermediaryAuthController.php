@@ -10,7 +10,7 @@ class IntermediaryAuthController extends Controller
 {
     public function index()
     {
-        $intermediary = Intermediary::find(3);
+        $intermediary = Intermediary::all()->random(1)->first();
         
         return view('intermediaries_auth.index', [
             'intermediary' => $intermediary,
