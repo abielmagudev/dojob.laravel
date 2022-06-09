@@ -2,9 +2,6 @@
 @section('content')
 <a href="{{ route('crews.index') }}">Index</a>
 <h1>{{ $crew->name }}</h1>
-@if( $crew->isEnabled() )
-<a href="{{ route('crews.operators', $crew) }}">Manage operators</a>
-@endif
 <ul>
     <li>
         <small>Color</small>
@@ -19,6 +16,11 @@
         <small>Enabled</small>
         <span>{{ $crew->isEnabled() ? 'Yes' : 'No' }}</span>
     </li>
+</ul>
+<br>
+@if( $crew->isEnabled() )
+<a href="{{ route('crews.operators.manage', $crew) }}">Manage operators</a>
+<ul>
     <li>
         <small>Operators ({{$crew->operators->count()}})</small>
         <ul>
@@ -31,6 +33,7 @@
         </ul>
     </li>
 </ul>
+@endif
 <br>
 <a href="{{ route('crews.edit', $crew) }}">Edit</a>
 @endsection

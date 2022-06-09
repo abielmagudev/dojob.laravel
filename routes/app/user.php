@@ -12,9 +12,9 @@ use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
 
 // CREW
-Route::prefix('crews/{crew}/operators')->middleware('crew.manage_operators')->group(function () {
-    Route::get('/', [CrewController::class, 'operators'])->name('crews.operators');
-    Route::match(['put','patch'], '/', [CrewController::class, 'addOperators'])->name('crews.operators.update');
+Route::controller(CrewController::class)->group( function () {
+    Route::get('crews/{crew}/operators', 'manageOperators')->name('crews.operators.manage');
+    Route::put('crews/{crew}/operators', 'updateOperators')->name('crews.operators.update');
 });
 Route::resource('crews', CrewController::class);
 

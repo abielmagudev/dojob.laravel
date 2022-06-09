@@ -58,7 +58,7 @@ class CrewController extends Controller
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew deleted");
     }
 
-    public function operators(Crew $crew)
+    public function manageOperators(Crew $crew)
     {
         return view('crews.operators', [
             'crew' => $crew,
@@ -66,13 +66,13 @@ class CrewController extends Controller
         ]);
     }
 
-    public function addOperators(CrewOperatorsRequest $request, Crew $crew)
+    public function updateOperators(CrewOperatorsRequest $request, Crew $crew)
     {
         $crew->removeOperators();
 
         if( $request->filled('operators') )
             $crew->attachOperators($request->operators);
 
-        return redirect()->route('crews.operators', $crew)->with('success', 'Added crew operators');
+        return redirect()->route('crews.operators.manage', $crew)->with('success', 'Added crew operators');
     }
 }

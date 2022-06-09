@@ -14,7 +14,7 @@
         @endforeach
     </ul>
     <br>
-    <button type="submit">Add operators</button>
+    <button type="submit">Update operators</button>
     <a href="{{ route('crews.show', $crew) }}">Back</a>
 </form>
 @endsection
