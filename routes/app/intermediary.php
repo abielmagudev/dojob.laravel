@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IntermediaryAuthController;
 
-Route::prefix('intermediary')->group(function () {
-    Route::get('/', [IntermediaryAuthController::class, 'index'])->name('intermediaries_auth.index');
-    Route::get('/{work}', [IntermediaryAuthController::class, 'show'])->name('intermediaries_auth.show');
+Route::controller(IntermediaryAuthController::class)->group( function () {
+    Route::get('intermediary/', 'index')->name('intermediaries_auth.index');
+    Route::get('intermediary/{work}', 'show')->name('intermediaries_auth.show');
 });
