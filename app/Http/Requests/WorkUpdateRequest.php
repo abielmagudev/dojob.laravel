@@ -78,8 +78,8 @@ class WorkUpdateRequest extends FormRequest
 
         // Set existence rules for crew or operator depending on value received
         $this->rule_exists = (object) [
-            'crew' => $this->filled('crew') ? 'exists:crews,id,enabled,1' : 'exists:crews,id',
-            'operator' => $this->filled('operator') ? 'exists:operators,id,available,1' : 'exists:operators,id',
+            'crew' => $this->filled('crew') ? 'exists:crews,id,is_enabled,1' : 'exists:crews,id',
+            'operator' => $this->filled('operator') ? 'exists:operators,id,is_available,1' : 'exists:operators,id',
         ];
 
         // Configure inputs to validate with new values ​​or saved values ​​based on assigned value

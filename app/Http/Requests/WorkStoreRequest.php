@@ -18,10 +18,10 @@ class WorkStoreRequest extends FormRequest
         return [
             'client_id' => ['required','exists:clients,id'],
             'intermediary_id' => ['nullable','exists:intermediaries,id'],
-            'job_id' => ['required','exists:jobs,id,enabled,1'],
+            'job_id' => ['required','exists:jobs,id,is_enabled,1'],
             'assign' => ['required','in:crew,operator'],
-            'crew_id' => ['exclude_if:assign,operator','exists:crews,id,enabled,1'],
-            'operator_id' => ['exclude_if:assign,crew','exists:operators,id,available,1'],
+            'crew_id' => ['exclude_if:assign,operator','exists:crews,id,is_enabled,1'],
+            'operator_id' => ['exclude_if:assign,crew','exists:operators,id,is_available,1'],
             'scheduled_date' => ['required','date'],
             'scheduled_time' => ['required','regex:' . self::REGEXP_TIME],
             'notes' => 'nullable',
