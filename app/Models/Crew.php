@@ -60,6 +60,11 @@ class Crew extends Model
         return (bool) preg_match(self::REGEXP_COLOR, $this->color);
     }
 
+    public function hasOperators()
+    {
+        return $this->operators->count() > 0;
+    }
+
     public function isEnabled()
     {
         return (bool) $this->is_enabled;
