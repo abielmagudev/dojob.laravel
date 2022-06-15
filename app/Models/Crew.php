@@ -74,4 +74,14 @@ class Crew extends Model
     {
         return ! $this->isEnabled();
     }
+
+    public function isUsable() // Useful
+    {
+        return $this->isEnabled() && $this->hasOperators();
+    }
+
+    public function isUnusable() // Useless
+    {
+        return ! $this->isEnabled() ||! $this->hasOperators();
+    }
 }
