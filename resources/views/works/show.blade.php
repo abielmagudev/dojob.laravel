@@ -70,6 +70,8 @@
         </ul>
     </li>
 </ul>
+<a href="{{ route('works.edit',$work) }}">Edit</a>
+<br>
 <br>
 <a href="{{ route('works.warranties', $work) }}">Manage warranties</a>
 <table>
@@ -93,5 +95,4 @@
     </tbody>
 </table>
 <br>
-<a href="{{ route('works.edit',$work) }}">Edit</a>
 @endsection

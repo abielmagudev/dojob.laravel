@@ -63,10 +63,11 @@
             <option disabled selected></option>
             @foreach($crews as $crew)
             <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) == $crew->id ? 'selected' : '' }}>{{ $crew->name }}</option>
+            <?php if( old('crew', $work->crew_id) == $crew->id ) $selected_crew = true  ?>
             @endforeach
 
-            @if( $work->hasCrew() && $work->crew->isDisabled() )
-            <option label="{{ $work->crew->name }} (Disabled)" selected></option>
+            @if( $work->hasCrew() &&! isset($selected_crew) )
+            <option label="{{ $work->crew->name }} (Unavailable)" selected></option>
             @endif
         </select>
     </div>
