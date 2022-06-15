@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Catalog;
 use App\Models\Job;
 use App\Models\Plugin;
 use App\Http\Requests\JobPluginRequest;
@@ -58,12 +57,8 @@ class JobController extends Controller
 
     public function managePlugins(Request $request, Job $job)
     {
-        $catalog = $request->filled('catalog') ? Catalog::byName($request->catalog)->first() : new Catalog;
-
         return view('jobs.plugins', [
-            'catalog_selected' => is_object($catalog) && $catalog->isReal() ? $catalog->id : 0,
-            'catalogs' => Catalog::all(),
-            'plugins' => is_object($catalog) && $catalog->isReal() ? $catalog->plugins : Plugin::all(),
+            'plugins' => Plugin::with('api')->get(),
             'job' => $job,
         ]);
     }
@@ -71,7 +66,7 @@ class JobController extends Controller
     public function connectPlugins(JobPluginRequest $request, Job $job)
     {
         $job->syncPlugins($request->get('plugins', []));
-        return redirect()->route('jobs.plugins.manage', $job)->with('success', "Plugin {$job->name} updated");
+        return redirect()->route('jobs.plugins.manage', $job)->with('success', "Plugins of {$job->name} job updated");
     }
 
     public function updatePlugins(JobPluginRequest $request, Job $job)

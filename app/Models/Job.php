@@ -39,7 +39,6 @@ class Job extends Model
     public function plugins()
     {
         return $this->belongsToMany(Plugin::class)
-                    ->withPivot('is_enabled')
                     ->withTimestamps()
                     ->using(JobPlugin::class);
     }

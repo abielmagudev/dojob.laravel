@@ -19,30 +19,20 @@
 <p>
     <a href="{{ route('jobs.plugins.manage', $job) }}">Manage plugins</a>
 </p>
-<form action="{{ route('jobs.plugins.update', $job) }}" method="post">
-    @csrf
-    @method('patch')
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Connected</th>
-                <th>Enabled</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($job->plugins as $plugin)
-            <tr>
-                <td>{{ $plugin->name }}</td>
-                <td>{{ $plugin->created_at }}</td>
-                <td>
-                    <input type="checkbox" name="plugins[]" value="{{ $plugin->id }}" {{ $plugin->pivot->isEnabled() ? 'checked' : '' }}>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <br>
-    <button type="submit">Update plugins</button>
-</form>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Connected</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($job->plugins as $plugin)
+        <tr>
+            <td>{{ $plugin->name }}</td>
+            <td>{{ $plugin->created_at }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 @endsection
