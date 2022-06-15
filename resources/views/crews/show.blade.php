@@ -17,6 +17,8 @@
         <span>{{ $crew->isEnabled() ? 'Yes' : 'No' }}</span>
     </li>
 </ul>
+<a href="{{ route('crews.edit', $crew) }}">Edit</a>
+<br>
 <br>
 @if( $crew->isEnabled() )
 <a href="{{ route('crews.operators.manage', $crew) }}">Manage operators</a>
@@ -34,6 +36,4 @@
     </li>
 </ul>
 @endif
-<br>
-<a href="{{ route('crews.edit', $crew) }}">Edit</a>
 @endsection
