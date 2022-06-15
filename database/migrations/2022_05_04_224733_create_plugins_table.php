@@ -15,12 +15,9 @@ class CreatePluginsTable extends Migration
     {
         Schema::create('plugins', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 80)->unique();
-            $table->text('description');
-            $table->unsignedDecimal('price');
-            $table->string('version', 8);
-            $table->string('hashed', 16)->unique();
-            $table->unsignedInteger('catalog_id');
+            $table->unsignedInteger('api_plugin_id')->unique();
+            $table->boolean('is_enabled')->default(true);
+            $table->text('settings_encoded')->nullable();
             $table->timestamps();
         });
     }

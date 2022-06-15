@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Catalog;
-use App\Models\Plugin;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
+use App\Models\ApiPlugin;
+use App\Models\Plugin;
 
 class PluginSeeder extends Seeder
 {
@@ -16,31 +15,17 @@ class PluginSeeder extends Seeder
      */
     public function run()
     {
-        Plugin::create([
-            'name' => 'Predective maintenance',
-            'description' => 'Review and approval of the work done',
-            'price' => 50.50,
-            'version' => 1.0,
-            'hashed' => Str::random(16), 
-            'catalog_id' => mt_rand(1, CatalogSeeder::TOTAL),
-        ]);
+        $api_plugins = ApiPlugin::all();
 
-        Plugin::create([
-            'name' => 'Preventive maintenance',
-            'description' => 'Keeps work done in good condition',
-            'price' => 175.00,
-            'version' => 2.3,
-            'hashed' => Str::random(16), 
-            'catalog_id' => mt_rand(1, CatalogSeeder::TOTAL),
-        ]);
-
-        Plugin::create([
-            'name' => 'Corrective maintenance',
-            'description' => 'Correct the error or several errors of a work done',
-            'price' => 315.25,
-            'version' => 1.5,
-            'hashed' => Str::random(16), 
-            'catalog_id' => mt_rand(1, CatalogSeeder::TOTAL),
-        ]);
+        foreach($api_plugins as $api_plugin)
+        {
+            if( (bool) random_int(0,1) )
+            {
+                Plugin::create([
+                    'api_plugin_id' => $api_plugin->id,
+                    'settings_encoded' => $api_plugin->settings_default,
+                ]);
+            }
+        }
     }
 }

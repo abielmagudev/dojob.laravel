@@ -14,11 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            // Default
-            CatalogSeeder::class,
-            PluginSeeder::class,
+            // API
+            ApiCatalogSeeder::class,
+            ApiPluginSeeder::class,
 
             // Catalog
+            PluginSeeder::class,
             ClientSeeder::class,
             CrewSeeder::class,
             IntermediarySeeder::class,
@@ -33,7 +34,7 @@ class DatabaseSeeder extends Seeder
             WarrantySeeder::class,
 
             // Pivot
-            JobPluginSeeder::class,
+            // JobPluginSeeder::class,
             OperatorSkillSeeder::class,
         ]);
     }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\IntermediaryController;
@@ -10,6 +9,8 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\PluginController;
+use Illuminate\Support\Facades\Route;
 
 // CREW
 Route::controller(CrewController::class)->group( function () {
@@ -45,3 +46,6 @@ Route::resources([
     'skills' => SkillController::class,
     'users' => UserController::class,
 ]);
+
+// API
+Route::resource('plugins', PluginController::class)->except('create','show');

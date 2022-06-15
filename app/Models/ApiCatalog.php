@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Ahex\Zkaffold\Domain\HasExistence;
 
-class Catalog extends Model
+class ApiCatalog extends Model
 {
     use HasExistence;
 
+    protected $table = 'api_catalogs';
+    
     public function plugins()
     {
-        return $this->hasMany(Plugin::class);
+        return $this->hasMany(ApiPlugin::class);
     }
 
     public function scopeByName($query, string $catalog_name)
