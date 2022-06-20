@@ -2,12 +2,24 @@
 @section('content')
 <a href="{{ route('users.create') }}">Create</a>
 <h1>Users ({{ $users->count() }})</h1>
-<ul>
-    @foreach($users as $user)
-    <li>
-        <span>{{ $user->name }}</span>
-        <a href="{{ route('users.show', $user) }}">Show</a>
-    </li>
-    @endforeach
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($users as $user)
+        <tr>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
+            <td>
+                <a href="{{ route('users.show', $user) }}">Show</a>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 @endsection
