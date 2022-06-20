@@ -7,6 +7,16 @@
     <title>{{ config('app.name') }}</title>
 </head>
 <body>
+    @auth   
+    <div style="text-align:right">
+        <span>{{ auth()->user()->name }}</span>
+        <form action="{{ route('logout') }}" method="post" style="display:inline-block">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+    @endauth
+
     @if(! isset($navigation_hidden) )      
     <div style="display:inline-block; vertical-align:top; margin-right:2rem">
         @include('layouts.navigation')
