@@ -9,7 +9,7 @@
 <body>
     @auth   
     <div style="text-align:right">
-        <span>{{ auth()->user()->name }}</span>
+        <span>{{ auth()->user()->profile->fullname }}</span>
         <form action="{{ route('logout') }}" method="post" style="display:inline-block">
             @csrf
             <button type="submit">Logout</button>

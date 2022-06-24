@@ -14,7 +14,6 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:users,name,' . $this->user_id],
             'email' => ['required', 'unique:users,email,' . $this->user_id],
             'password' => ['sometimes', 'min:8', 'confirmed'],
         ];
@@ -23,8 +22,6 @@ class UserUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('Enter the user\'s name'),
-            'name.unique' => __('Enter another name for the user'),
             'email.required' => __('Enter the user\'s email'),
             'email.unique' => __('Enter another email for the user'),
             'password.min' => __('The password must have a minimum of 8 characters'),

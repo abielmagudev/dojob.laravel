@@ -23,19 +23,29 @@ class Intermediary extends Model
         'is_available',
     ];
 
+    public function getFullnameAttribute()
+    {
+        return "{$this->name} ({$this->alias})";
+    }
+
     public function scopeOnlyAvailable($query)
     {
         return $query->where('is_available', true);
     }
 
-    public function works()
-    {
-        return $this->hasMany(Work::class);
-    }
-
     public function isAvailable()
     {
         return (bool) $this->is_available;
+    }
+
+    public function user()
+    {
+        return $this->morphOne(User::class, 'profilable');
+    }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
     }
 
     public static function generateAlias(string $name)

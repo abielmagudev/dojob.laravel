@@ -16,6 +16,11 @@ class User extends Authenticatable
         Notifiable,
         SoftDeletes;
 
+    protected static $profile_types = [
+        'intermedary' => Intermediary::class,
+        'operator' => Operator::class,
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,5 +54,20 @@ class User extends Authenticatable
     public function setPasswordAttribute(string $string)
     {
         return $this->attributes['password'] = bcrypt($string);
+    }
+
+    public function getProfileAttribute()
+    {
+        return $this->profilable;
+    }
+
+    public function getProfileTypeAttribute()
+    {
+        return array_search($this->profilable_type, self::$profile_types);
+    }
+
+    public function profilable()
+    {
+        return $this->morphTo();
     }
 }

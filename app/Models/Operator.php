@@ -56,6 +56,21 @@ class Operator extends Model
         return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
     }
 
+    public function isAvailable()
+    {
+        return (bool) $this->is_available;
+    }
+
+    public function isUnavailable()
+    {
+        return ! $this->isAvailable();
+    }
+
+    public function user()
+    {
+        return $this->morphOne(User::class, 'profilable');
+    }
+    
     public function skills()
     {
         return $this->belongsToMany(Skill::class);
@@ -90,16 +105,6 @@ class Operator extends Model
     public function attachSkills(array $skills_id)
     {
         return $this->skills()->syncWithPivotValues($skills_id, ['created_at' => now()]);
-    }
-
-    public function isAvailable()
-    {
-        return (bool) $this->is_available;
-    }
-
-    public function isUnavailable()
-    {
-        return ! $this->isAvailable();
     }
 
     public function hasSkills()

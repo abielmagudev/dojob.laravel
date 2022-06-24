@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('users.index')->with('users', User::orderBy('id','desc')->get());
+        return view('users.index')->with('users', User::with('profilable')->orderBy('id','desc')->get());
     }
 
     public function create()
@@ -23,7 +23,7 @@ class UserController extends Controller
         if(! $user = User::create($request->validated()) )
             return back()->with('danger', 'Oops! user no created');
 
-        return redirect()->route('users.index')->with('success', "{$user->name} user created");
+        return redirect()->route('users.index')->with('success', "{$user->profile->fullname} user created");
     }
 
     public function show(User $user)
@@ -41,7 +41,7 @@ class UserController extends Controller
         if(! $user->fill($request->validated())->save() )
             return back()->with('danger', 'Oops! user no updated');
 
-        return redirect()->route('users.edit', $user)->with('success', "{$user->name} user updated");
+        return redirect()->route('users.edit', $user)->with('success', "{$user->profile->name} user updated");
     }
 
     public function destroy(User $user)
@@ -49,6 +49,6 @@ class UserController extends Controller
         if(! $user->delete() )
             return back()->with('danger', 'Oops! user no deleted');
 
-        return redirect()->route('users.index')->with('success', "{$user->name} user deleted");
+        return redirect()->route('users.index')->with('success', "{$user->profile->name} user deleted");
     }
 }

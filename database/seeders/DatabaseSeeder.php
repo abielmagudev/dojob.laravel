@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             IntermediarySeeder::class,
             JobSeeder::class,
             SkillSeeder::class,
-            UserSeeder::class,
 
             // Relationals
             OperatorSeeder::class,
@@ -36,6 +35,9 @@ class DatabaseSeeder extends Seeder
             // Pivot
             // JobPluginSeeder::class,
             OperatorSkillSeeder::class,
+
+            // Auth
+            UserSeeder::class,
         ]);
     }
 }

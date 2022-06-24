@@ -16,7 +16,6 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:users,name'],
             'email' => ['required', 'unique:users,email'],
             'password' => ['required', 'min:8', 'confirmed'],
             'email_verified_at' => 'required',
@@ -27,8 +26,6 @@ class UserStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => __('Enter the user\'s name'),
-            'name.unique' => __('Enter another name for the user'),
             'email.required' => __('Enter the user\'s email'),
             'email.unique' => __('Enter another email for the user'),
             'password.required' => __('Enter the user\'s password'),
