@@ -6,11 +6,17 @@ use App\Http\Controllers\IntermediaryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\PluginController;
 use Illuminate\Support\Facades\Route;
+
+// MEMBERS / STAFF
+Route::resource('staff', MemberController::class)
+    ->names(MemberController::routeNames())
+    ->parameters(['staff' => 'member']);
 
 // CREW
 Route::controller(CrewController::class)->group( function () {

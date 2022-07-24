@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Member;
 use App\Models\Intermediary;
 use App\Models\Operator;
 
@@ -23,6 +24,15 @@ class UserSeeder extends Seeder
     {
         // return User::factory(10)->create();
 
+        $staff = Member::onlyAvailable()->get();
+        foreach($staff as $member)
+        {
+            $member->user()->create([
+                'email' => $member->email,
+                'password' => 'password',
+            ]);
+        }
+
         $intermediaries = Intermediary::onlyAvailable()->get();
         foreach($intermediaries->random(3) as $intermediary)
         {
@@ -32,6 +42,8 @@ class UserSeeder extends Seeder
             ]);
         }
 
+        return;
+        
         $operators = Operator::onlyAvailable()->get();
         foreach($operators->random(5) as $intermediary)
         {

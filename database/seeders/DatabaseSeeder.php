@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             IntermediarySeeder::class,
             JobSeeder::class,
             SkillSeeder::class,
+            MemberSeeder::class,
 
             // Relationals
             OperatorSeeder::class,
