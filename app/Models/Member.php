@@ -19,8 +19,18 @@ class Member extends Model
 
     private $works_cache = null;
 
-    protected $guard = [];
-
+    protected $fillable = [
+        'name',
+        'lastname',
+        'phone',
+        'email',
+        'birthdate',
+        'notes',
+        'position',
+        'is_available',
+        'crew_id',
+    ];
+    
     public function getFullnameAttribute()
     {
         return "{$this->name} {$this->lastname}";

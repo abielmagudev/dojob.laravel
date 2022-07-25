@@ -33,7 +33,6 @@
 </div>
 <br>
 @if( $member->isReal() )
-@if( false )
 <div>
     <label>Skills</label>
     @foreach($skills as $skill)
@@ -45,7 +44,6 @@
     @endforeach
 </div>
 <br>
-@endif
 @if( $member->isAvailable() )
 <div>
     <label for="selectCrew">Crew</label>

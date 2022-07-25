@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperatorSkillTable extends Migration
+class CreateMemberSkillTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateOperatorSkillTable extends Migration
      */
     public function up()
     {
-        Schema::create('operator_skill', function (Blueprint $table) {
-            $table->foreignId('operator_id');
+        Schema::create('member_skill', function (Blueprint $table) {
+            $table->foreignId('member_id');
             $table->foreignId('skill_id')->constrained()->cascadeOnDelete();
             $table->dateTime('created_at');
         });
@@ -27,6 +27,6 @@ class CreateOperatorSkillTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operator_skill');
+        Schema::dropIfExists('member_skill');
     }
 }

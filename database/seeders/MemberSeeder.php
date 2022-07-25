@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 
 class MemberSeeder extends Seeder
 {
+    const TOTAL = 75;
+
     /**
      * Run the database seeds.
      *
@@ -13,6 +15,6 @@ class MemberSeeder extends Seeder
      */
     public function run()
     {
-        return \App\Models\Member::factory(75)->create();
+        return \App\Models\Member::factory( self::TOTAL )->create();
     }
 }

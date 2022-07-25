@@ -14,13 +14,13 @@ class Skill extends Model
         'description',
     ];
 
-    public function operators()
+    public function members()
     {
-        return $this->belongsToMany(Operator::class);
+        return $this->belongsToMany(Member::class);
     }
 
-    public function hasOperators()
+    public function hasMembers()
     {
-        return (bool) $this->operators->count();
+        return (bool) $this->members->count();
     }
 }

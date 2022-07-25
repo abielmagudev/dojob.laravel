@@ -50,7 +50,7 @@ class MemberController extends Controller
         if(! $member->fill($request->validated())->save() )
             return back()->with('danger', 'Ups! member not updated');
 
-        // $member->attachSkills($request->skills ?? []);
+        $member->attachSkills($request->skills ?? []);
 
         return redirect()->route('members.edit', $member)->with('success', "{$member->fullname} member updated");
     }

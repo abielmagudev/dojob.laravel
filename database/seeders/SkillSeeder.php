@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class SkillSeeder extends Seeder
 {
+    const TOTAL = 8;
     /**
      * Run the database seeds.
      *
@@ -13,6 +14,6 @@ class SkillSeeder extends Seeder
      */
     public function run()
     {
-        return \App\Models\Skill::factory(8)->create();
+        return \App\Models\Skill::factory( self::TOTAL )->create();
     }
 }
