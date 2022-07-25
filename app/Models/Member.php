@@ -19,26 +19,34 @@ class Member extends Model
 
     private $works_cache = null;
 
-    protected $fillable = [
-        'name',
-        'lastname',
-        'phone',
-        'email',
-        'birthdate',
-        'notes',
-        'position',
-        'is_available',
-        'crew_id',
-    ];
+    protected $guard = [];
 
     public function getFullnameAttribute()
     {
         return "{$this->name} {$this->lastname}";
     }
 
+    public function isAvailable()
+    {
+        return (bool) $this->is_available;
+    }
+
+    public function isUnavailable()
+    {
+        return ! $this->isAvailable();
+    }
+
     public function scopeOnlyAvailable($query)
     {
         return $query->where('is_available', 1);
+    }
+
+    
+    // CREW
+
+    public function crew()
+    {
+        return $this->belongsTo(Crew::class);
     }
 
     public function scopeAttachCrew($query, array $operators_id, int $crew_id)
@@ -56,21 +64,17 @@ class Member extends Model
         return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
     }
 
-    public function isAvailable()
+    public function hasCrew()
     {
-        return (bool) $this->is_available;
+        if(! is_null($this->crew_id) )
+            return $this->crew instanceof Crew;
+
+        return self::UNCREWED;
     }
 
-    public function isUnavailable()
-    {
-        return ! $this->isAvailable();
-    }
 
-    public function user()
-    {
-        return $this->morphOne(User::class, 'profilable');
-    }
-    
+    // SKILL
+
     public function skills()
     {
         return $this->belongsToMany(Skill::class);
@@ -82,24 +86,6 @@ class Member extends Model
             $this->skills_cache = $this->skills;
 
         return $this->skills_cache;
-    }
-
-    public function works()
-    {
-        return $this->belongsToMany(Work::class);
-    }
-
-    public function worksCache()
-    {
-        if( is_null($this->works_cache) )
-            $this->works_cache = $this->works;
-
-        return $this->works_cache; 
-    }
-
-    public function crew()
-    {
-        return $this->belongsTo(Crew::class);
     }
 
     public function attachSkills(array $skills_id)
@@ -118,12 +104,20 @@ class Member extends Model
         return $this->skillsCache()->contains('id', $skill_id);
     }
 
-    public function hasCrew()
-    {
-        if(! is_null($this->crew_id) )
-            return $this->crew instanceof Crew;
 
-        return self::UNCREWED;
+    // WORK
+
+    public function works()
+    {
+        return $this->belongsToMany(Work::class);
+    }
+
+    public function worksCache()
+    {
+        if( is_null($this->works_cache) )
+            $this->works_cache = $this->works;
+
+        return $this->works_cache; 
     }
 
     public function hasWorks()
@@ -135,5 +129,13 @@ class Member extends Model
     {
         $work_id = is_a($work, Work::class) ? $work->id : $work;
         return $this->worksCache()->contains('id', $work_id);
+    }
+
+
+    // USER
+    
+    public function user()
+    {
+        return $this->morphOne(User::class, 'profilable');
     }
 }
