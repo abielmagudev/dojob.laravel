@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 class CrewSeeder extends Seeder
 {
     const TOTAL = 8;
+    
     /**
      * Run the database seeds.
      *

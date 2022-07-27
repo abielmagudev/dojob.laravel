@@ -8,7 +8,7 @@ class WorkSeeder extends Seeder
 {
     const TOTAL = 500;
 
-    private $crew_operators_cache = [];
+    private $crew_members_cache = [];
     
     /**
      * Run the database seeds.
@@ -23,23 +23,23 @@ class WorkSeeder extends Seeder
         {
             if(! $work->hasCrew() )
             {
-                $single_operator_id = mt_rand(1, \Database\Seeders\OperatorSeeder::TOTAL);
-                $work->attachOperators([$single_operator_id]);
+                $single_member_id = mt_rand(1, MemberSeeder::TOTAL);
+                $work->attachOperators([$single_member_id]);
                 continue;
             }
             
-            $work->attachOperators( $this->getCrewOperatorsId($work->crew) );
+            $work->attachOperators( $this->crewMembersId($work->crew) );
         }
     }
 
-    public function getCrewOperatorsId(\App\Models\Crew $crew): array
+    public function crewMembersId(\App\Models\Crew $crew): array
     {
-        if(! array_key_exists($crew->id, $this->crew_operators_cache) )
+        if(! array_key_exists($crew->id, $this->crew_members_cache) )
         {
-            $operators_id = $crew->isEnabled() ? $crew->operators->pluck('id')->toArray() : [];
-            $this->crew_operators_cache[$crew->id] = $operators_id;
+            $members_id = $crew->isEnabled() ? $crew->members->pluck('id')->toArray() : [];
+            $this->crew_members_cache[$crew->id] = $members_id;
         }
 
-        return $this->crew_operators_cache[$crew->id];
+        return $this->crew_members_cache[$crew->id];
     }
 }

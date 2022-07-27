@@ -20,49 +20,9 @@ class Crew extends Model
         'is_enabled',
     ];
 
-    public function scopeOnlyEnabled($query)
-    {
-        return $query->where('is_enabled', 1);
-    }
-
-    public function scopeOnlyUsable($query)
-    {
-        return $query->has('operators')->where('is_enabled', 1);
-    }
-
-    public function works()
-    {
-        return $this->hasMany(Work::class);
-    }
-
-    public function operators()
-    {
-        return $this->hasMany(Operator::class);
-    }
-
-    public function operatorsId()
-    {
-        return $this->operators->pluck('id')->toArray();
-    }
-
-    public function attachOperators(array $operators_id)
-    {
-        return Operator::attachCrew($operators_id, $this->id);
-    }
-
-    public function removeOperators()
-    {
-        return Operator::removeCrew($this->id);
-    }
-
     public function hasColor()
     {
         return (bool) preg_match(self::REGEXP_COLOR, $this->color);
-    }
-
-    public function hasOperators()
-    {
-        return $this->operators->count() > 0;
     }
 
     public function isEnabled()
@@ -75,13 +35,60 @@ class Crew extends Model
         return ! $this->isEnabled();
     }
 
+    public function scopeOnlyEnabled($query)
+    {
+        return $query->where('is_enabled', 1);
+    }
+
+    
+
+    // MEMBER
+
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
+    public function membersId()
+    {
+        return $this->members->pluck('id')->toArray();
+    }
+
+    public function attachMembers(array $members_id)
+    {
+        return Member::attachCrew($members_id, $this->id);
+    }
+
+    public function removeMembers()
+    {
+        return Member::removeCrew($this->id);
+    }
+
+    public function hasMembers()
+    {
+        return $this->members->count() > 0;
+    }
+
     public function isUsable() // Useful
     {
-        return $this->isEnabled() && $this->hasOperators();
+        return $this->isEnabled() && $this->hasMembers();
     }
 
     public function isUnusable() // Useless
     {
-        return ! $this->isEnabled() ||! $this->hasOperators();
+        return ! $this->isEnabled() ||! $this->hasMembers();
+    }
+
+    public function scopeOnlyUsable($query)
+    {
+        return $query->has('members')->where('is_enabled', 1);
+    }
+
+
+    // WORK
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
     }
 }

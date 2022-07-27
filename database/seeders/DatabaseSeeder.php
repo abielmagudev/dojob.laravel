@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
             // Relationals
             // OperatorSeeder::class,
-            CrewRemoveOperatorsSeeder::class,
+            CrewRemoveMembersSeeder::class,
             WorkSeeder::class,
             WarrantySeeder::class,
 

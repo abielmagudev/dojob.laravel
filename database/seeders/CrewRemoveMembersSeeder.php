@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CrewRemoveOperatorsSeeder extends Seeder
+class CrewRemoveMembersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class CrewRemoveOperatorsSeeder extends Seeder
         foreach(\App\Models\Crew::all() as $crew)
         {
             if(! $crew->isEnabled() )
-                $crew->removeOperators();
+                $crew->removeMembers();
         }
     }
 }

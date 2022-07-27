@@ -59,14 +59,14 @@ class Member extends Model
         return $this->belongsTo(Crew::class);
     }
 
-    public function scopeAttachCrew($query, array $operators_id, int $crew_id)
+    public function scopeAttachCrew($query, array $members_id, int $crew_id)
     {
-        return $query->whereIn('id', $operators_id)->update(['crew_id' => $crew_id]);
+        return $query->whereIn('id', $members_id)->update(['crew_id' => $crew_id]);
     }
 
-    public function scopeDetachCrew($query, array $operators_id)
+    public function scopeDetachCrew($query, array $members_id)
     {
-        return $query->whereIn('id', $operators_id)->update(['crew_id' => null]);
+        return $query->whereIn('id', $members_id)->update(['crew_id' => null]);
     }
 
     public function scopeRemoveCrew($query, int $crew_id)
