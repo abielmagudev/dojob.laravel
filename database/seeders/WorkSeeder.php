@@ -24,11 +24,11 @@ class WorkSeeder extends Seeder
             if(! $work->hasCrew() )
             {
                 $single_member_id = mt_rand(1, MemberSeeder::TOTAL);
-                $work->attachOperators([$single_member_id]);
+                $work->attachWorkers([$single_member_id]);
                 continue;
             }
             
-            $work->attachOperators( $this->crewMembersId($work->crew) );
+            $work->attachWorkers( $this->crewMembersId($work->crew) );
         }
     }
 
