@@ -22,10 +22,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // return User::factory(10)->create();
-
-        $staff = Member::onlyAvailable()->get();
-        foreach($staff as $member)
+        $members = Member::onlyAvailable()->get();
+        foreach($members as $member)
         {
             $member->user()->create([
                 'email' => $member->email,
@@ -35,17 +33,6 @@ class UserSeeder extends Seeder
 
         $intermediaries = Intermediary::onlyAvailable()->get();
         foreach($intermediaries->random(3) as $intermediary)
-        {
-            $intermediary->user()->create([
-                'email' => $this->faker->email(),
-                'password' => 'password',
-            ]);
-        }
-
-        return;
-        
-        $operators = Operator::onlyAvailable()->get();
-        foreach($operators->random(5) as $intermediary)
         {
             $intermediary->user()->create([
                 'email' => $this->faker->email(),
