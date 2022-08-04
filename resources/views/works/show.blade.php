@@ -43,16 +43,16 @@
         <ul>
             <li>{{ $work->crew->name }}</li>
             <ul>
-                @foreach($work->workers as $worker)
-                <li>{{ $worker->fullname }} ({{ $worker->position ?? '?' }})</li>
+                @foreach($work->members as $member)
+                <li>{{ $member->fullname }} ({{ $member->position ?? '?' }})</li>
                 @endforeach
             </ul>
         </ul>
             
         @else
-        <small>Worker assigned</small>
+        <small>Member assigned</small>
         <ul>
-            <li>{{ $work->singleWorker()->fullname }}</li>
+            <li>{{ $work->singleMember()->fullname }}</li>
         </ul>
 
         @endif

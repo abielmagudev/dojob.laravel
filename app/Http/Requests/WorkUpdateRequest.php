@@ -16,9 +16,9 @@ class WorkUpdateRequest extends FormRequest
     {
         return [
             'intermediary_id' => ['nullable','exists:intermediaries,id'],
-            'assign' => ['required','in:crew,operator'],
+            'assign' => ['required','in:crew,member'],
             'crew_id' => ['nullable',$this->rule_exists->crew],
-            'operator_id' => ['exclude_if:assign,crew',$this->rule_exists->operator],
+            'member_id' => ['exclude_if:assign,crew',$this->rule_exists->member],
             'scheduled_date' => ['required','date'],
             'scheduled_time' => ['required','regex:' . WorkStoreRequest::REGEXP_TIME],
             'started_date' => ['nullable','date'],
@@ -39,8 +39,8 @@ class WorkUpdateRequest extends FormRequest
             'assign.required' => __('Choose an assignment'),
             'assign.in' => __('Choose a valid assignment'),
             'crew_id.exists' => __('Choose a valid and enabled crew'),
-            'operator_id.exclude_if' => __('Choose a operator'),
-            'operator_id.exists' => __('Choose a valid operator'),
+            'member_id.exclude_if' => __('Choose a member'),
+            'member_id.exists' => __('Choose a valid member'),
             'scheduled_date.required' => __('Enter the scheduled date'),
             'scheduled_date.date' => __('Enter a valid scheduled date'),
             'scheduled_time.required' => __('Enter the scheduled time'),
@@ -79,13 +79,13 @@ class WorkUpdateRequest extends FormRequest
         // Set existence rules for crew or operator depending on value received
         $this->rule_exists = (object) [
             'crew' => $this->filled('crew') ? 'exists:crews,id,is_enabled,1' : 'exists:crews,id',
-            'operator' => $this->filled('operator') ? 'exists:operators,id,is_available,1' : 'exists:operators,id',
+            'member' => $this->filled('member') ? 'exists:members,id,is_available,1' : 'exists:members,id',
         ];
 
         // Configure inputs to validate with new values ​​or saved values ​​based on assigned value
         $this->merge([
             'crew_id' => $this->assign === 'crew' ? ($this->crew ?? $this->work->crew_id) : null,
-            'operator_id' => $this->assign === 'operator' ? ($this->operator ?? $this->work->operators->first()->id) : null,
+            'member_id' => $this->assign === 'member' ? ($this->member ?? $this->work->members->first()->id) : null,
         ]);
     }
 }

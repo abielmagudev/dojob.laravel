@@ -19,9 +19,9 @@ class WorkStoreRequest extends FormRequest
             'client_id' => ['required','exists:clients,id'],
             'intermediary_id' => ['nullable','exists:intermediaries,id'],
             'job_id' => ['required','exists:jobs,id,is_enabled,1'],
-            'assign' => ['required','in:crew,operator'],
-            'crew_id' => ['exclude_if:assign,operator','exists:crews,id,is_enabled,1'],
-            'operator_id' => ['exclude_if:assign,crew','exists:operators,id,is_available,1'],
+            'assign' => ['required','in:crew,member'],
+            'crew_id' => ['exclude_if:assign,member','exists:crews,id,is_enabled,1'],
+            'member_id' => ['exclude_if:assign,crew','exists:members,id,is_available,1'],
             'scheduled_date' => ['required','date'],
             'scheduled_time' => ['required','regex:' . self::REGEXP_TIME],
             'notes' => 'nullable',
@@ -40,8 +40,8 @@ class WorkStoreRequest extends FormRequest
             'assign.in' => __('Choose a valid assignment'),
             'crew_id.exclude_if' => __('Choose a crew'),
             'crew_id.exists' => __('Choose a valid and enabled crew'),
-            'operator_id.exclude_if' => __('Choose a operator'),
-            'operator_id.exists' => __('Choose a valid operator'),
+            'member_id.exclude_if' => __('Choose a member'),
+            'member_id.exists' => __('Choose a valid member'),
             'scheduled_date.required' => __('Enter the scheduled date'),
             'scheduled_date.date' => __('Enter a valid scheduled date'),
             'scheduled_time.required' => __('Enter the scheduled time'),
@@ -56,7 +56,7 @@ class WorkStoreRequest extends FormRequest
             'intermediary_id' => $this->intermediary,
             'job_id' => $this->job,
             'crew_id' => $this->crew,
-            'operator_id' => $this->operator,
+            'member_id' => $this->member,
         ]);
     }
 }

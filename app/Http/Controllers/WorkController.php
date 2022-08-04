@@ -8,7 +8,7 @@ use App\Models\Client;
 use App\Models\Crew;
 use App\Models\Intermediary;
 use App\Models\Job;
-use App\Models\Operator;
+use App\Models\Member;
 use App\Models\Work;
 
 class WorkController extends Controller
@@ -32,7 +32,7 @@ class WorkController extends Controller
             'non_custom_jobs' => $jobs->where('is_custom', false),
             'jobs' => $jobs->where('is_custom', true),
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
-            'operators' => Operator::onlyAvailable()->get(),
+            'members' => Member::onlyAvailable()->get(),
             'work' => new Work,
         ]);
     }
@@ -42,11 +42,11 @@ class WorkController extends Controller
         if(! $work = Work::create( $request->validated() ) )
             return back()->with('danger', 'Oops! work not saved');
 
-        $operators_id = ! $work->hasCrew() 
-                        ? $request->only('operator_id')
-                        : $work->crew->operatorsId();
+        $members_id = ! $work->hasCrew() 
+                        ? $request->only('member_id')
+                        : $work->crew->membersId();
 
-        $work->attachOperators($operators_id);
+        $work->attachMembers($members_id);
 
         return redirect()->route('works.index')->with('success', "{$work->job_name}");
     }
@@ -61,7 +61,7 @@ class WorkController extends Controller
         return view('works.edit', [
             'intermediaries' => Intermediary::onlyAvailable()->orderBy('name')->get(),
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
-            'operators' => Operator::onlyAvailable()->orderBy('name')->get(),
+            'members' => Member::onlyAvailable()->orderBy('name')->get(),
             'work' => $work,
         ]);
     }
@@ -72,10 +72,10 @@ class WorkController extends Controller
             return back()->with('danger', 'Oops! Work not updated');
 
         if( array_key_exists('crew_id', $work->getChanges()) && $work->hasCrew() )
-            $work->attachOperators( $work->crew->operatorsId() );
+            $work->attachMembers( $work->crew->membersId() );
 
-        if( array_key_exists('operator_id', $request->validated()) &&! $work->hasCrew() )
-            $work->attachOperators( $request->only('operator_id') );
+        if( array_key_exists('member_id', $request->validated()) &&! $work->hasCrew() )
+            $work->attachMembers( $request->only('member_id') );
 
         return redirect()->route('works.edit', $work)->with('success', "{$work->job_name} work #{$work->id} was updated");
     }

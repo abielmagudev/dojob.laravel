@@ -53,8 +53,8 @@
     <div>
         <input type="radio" name="assign" value="crew" id="radioCrew" {{ $work->hasCrew() ||! $work->isReal() ? 'checked' : '' }}>
         <label for="radioCrew">Crew</label>
-        <input type="radio" name="assign" value="operator" id="radioOperator" {{ $work->isReal() &&! $work->hasCrew() ? 'checked' : '' }}>
-        <label for="radioOperator">Operator</label>
+        <input type="radio" name="assign" value="member" id="radioMember" {{ $work->isReal() &&! $work->hasCrew() ? 'checked' : '' }}>
+        <label for="radioMember">Member</label>
     </div>
     <br>
     <div id="elementCrew">
@@ -71,16 +71,16 @@
             @endif
         </select>
     </div>
-    <div id="elementOperator">
-        <label for="selectOperator">Operator</label>
-        <select name="operator" id="selectOperator" {{ $work->isUnreal() ? 'required' : '' }}>
+    <div id="elementMember">
+        <label for="selectMember">Member</label>
+        <select name="member" id="selectMember" {{ $work->isUnreal() ? 'required' : '' }}>
             <option label="" disabled selected></option>
-            @foreach($operators as $operator)
-            <option value="{{ $operator->id }}" {{ $work->hasOperator($operator) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $operator->fullname }}</option>
+            @foreach($members as $member)
+            <option value="{{ $member->id }}" {{ $work->hasMember($member) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $member->fullname }}</option>
             @endforeach
 
-            @if( $work->hasSingleOperatorAssigned() && $work->singleOperator()->isUnavailable() )
-            <option label="{{ $work->singleOperator()->fullname }} (Unavailable)" selected></option>
+            @if( $work->hasSingleMemberAssigned() && $work->singleMember()->isUnavailable() )
+            <option label="{{ $work->singleMember()->fullname }} (Unavailable)" selected></option>
             @endif
         </select>
     </div>
@@ -128,7 +128,7 @@ const inputAssign = {
     elements: document.getElementsByName('assign'),
     selectors: [
         document.getElementById('selectCrew'),
-        document.getElementById('selectOperator')
+        document.getElementById('selectMember')
     ],
     displaying: function (value) {
         this.selectors.forEach( function (selector) {
@@ -147,7 +147,7 @@ const inputAssign = {
     }
 }
 
-<?php $assign_initial = $work->isUnreal() ? '"crew"' : ($work->hasCrew() ? '"crew"' : '"operator"'); ?>
+<?php $assign_initial = $work->isUnreal() ? '"crew"' : ($work->hasCrew() ? '"crew"' : '"member"'); ?>
 inputAssign.displaying(<?= $assign_initial ?>)
 inputAssign.listening()
 </script>  

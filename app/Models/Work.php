@@ -16,7 +16,7 @@ class Work extends Model
     
     const NO_CREW = false;
 
-    private $workers_cache = null;
+    private $members_cache = null;
 
     protected $fillable = [
         'priority',
@@ -60,50 +60,28 @@ class Work extends Model
 
 
 
-    // Workers - StaffMembers
+    // Intermediary
 
-    public function workers()
+    public function intermediary()
     {
-        return $this->belongsToMany(Member::class);
+        return $this->belongsTo(Intermediary::class);
     }
 
-    public function workersCache()
+    public function hasIntermediary()
     {
-        if(! is_a($this->workers_cache, EloquentCollection::class) )
-            $this->workers_cache = $this->workers;
-        
-        return $this->workers_cache;
-    }
+        if(! isset($this->intermediary_id))
+            return self::NO_INTERMEDIARY;
 
-    public function singleWorker()
-    {
-        return $this->workersCache()->first();
-    }
-
-    public function hasWorkers()
-    {
-        return (bool) $this->workersCache()->count();
-    }
-
-    public function hasSingleWorker()
-    {
-        return $this->workersCache()->count() == 1;
+        return $this->intermediary instanceof Intermediary;
     }
     
-    public function hasWorker($worker)
-    {   
-        $worker_id = is_a($worker, Operator::class) ? $worker->id : $worker;
-        return $this->workersCache()->contains('id', $worker_id);
-    }
 
-    public function hasSingleWorkerAssigned()
-    {
-        return $this->hasSingleWorker() &&! $this->hasCrew();
-    }
 
-    public function attachWorkers(array $workers_id)
+    // Warranties
+
+    public function warranties()
     {
-        return $this->workers()->syncWithPivotValues($workers_id, ['created_at' => now()]);
+        return $this->hasMany(Warranty::class);
     }
 
 
@@ -125,19 +103,50 @@ class Work extends Model
 
 
 
-    // Intermediary
+    // Members
 
-    public function intermediary()
+    public function members()
     {
-        return $this->belongsTo(Intermediary::class);
+        return $this->belongsToMany(Member::class);
     }
 
-    public function hasIntermediary()
+    public function membersCache()
     {
-        if(! isset($this->intermediary_id))
-            return self::NO_INTERMEDIARY;
+        if(! is_a($this->members_cache, EloquentCollection::class) )
+            $this->members_cache = $this->members;
+        
+        return $this->members_cache;
+    }
 
-        return $this->intermediary instanceof Intermediary;
+    public function singleMember()
+    {
+        return $this->membersCache()->first();
+    }
+
+    public function hasMembers()
+    {
+        return (bool) $this->membersCache()->count();
+    }
+
+    public function hasSingleMember()
+    {
+        return $this->membersCache()->count() == 1;
+    }
+    
+    public function hasMember($member)
+    {   
+        $member_id = is_a($member, Member::class) ? $member->id : $member;
+        return $this->membersCache()->contains('id', $member_id);
+    }
+
+    public function hasSingleMemberAssigned()
+    {
+        return $this->hasSingleMember() &&! $this->hasCrew();
+    }
+
+    public function attachMembers(array $workers_id)
+    {
+        return $this->members()->syncWithPivotValues($workers_id, ['created_at' => now()]);
     }
 
 
@@ -172,15 +181,6 @@ class Work extends Model
     public function hasFinished()
     {
         return isset($this->finished_date) && isset($this->finished_time);
-    }
-
-
-
-    // Warranties
-
-    public function warranties()
-    {
-        return $this->hasMany(Warranty::class);
     }
 
 
