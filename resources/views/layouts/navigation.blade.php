@@ -7,6 +7,7 @@ $routes = [
     'Intermediaries' => route('intermediaries.index'),
     'Jobs' => route('jobs.index'),
     'Operators' => route('operators.index'),
+    'Members' => route('members.index'),
     'Skills' => route('skills.index'),
     'Warranties' => route('warranties.index'),
     'Works' => route('works.index'),
