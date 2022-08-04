@@ -18,7 +18,7 @@ class User extends Authenticatable
 
     protected static $profile_types = [
         'intermedary' => Intermediary::class,
-        'operator' => Operator::class,
+        'member' => Member::class,
     ];
 
     /**
