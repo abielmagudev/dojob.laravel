@@ -13,10 +13,8 @@ use App\Http\Controllers\WorkController;
 use App\Http\Controllers\PluginController;
 use Illuminate\Support\Facades\Route;
 
-// MEMBERS / STAFF
-Route::resource('staff', MemberController::class)
-    ->names(MemberController::routeNames())
-    ->parameters(['staff' => 'member']);
+// MEMBERS
+Route::resource('members', MemberController::class);
 
 // CREW
 Route::controller(CrewController::class)->group( function () {

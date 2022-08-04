@@ -11,7 +11,7 @@ class MemberController extends Controller
 {
     public function index()
     {
-        return view('members.index')->with('staff', Member::all());
+        return view('members.index')->with('members', Member::all());
     }
 
     public function create()
@@ -61,18 +61,5 @@ class MemberController extends Controller
             return back()->with('danger', 'Ups! member not deleted');
 
         return redirect()->route('members.index')->with('success', "{$member->fullname} member deleted");
-    }
-
-    public static function routeNames()
-    {
-        return [
-            'index' => 'members.index',
-            'show' => 'members.show',
-            'create' => 'members.create',
-            'store' => 'members.store',
-            'edit' => 'members.edit',
-            'update' => 'members.update',
-            'destroy' => 'members.destroy',
-        ];
     }
 }

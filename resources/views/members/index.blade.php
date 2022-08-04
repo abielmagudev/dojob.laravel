@@ -1,10 +1,10 @@
 @extends('app')
 @section('content')
 <a href="{{ route('members.create') }}">Create</a>
-<h1>Staff ({{ $staff->count() }})</h1>
+<h1>Members ({{ $members->count() }})</h1>
 <table>
     <tbody>
-        @foreach($staff->sortBy('email') as $member)
+        @foreach($members->sortBy('email') as $member)
         <tr>
             <td>{{ $member->fullname }}</td>
             <td>{{ $member->phone }}</td>
