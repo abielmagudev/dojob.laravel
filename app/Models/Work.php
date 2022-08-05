@@ -123,6 +123,11 @@ class Work extends Model
         return $this->membersCache()->first();
     }
 
+    public function attachMembers(array $workers_id)
+    {
+        return $this->members()->syncWithPivotValues($workers_id, ['created_at' => now()]);
+    }
+
     public function hasMembers()
     {
         return (bool) $this->membersCache()->count();
@@ -133,20 +138,15 @@ class Work extends Model
         return $this->membersCache()->count() == 1;
     }
     
-    public function hasMember($member)
-    {   
-        $member_id = is_a($member, Member::class) ? $member->id : $member;
-        return $this->membersCache()->contains('id', $member_id);
-    }
-
     public function hasSingleMemberAssigned()
     {
         return $this->hasSingleMember() &&! $this->hasCrew();
     }
 
-    public function attachMembers(array $workers_id)
-    {
-        return $this->members()->syncWithPivotValues($workers_id, ['created_at' => now()]);
+    public function hasMember($member)
+    {   
+        $member_id = is_a($member, Member::class) ? $member->id : $member;
+        return $this->membersCache()->contains('id', $member_id);
     }
 
 
