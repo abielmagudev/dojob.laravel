@@ -7,11 +7,11 @@
     <select name="intermediary" id="selectIntermediary">
         <option disabled selected></option>
         @foreach($intermediaries as $intermediary)
-        <option value="{{ $intermediary->id }}" {{ $intermediary->id == $work->intermediary_id ? 'selected' : '' }}>{{ $intermediary->name }} ({{ $intermediary->alias }})</option>
+        <option value="{{ $intermediary->id }}" {{ $intermediary->id == $work->intermediary_id ? 'selected' : '' }}>{{ $intermediary->name }} - {{ $intermediary->alias }}</option>
         @endforeach
 
         @if( $work->hasIntermediary() &&! $work->intermediary->isAvailable() )
-        <option label="{{ $work->intermediary->name }} ({{ $work->intermediary->alias }}) (Unavailable)" selected></option>
+        <option label="{{ $work->intermediary->name }} - {{ $work->intermediary->alias }} (Unavailable)" selected></option>
         @endif
     </select>
 </div>
