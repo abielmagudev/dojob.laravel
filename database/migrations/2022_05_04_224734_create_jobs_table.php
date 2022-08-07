@@ -17,7 +17,6 @@ class CreateJobsTable extends Migration
             $table->id();
             $table->string('name', 88)->unique();
             $table->text('description')->nullable();
-            $table->boolean('is_custom')->default(true);
             $table->boolean('is_enabled')->default(true);
             $table->timestamps();
             $table->softDeletes();

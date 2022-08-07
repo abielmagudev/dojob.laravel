@@ -26,15 +26,16 @@ class Job extends Model
         return $query->where('is_enabled', 1);
     }
 
-    public function scopeOnlyCustom($query)
-    {
-        return $query->where('is_custom', 1);
-    }
+
+    // Works
 
     public function works()
     {
         return $this->hasMany(Work::class);
     }
+
+
+    // Plugins
 
     public function plugins()
     {
@@ -62,11 +63,15 @@ class Job extends Model
         return (bool) $this->pluginsCache()->where('id', $plugin_id)->first();
     }
 
+
+
     public function isEnabled()
     {
         return (bool) $this->is_enabled;
     }
 
+
+    
     public static function defaults()
     {
         return [

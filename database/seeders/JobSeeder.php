@@ -16,14 +16,6 @@ class JobSeeder extends Seeder
      */
     public function run()
     {
-        foreach(Job::defaults() as $job => $description) {
-            Job::create([
-                'name' => $job,
-                'description' => $description,
-                'is_custom' => (int) false,
-            ]);
-        };
-
         return Job::factory( self::TOTAL )->create();
     }
 }
