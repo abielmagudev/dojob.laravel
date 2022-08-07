@@ -23,7 +23,7 @@ class PluginSeeder extends Seeder
             {
                 Plugin::create([
                     'api_plugin_id' => $api_plugin->id,
-                    'settings_encoded' => $api_plugin->settings_default,
+                    'custom_settings' => $api_plugin->default_settings,
                 ]);
             }
         }

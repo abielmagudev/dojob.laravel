@@ -11,8 +11,8 @@ class Plugin extends Model
 
     protected $fillable = [
         'api_plugin_id',
+        'custom_settings',
         'is_enabled',
-        'settings_encoded',
     ];
 
     public function getNameAttribute()
@@ -22,7 +22,7 @@ class Plugin extends Model
 
     public function getSettingsAttribute()
     {
-        return ! is_null($this->settings_encoded) ? json_decode($this->settings_encoded) : json_decode('');
+        return ! is_null($this->custom_settings) ? json_decode($this->custom_settings) : json_decode('');
     }
 
     public function api()

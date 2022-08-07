@@ -16,8 +16,8 @@ class CreatePluginsTable extends Migration
         Schema::create('plugins', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('api_plugin_id')->unique();
+            $table->text('custom_settings')->nullable();
             $table->boolean('is_enabled')->default(true);
-            $table->text('settings_encoded')->nullable();
             $table->timestamps();
         });
     }

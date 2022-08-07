@@ -14,7 +14,7 @@ class PluginUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'settings_encoded' => ['nullable','string'],
+            'custom_settings' => ['nullable','string'],
             'is_enabled' => ['boolean'],
         ];
     }
@@ -22,7 +22,7 @@ class PluginUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'settings_encoded.string' => __('Select the valid configuration for the plugin'),
+            'custom_settings.string' => __('Select the valid configuration for the plugin'),
             'is_enabled.boolean' => __('Select the valid option to enable'),
         ];
     }
@@ -30,7 +30,7 @@ class PluginUpdateRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'settings_encoded' => $this->filled('settings') && is_array($this->settings) ? json_encode($this->settings) : null,
+            'custom_settings' => $this->filled('settings') && is_array($this->settings) ? json_encode($this->settings) : null,
             'is_enabled' => (int) $this->filled('enabled'),
         ]);
     }

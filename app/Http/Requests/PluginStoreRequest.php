@@ -18,7 +18,7 @@ class PluginStoreRequest extends FormRequest
     {
         return [
             'api_plugin_id' => ['required', 'exists:api_plugins,id'],
-            'settings_encoded' => ['nullable','string'],
+            'custom_settings' => ['nullable','string'],
         ];
     }
 
@@ -39,7 +39,7 @@ class PluginStoreRequest extends FormRequest
 
         $this->merge([
             'api_plugin_id' => $api_plugin->id ?? 0,
-            'settings_encoded' => $api_plugin->settings_default,
+            'custom_settings' => $api_plugin->default_settings,
         ]);
     }
 }

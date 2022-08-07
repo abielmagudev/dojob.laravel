@@ -7,18 +7,13 @@
     @method('patch')
     <div>
         <label for="">Settings</label>
+        @foreach(['one' => 'uno', 'two' => 'dos'] as $name => $value)
+        <?php $checkbox_id = 'checkbox' . ucfirst($name) . 'Setting' ?>
         <div>
-            <input type="checkbox" name="settings[one]" value="uno" id="checkboxOneSetting" {{ $plugin->hasSetting('one') ? 'checked' : '' }}>
-            <label for="checkboxOneSetting">One</label> 
+            <input type="checkbox" name="settings[{{ $name }}]" value="{{ $value }}" id="{{ $checkbox_id }}" {{ $plugin->hasSetting($name) ? 'checked' : '' }}>
+            <label for="{{ $checkbox_id }}">{{ ucfirst($name) }}</label> 
         </div>
-        <div>
-            <input type="checkbox" name="settings[two]" value="dos" id="checkboxTwoSetting" {{ $plugin->hasSetting('two') ? 'checked' : '' }}>
-            <label for="checkboxTwoSetting">Two</label> 
-        </div>
-        <div>
-            <input type="checkbox" name="settings[three]" value="tres" id="checkboxThreeSetting" {{ $plugin->hasSetting('three') ? 'checked' : '' }}>
-            <label for="checkboxThreeSetting">Three</label> 
-        </div>
+        @endforeach
     </div>
     <br>
     <div>
