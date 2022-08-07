@@ -24,15 +24,15 @@ class WorkSeeder extends Seeder
             if(! $work->hasCrew() )
             {
                 $single_member_id = mt_rand(1, MemberSeeder::TOTAL);
-                $work->attachWorkers([$single_member_id]);
+                $work->attachMembers([$single_member_id]);
                 continue;
             }
             
-            $work->attachWorkers( $this->crewMembersId($work->crew) );
+            $work->attachMembers( $this->membersIdByCrew($work->crew) );
         }
     }
 
-    public function crewMembersId(\App\Models\Crew $crew): array
+    public function membersIdByCrew(\App\Models\Crew $crew): array
     {
         if(! array_key_exists($crew->id, $this->crew_members_cache) )
         {
