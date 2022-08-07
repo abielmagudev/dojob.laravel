@@ -28,14 +28,12 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
 
             // Relationals
-            // OperatorSeeder::class,
             CrewRemoveMembersSeeder::class,
             WorkSeeder::class,
             WarrantySeeder::class,
 
             // Pivot
             // JobPluginSeeder::class,
-            // OperatorSkillSeeder::class,
             MemberSkillSeeder::class,
 
             // Auth
