@@ -16,36 +16,33 @@ class ApiPluginSeeder extends Seeder
     public function run()
     {
         ApiPlugin::create([
+            'catalog_id' => mt_rand(1, ApiCatalogSeeder::TOTAL),
             'name' => 'Predective maintenance',
             'description' => 'Review and approval of the work done',
-            'settings_default' => json_encode(['one' => 'uno']),
-            'price' => mt_rand(1.00, 300.99),
+            'default_settings' => json_encode(['one' => 'uno']),
             'version' => mt_rand(1.0, 4.9),
+            'price' => mt_rand(0,1) ? mt_rand(1.00, 300.99) : null,
             'hashed' => Str::random(16), 
-            'is_free' => (bool) mt_rand(0,1),
-            'catalog_id' => mt_rand(1, ApiCatalogSeeder::TOTAL),
         ]);
 
         ApiPlugin::create([
+            'catalog_id' => mt_rand(1, ApiCatalogSeeder::TOTAL),
             'name' => 'Preventive maintenance',
             'description' => 'Keeps work done in good condition',
-            'settings_default' => json_encode(['two' => 'dos']),
-            'price' => mt_rand(1.00, 300.99),
+            'default_settings' => json_encode(['two' => 'dos']),
             'version' => mt_rand(1.0, 7.9),
+            'price' => mt_rand(0,1) ? mt_rand(1.00, 300.99) : null,
             'hashed' => Str::random(16), 
-            'is_free' => (bool) mt_rand(0,1),
-            'catalog_id' => mt_rand(1, ApiCatalogSeeder::TOTAL),
         ]);
 
         ApiPlugin::create([
+            'catalog_id' => mt_rand(1, ApiCatalogSeeder::TOTAL),
             'name' => 'Corrective maintenance',
             'description' => 'Correct the error or several errors of a work done',
-            'settings_default' => json_encode(['three' => 'tres']),
-            'price' => mt_rand(1.00, 300.99),
+            'default_settings' => json_encode(['three' => 'tres']),
             'version' => mt_rand(1.0, 9.9),
+            'price' => mt_rand(0,1) ? mt_rand(1.00, 300.99) : null,
             'hashed' => Str::random(16), 
-            'is_free' => (bool) mt_rand(0,1),
-            'catalog_id' => mt_rand(1, ApiCatalogSeeder::TOTAL),
         ]);
     }
 }

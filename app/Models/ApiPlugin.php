@@ -18,6 +18,6 @@ class ApiPlugin extends Model
 
     public function isFree()
     {
-        return (bool) $this->is_free;
+        return is_null($this->price);
     }
 }

@@ -15,14 +15,14 @@ class CreateApiPluginsTable extends Migration
     {
         Schema::create('api_plugins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('catalog_id')->constrained('api_catalogs');
             $table->string('name', 80)->unique();
             $table->text('description');
-            $table->text('settings_default')->nullable();
+            $table->text('default_settings')->nullable();
+            $table->text('custom_settings')->nullable();
             $table->string('version', 8);
+            $table->unsignedDecimal('price')->nullable(); // Null is free
             $table->string('hashed', 16)->unique();
-            $table->unsignedDecimal('price');
-            $table->boolean('is_free');
-            $table->foreignId('catalog_id')->constrained('api_catalogs');
             $table->timestamps();
         });
     }
