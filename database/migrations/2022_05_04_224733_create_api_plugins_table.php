@@ -19,9 +19,8 @@ class CreateApiPluginsTable extends Migration
             $table->string('name', 80)->unique();
             $table->text('description');
             $table->text('default_settings')->nullable();
-            $table->text('custom_settings')->nullable();
             $table->string('version', 8);
-            $table->unsignedDecimal('price')->nullable(); // Null is free
+            $table->unsignedDecimal('price')->nullable(); // null is free
             $table->string('hashed', 16)->unique();
             $table->timestamps();
         });
