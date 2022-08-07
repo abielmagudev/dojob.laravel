@@ -13,7 +13,7 @@ class JobController extends Controller
 {
     public function index()
     {
-        return view('jobs.index')->with('jobs', Job::withCount('works')->orderBy('name')->get());
+        return view('jobs.index')->with('jobs', Job::withCount(['works','plugins'])->orderBy('name')->get());
     }
 
     public function create()

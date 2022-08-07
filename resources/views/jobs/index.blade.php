@@ -6,6 +6,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Plugins</th>
             <th>Works</th>
             <th></th>
         </tr>
@@ -14,6 +15,7 @@
         @foreach($jobs as $job)
         <tr>
             <td>{{ $job->name }}</td>
+            <td>{{ $job->plugins_count }}</td>
             <td>{{ $job->works_count }}</td>
             <td>
                 <a href="{{ route('jobs.show', $job) }}">Show</a>

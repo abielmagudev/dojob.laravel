@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             WarrantySeeder::class,
 
             // Pivot
-            // JobPluginSeeder::class,
+            JobPluginSeeder::class,
             MemberSkillSeeder::class,
 
             // Auth

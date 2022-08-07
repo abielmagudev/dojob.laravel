@@ -17,7 +17,14 @@ class JobPluginSeeder extends Seeder
         $plugins = \App\Models\Plugin::all();
 
         $jobs->each( function ($job) use ($plugins) {
-            $job->plugins()->attach( $plugins->shift() );
+            // $job->plugins()->attach( $plugins->shift() );
+            // $job->plugins()->attach( $plugins->random()->all() );
+
+            if( random_int(0,1) )
+            {
+                $plugins_id = range(0, mt_rand(0,3));
+                $job->plugins()->attach( $plugins_id );
+            }
         } );
     }
 }
