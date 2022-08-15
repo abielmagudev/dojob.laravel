@@ -13,8 +13,6 @@ use App\Http\Controllers\WorkController;
 use App\Http\Controllers\PluginController;
 use Illuminate\Support\Facades\Route;
 
-// MEMBERS
-Route::resource('members', MemberController::class);
 
 // CREW
 Route::controller(CrewController::class)->group( function () {
@@ -46,6 +44,7 @@ Route::resource('works', WorkController::class)->except('create');
 Route::resources([
     'clients' => ClientController::class,
     'intermediaries' => IntermediaryController::class,
+    'members' => MemberController::class,
     'operators' => OperatorController::class,
     'skills' => SkillController::class,
     'users' => UserController::class,
