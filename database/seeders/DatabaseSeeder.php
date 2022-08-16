@@ -36,7 +36,9 @@ class DatabaseSeeder extends Seeder
             JobPluginSeeder::class,
             MemberSkillSeeder::class,
 
-            // Auth
+            // Roles and permissions auth
+            PermissionSeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
         ]);
     }
