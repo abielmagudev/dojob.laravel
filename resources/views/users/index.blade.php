@@ -8,6 +8,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Profile</th>
+            <th>Role</th>
             <th></th>
         </tr>
     </thead>
@@ -17,6 +18,7 @@
             <td>{{ $user->profile->fullname }}</td>
             <td>{{ $user->email }}</td>
             <td>{{ ucfirst($user->profile_type) }}</td>
+            <td>{{ $user->getRoleNames()->first() }}</td>
             <td>
                 <a href="{{ route('users.show', $user) }}">Show</a>
             </td>

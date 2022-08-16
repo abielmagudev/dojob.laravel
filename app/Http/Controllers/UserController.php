@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return view('users.index')->with('users', User::with('profilable')->orderBy('id','desc')->get());
+        // whereDoesntHave('role name')
+        return view('users.index')->with('users', User::with('profilable','roles')->orderBy('id','desc')->get());
     }
 
     public function create()
