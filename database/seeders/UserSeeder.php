@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Member;
 use App\Models\Intermediary;
 use App\Models\Operator;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -22,6 +23,9 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $roles = Role::all();
+
+        $member_roles = $roles->where('name', '<>', 'intermediary');
         $members = Member::onlyAvailable()->get();
         foreach($members as $member)
         {
@@ -29,8 +33,11 @@ class UserSeeder extends Seeder
                 'email' => $member->email,
                 'password' => 'password',
             ]);
+
+            $member->user->assignRole( $member_roles->random(1)->first() );
         }
 
+        $intermediary_role = $roles->where('name', 'intermediary')->first();
         $intermediaries = Intermediary::onlyAvailable()->get();
         foreach($intermediaries->random(3) as $intermediary)
         {
@@ -38,6 +45,8 @@ class UserSeeder extends Seeder
                 'email' => $this->faker->email(),
                 'password' => 'password',
             ]);
+
+            $intermediary->user->assignRole( $intermediary_role  );
         }
     }
 }
