@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }}</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     @auth   
@@ -12,7 +13,7 @@
         <span>{{ auth()->user()->profile->fullname }}</span>
         <form action="{{ route('logout') }}" method="post" style="display:inline-block">
             @csrf
-            <button type="submit">Logout</button>
+            <button class='btn btn-danger' type="submit">Logout</button>
         </form>
     </div>
     @endauth

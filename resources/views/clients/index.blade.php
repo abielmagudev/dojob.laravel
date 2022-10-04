@@ -2,6 +2,7 @@
 @section('content')
 <a href="{{ route('clients.create') }}">Create</a>
 <h1>Clients ({{ $clients->count() }})</h1>
+<i class="bi bi-person-heart"></i>
 <ul>
     @foreach($clients as $client)
     <li>
