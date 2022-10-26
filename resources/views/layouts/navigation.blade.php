@@ -1,5 +1,4 @@
 <?php
-
 $routes = [
     'Clients' => route('clients.index'),
     'Crews' => route('crews.index'),
@@ -13,13 +12,10 @@ $routes = [
     'Warranties' => route('warranties.index'),
     'Works' => route('works.index'),
 ];
-
 ?>
-<strong>Navigation</strong>
-<ul>
+<br>
+<nav class="nav nav-pills flex-column">
     @foreach($routes as $title => $route)
-    <li>
-        <a href="{{ $route }}">{{ $title }}</a>
-    </li>
+    <a href='{{ $route }}' class="nav-link" aria-current="page">{{ $title }}</a>
     @endforeach
-</ul>
+</nav>
