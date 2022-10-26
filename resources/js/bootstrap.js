@@ -29,5 +29,5 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // Css Bootstrap Framework
 require('bootstrap/dist/js/bootstrap.bundle')
-import 'bootswatch/dist/litera/bootstrap.min.css';
+import 'bootswatch/dist/zephyr/bootstrap.min.css';
 // import "bootstrap";
