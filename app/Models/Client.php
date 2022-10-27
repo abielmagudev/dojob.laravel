@@ -25,12 +25,24 @@ class Client extends Model
 
     public function getFullnameAttribute()
     {
-        return "{$this->name} {$this->lastname}";
+        return implode(' ', [
+            $this->name,
+            $this->lastname
+        ]);
     }
 
     public function getLocationAttribute()
     {
-        return "{$this->city}, {$this->state}, {$this->country}";
+        return implode(', ', [
+            $this->city ?? '...?',
+            $this->state ?? '...?',
+            $this->country ?? '...?'
+        ]);
+    }
+
+    public function hasAlias()
+    {
+        return isset($this->alias);
     }
 
     public function works()
