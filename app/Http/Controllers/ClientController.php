@@ -9,7 +9,7 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return view('clients.index')->with('clients', Client::all()->sortByDesc('id'));
+        return view('clients.index')->with('clients', Client::withCount('works')->orderBy('id', 'desc')->get());
     }
 
     public function create()
