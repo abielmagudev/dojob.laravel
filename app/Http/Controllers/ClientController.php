@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Work;
 use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
