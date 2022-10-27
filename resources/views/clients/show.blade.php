@@ -1,46 +1,44 @@
 @extends('app')
 @section('content')
-<a href="{{ route('clients.index') }}">Index</a>
-<h1>{{ $client->fullname }} <small>({{ $client->alias }})</small></h1>
-<p>
-    <small>Information</small>
+<x-heading>
+    {{ $client->fullname }}
+    @if( $client->hasAlias() )
+    <x-slot name='subtitle'>{{ $client->alias }}</x-slot>
+    @endif
+</x-heading>
+<p class="text-muted mb-1">{{ $client->address }}, {{ $client->zip_code }}, {{ $client->location }}</p>
+<p class="text-muted">{{ $client->email }}, {{ $client->phone }}</p>
+<p class="text-end">
+    <a class='btn btn-warning' href="{{ route('clients.edit', $client) }}">Edit client</a>
+    <a class='btn btn-primary' href="{{ route('works.create', $client) }}">New work</a>
 </p>
-<ul>
-    <li>
-        <small>Address</small>
-        <span>{{ $client->address }}</span>
-    </li>
-    <li>
-        <small>Zip code</small>
-        <span>{{ $client->zip_code }}</span>
-    </li>
-    <li>
-        <small>Location</small>
-        <span>{{ $client->location }}</span>
-    </li>
-    <li>
-        <small>Phone</small>
-        <span>{{ $client->phone }}</span>
-    </li>
-    <li>
-        <small>Email</small>
-        <span>{{ $client->email }}</span>
-    </li>
-    <li>
-        <small>Notes</small>
-        <span>{{ $client->notes }}</span>
-    </li>
-</ul>
-<p>
-    <small>Works</small>
-</p>
-<ul>
-    @foreach($client->works->load('job') as $work)
-    <li>
-        <span>{{ $work->job_name }}</span>
-        <a href="{{ route('works.show', $work) }}">Show</a>
-    </li>
-    @endforeach
-</ul>
-<a href="{{ route('clients.edit', $client) }}">Edit</a>
+<div class="card">
+    <div class="card-header">
+        <span class='text-uppercase align-middle'>Works</span>
+        <span class='badge bg-primary'>{{ $client->works->count() }}</span>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th colspan='2'>Members</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($client->works->load(['job','members']) as $work)
+                    <tr>
+                        <td>{{ $work->job_name }}</td>
+                        <td>{{ $work->members->implode('fullname', ',') }}</td>
+                        <td class='text-end'>
+                            <a class='btn btn-outline-primary' href="{{ route('works.show', $work) }}">Show</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
