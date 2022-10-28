@@ -17,9 +17,8 @@
     </div>
 </div>
 <br>
-<x-modal id='modalDelete'>
-    <x-slot name='button' class='link-danger' align='end'>Delete member</x-slot>
-    <x-slot name='title'>Delete member</x-slot>
+<x-modal id='modalDelete' title='Delete member'>
+    <x-slot name='trigger' class='link-danger' align='end'>Delete member</x-slot>
     <form action="{{ route('members.destroy', $member) }}" method="post" id='formMemberDelete'>
         @csrf
         @method('delete')
