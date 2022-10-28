@@ -1,39 +1,49 @@
 @extends('app')
 @section('content')
-<a href="{{ route('crews.index') }}">Index</a>
-<h1>{{ $crew->name }}</h1>
-<ul>
-    <li>
-        <small>Color</small>
-        <span>{{ $crew->color }}</span>
-        <span style="font-size:1.25rem; color:<?= $crew->hasColor() ? $crew->color : 'black' ?>">&diams;</span>
-    </li>
-    <li>
-        <small>Description</small>
-        <span>{{ $crew->description }}</span>
-    </li>
-    <li>
-        <small>Enabled</small>
-        <span>{{ $crew->isEnabled() ? 'Yes' : 'No' }}</span>
-    </li>
-</ul>
-<a href="{{ route('crews.edit', $crew) }}">Edit</a>
+<x-heading>
+    {{ $crew->name }}
+    <span style='color:<?= $crew->hasColor() ? $crew->color : 'black' ?>'>&bull;</span>    
+</x-heading>
+
+@if( $crew->hasDescription() ) 
+<p class="text-muted">{{ $crew->description }}</p>
 <br>
-<br>
+@endif
+
+<p class="text-end">
+    <a href="{{ route('crews.edit', $crew) }}" class='btn btn-warning'>Edit crew</a>
+    @if( $crew->isEnabled() )
+    <a href="{{ route('crews.operators.manage', $crew) }}" class='btn btn-primary'>Manage members</a>
+    @endif
+</p>
+
 @if( $crew->isEnabled() )
-<a href="{{ route('crews.operators.manage', $crew) }}">Manage operators</a>
-<ul>
-    <li>
-        <small>Operators ({{$crew->operators->count()}})</small>
-        <ul>
-            @foreach($crew->operators as $operator)
-            <li>
-                <span>{{ $operator->fullname }}</span>
-                <a href="{{ route('operators.show', $operator) }}">Show</a>
-            </li>  
-            @endforeach
-        </ul>
-    </li>
-</ul>
+<div class="card">
+    <div class="card-header">
+        <span>Members</span>
+        <span class='badge bg-primary'>{{ $crew->members->count() }}</span>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <tbody>        
+                    @foreach($crew->members as $operator)
+                    <tr>
+                        <td>{{ $operator->fullname }}</td>
+                        <td class='text-end'>
+                            <a href="{{ route('operators.show', $operator) }}" class='btn btn-outline-primary'>Show</a>
+                        </td>
+                    </tr>  
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@else
+<br>
+<p class="h1 text-muted text-center">Disabled</p>
+
 @endif
 @endsection
