@@ -1,9 +1,9 @@
-@props(['button','footer'])
+@props(['trigger','footer'])
 
 <!-- Button trigger modal -->
-<div class='{{ "text-{$button->attributes->get("align")}" ?? "d-inline-block" }}'>
-  <a href='#!' class="{{ $button->attributes->get('class') }}" data-bs-toggle="modal" data-bs-target="#{{ $attributes->get('id') }}">
-    {{ $button }}
+<div class='{{ "text-{$trigger->attributes->get("align")}" ?? "d-inline-block" }}'>
+  <a href='#!' class="{{ $trigger->attributes->get('class') }}" data-bs-toggle="modal" data-bs-target="#{{ $attributes->get('id') }}">
+    {{ $trigger }}
   </a>
 </div>
 <!-- Modal -->
@@ -11,7 +11,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="{{ $attributes->get('id') }}Label">{{ $title }}</h1>
+        <h1 class="modal-title fs-5" id="{{ $attributes->get('id') }}Label">{{ $attributes->get('title') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
