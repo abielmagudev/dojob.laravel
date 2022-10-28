@@ -25,6 +25,11 @@ class Crew extends Model
         return (bool) preg_match(self::REGEXP_COLOR, $this->color);
     }
 
+    public function hasDescription()
+    {
+        return isset($this->description) &&! empty($this->description);
+    }
+
     public function isEnabled()
     {
         return (bool) $this->is_enabled;
