@@ -1,30 +1,16 @@
 @extends('app')
 @section('content')
-<a href="{{ route('intermediaries.index') }}">Index</a>
-<h1>{{ $intermediary->name }} ({{ $intermediary->alias }})</h1>
-<div>
-    <ul>
-        <li>
-            <small>Contact</small>
-            <span>{{ $intermediary->contact }}</span>
-        </li>
-        <li>
-            <small>Phone</small>
-            <span>{{ $intermediary->phone }}</span>
-        </li>
-        <li>
-            <small>Email</small>
-            <span>{{ $intermediary->email }}</span>
-        </li>
-        <li>
-            <small>Notes</small>
-            <span>{{ $intermediary->notes }}</span>
-        </li>
-        <li>
-            <small>Available</small>
-            <span>{{ $intermediary->isAvailable() ? 'Yes' : 'No' }}</span>
-        </li>
-    </ul>
-    <a href="{{ route('intermediaries.edit', $intermediary) }}">Edit</a>
-</div>
+<x-heading>
+    {{ $intermediary->nameWithAlias }}
+    <x-slot name='subtitle'>{{ $intermediary->contact }}</x-slot>
+</x-heading>
+<p class="text-muted">
+    <span class='d-block mb-3'>{{ $intermediary->phone }}; {{ $intermediary->email }}</span>
+    @if( $intermediary->hasNotes() )
+    <em class='d-block'>{{ $intermediary->notes }}</em>
+    @endif
+</p>
+<p class="text-end">
+    <a href="{{ route('intermediaries.edit', $intermediary) }}" class='btn btn-warning'>Edit</a>
+</p>
 @endsection
