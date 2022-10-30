@@ -9,7 +9,8 @@
         <form action="{{ route('intermediaries.store') }}" method="post" autocomplete="off">
             @csrf
             @include('intermediaries._form')
-            <button type="submit" class='btn btn-success'>Create intermediary</button>
+            <br>
+            <button type="submit" class='btn btn-success'>Save intermediary</button>
             <a href="{{ route('intermediaries.index') }}" class='btn btn-primary'>Cancel</a>
         </form> 
     </div>

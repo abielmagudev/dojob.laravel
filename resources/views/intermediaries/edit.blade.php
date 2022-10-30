@@ -28,7 +28,7 @@
         <form action="{{ route('intermediaries.destroy', $intermediary) }}" method="post" class='d-inline-block'>
             @csrf
             @method('delete')
-            <button type="submit" class='btn btn-outline-danger'>Delete intermediary</button>
+            <button type="submit" class='btn btn-outline-danger'>Yes, delete intermediary</button>
         </form>
     </x-slot>
 </x-modal>
