@@ -31,11 +31,13 @@ class JobController extends Controller
 
     public function show(Job $job)
     {
+        $job->loadCount(['works','plugins']);
         return view('jobs.show')->with('job', $job);
     }
 
     public function edit(Job $job)
     {
+        $job->loadCount(['works','plugins']);
         return view('jobs.edit')->with('job', $job);
     }
 
