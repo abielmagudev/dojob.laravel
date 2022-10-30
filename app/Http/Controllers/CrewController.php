@@ -11,7 +11,7 @@ class CrewController extends Controller
 {
     public function index()
     {
-        return view('crews.index')->with('crews', Crew::all()->sortByDesc('id'));
+        return view('crews.index')->with('crews', Crew::withCount('works')->orderBy('id','desc')->get());
     }
 
     public function create()

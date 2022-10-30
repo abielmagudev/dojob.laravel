@@ -8,6 +8,13 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Members</th>
+                        <th colspan="2">Works</th>
+                    </tr>
+                </thead>
                 <tbody>
                     @foreach($crews->load('members') as $crew)
                     <tr>
@@ -20,6 +27,7 @@
                             <span>{{ $member->fullname }}</span>,
                             @endforeach
                         </td>
+                        <td>{{ $crew->works_count }}</td>
                         <td class='text-end'>
                             <a href="{{ route('crews.show', $crew) }}" class='btn btn-outline-primary'>Show</a>
                         </td>
