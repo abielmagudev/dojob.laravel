@@ -1,17 +1,17 @@
-<div>
-    <label for="inputName">Name</label>
-    <input type="text" name="name" id="inputName" value="{{ old('name', $job->name) }}" required>
+<div class='mb-3'>
+    <label for="inputName" class='form-label'>Name</label>
+    <input id="inputName" class='form-control' type="text" name="name" value="{{ old('name', $job->name) }}" required>
 </div>
-<div>
-    <label for="textDescription">Description</label>
-    <textarea name="description" id="textDescription" cols="30" rows="10" placeholder="Optional">{{ old('description', $job->description) }}</textarea>
+<div class='mb-3'>
+    <label for="textDescription" class='form-label'>Description</label>
+    <textarea id="textDescription" class='form-control' name="description" cols="40" rows="4" placeholder="Optional">{{ old('description', $job->description) }}</textarea>
 </div>
 @if( $job->isReal() )
-<br>
-<div>
-    <input type="checkbox" name="enabled" id="checkboxEnabled" value='yes' {{ $job->isEnabled() ? 'checked' : '' }}>
-    <label for="checkboxEnabled">Enabled</label>
-    <br>
-    <small>If you uncheck "Enabled", the job will not appear in jobs list to create a work.</small>
+<div class='mb-3'>
+    <label for="checkboxEnabled" class="form-label">Enabled</label>
+    <div class="border rounded p-3">
+        <input id="checkboxEnabled" class="form-check-input" type="checkbox" name="enabled" value='yes' {{ $job->isEnabled() ? 'checked' : '' }}>
+        <label for="checkboxEnabled" class="form-check-label">If you disable it, the job will not appear in the job list for creating a job.</label>
+    </div>
 </div>    
 @endif
