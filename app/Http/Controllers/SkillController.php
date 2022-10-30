@@ -10,7 +10,7 @@ class SkillController extends Controller
 {
     public function index()
     {
-        return view('skills.index')->with('skills', Skill::all()->sortBy('name'));
+        return view('skills.index')->with('skills', Skill::withCount('members')->orderBy('name')->get());
     }
 
     public function create()
@@ -28,11 +28,13 @@ class SkillController extends Controller
 
     public function show(Skill $skill)
     {
+        $skill->loadCount('members');
         return view('skills.show')->with('skill', $skill);
     }
 
     public function edit(Skill $skill)
     {
+        $skill->loadCount('members');
         return view('skills.edit')->with('skill', $skill);
     }
 
