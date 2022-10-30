@@ -1,8 +1,8 @@
-<div>
-    <label for="inputName">Name</label>
-    <input type="text" name="name" id="inputName" value="{{ old('name', $skill->name) }}">
+<div class='mb-3'>
+    <label for="inputName" class='form-label'>Name</label>
+    <input id="inputName" class='form-control' type="text" name="name" value="{{ old('name', $skill->name) }}">
 </div>
-<div>
-    <label for="textareaDescription">Description</label>
-    <textarea name="description" id="textareaDescription" cols="30" rows="10" placeholder="Optional">{{ old('description', $skill->description) }}</textarea>
+<div class='mb-3'>
+    <label for="textareaDescription" class='form-label'>Description</label>
+    <textarea id="textareaDescription" class='form-control' name="description" cols="40" rows="4" placeholder="Optional">{{ old('description', $skill->description) }}</textarea>
 </div>

@@ -1,13 +1,18 @@
 @extends('app')
 @section('content')
-<p>
-    <a href="{{ route('skills.index') }}">Index</a>
-</p>
-<form action="{{ route('skills.store') }}" method="post" autocomplete="off">
-    @csrf
-    @include('skills._form')
-    <br>
-    <button type="submit">Create skill</button>
-    <a href="{{ route('skills.index') }}">Cancel</a>
-</form>
+<x-heading>Skills</x-heading>
+<div class="card">
+    <div class="card-header">
+        <span class="text-uppercase">New skill</span>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('skills.store') }}" method="post" autocomplete="off">
+            @csrf
+            @include('skills._form')
+            <br>
+            <button type="submit" class='btn btn-success'>Save skill</button>
+            <a href="{{ route('skills.index') }}" class='btn btn-primary'>Cancel</a>
+        </form>
+    </div>
+</div>
 @endsection
