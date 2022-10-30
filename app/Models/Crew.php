@@ -20,6 +20,11 @@ class Crew extends Model
         'is_enabled',
     ];
 
+    public function getColoredAttribute()
+    {
+        return $this->hasColor() ? $this->color : 'black';
+    }
+
     public function hasColor()
     {
         return (bool) preg_match(self::REGEXP_COLOR, $this->color);
