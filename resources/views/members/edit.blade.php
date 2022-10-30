@@ -19,17 +19,17 @@
 <br>
 <x-modal id='modalDelete' title='Delete member'>
     <x-slot name='trigger' class='link-danger' align='end'>Delete member</x-slot>
-    <form action="{{ route('members.destroy', $member) }}" method="post" id='formMemberDelete'>
-        @csrf
-        @method('delete')
-        <div class="text-center">
-            <p class='lead'>{{ $member->fullname }}</p>
-            <p>This member will not be available for future jobs, <br>the jobs they have already done will be kept.</p>
-            <p class="text-muted">Are you sure you want to remove the member?</p>
-        </div>
-    </form>
+    <div class="text-center">
+        <p class='lead'>{{ $member->fullname }}</p>
+        <p>This member will not be available for future jobs, <br>the jobs they have already done will be kept.</p>
+        <p class="text-muted">Are you sure you want to remove the member?</p>
+    </div>
     <x-slot name='footer' close='Cancel'>
-        <button type="submit" form='formMemberDelete' class='btn btn-outline-danger'>Yes, delete member</button>
+        <form action="{{ route('members.destroy', $member) }}" method="post" class='d-inline-block'>
+            @csrf
+            @method('delete')
+            <button type="submit" class='btn btn-outline-danger'>Yes, delete member</button>
+        </form>
     </x-slot>
 </x-modal>
 @endsection

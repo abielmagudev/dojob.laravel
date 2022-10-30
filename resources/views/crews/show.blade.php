@@ -25,7 +25,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover align-middle shadow-none">
                 <tbody>        
                     @foreach($crew->members as $operator)
                     <tr>

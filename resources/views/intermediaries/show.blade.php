@@ -13,7 +13,10 @@
 <p class="text-end">
     <a href="{{ route('intermediaries.edit', $intermediary) }}" class='btn btn-warning'>Edit intermediary</a>
 </p>
-@if(! $intermediary->isAvailable() )   
+@if( $intermediary->isAvailable() )   
+<p class="text-center">Show jobs and counters of this intermediary</p>
+@else
 <p class="h1 text-muted text-center">Unavailable</p>
+
 @endif
 @endsection

@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover align-middle shadow-none">
                 <thead>
                     <tr>
                         <th>Fullname</th>
@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     @foreach($clients as $client)
-                    <tr class='align-middle'>
+                    <tr>
                         <td>
                             <div>{{ $client->fullname }}</div>
                             @if( $client->hasAlias() )

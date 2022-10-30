@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class='table table-stripedx table-hover'>
+            <table class='table table-hover align-middle shadow-none'>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -18,12 +18,12 @@
                 </thead>
                 <tbody>
                     @foreach($members->sortBy('email') as $member)
-                    <tr class="align-middle">
+                    <tr>
                         <td>{{ $member->fullname }}</td>
                         <td>{{ $member->phone }}</td>
                         <td>{{ $member->email }}</td>
                         <td class="text-end">
-                            <a href="{{ route('members.edit', $member) }}" class='btn btn-warning'>Edit</a>
+                            <a href="{{ route('members.edit', $member) }}" class='btn btn-outline-warning'>Edit</a>
                         </td>
                     </tr>
                     @endforeach
