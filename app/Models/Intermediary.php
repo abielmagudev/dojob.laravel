@@ -23,6 +23,14 @@ class Intermediary extends Model
         'is_available',
     ];
 
+    /**
+     * Get the full name through the user
+     */
+    public function getFullnameAttribute()
+    {
+        return $this->nameWithAlias;
+    }
+
     public function getNameWithAliasAttribute()
     {
         return implode(' ', [
