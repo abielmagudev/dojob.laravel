@@ -19,16 +19,16 @@
 <br>
 <x-modal id='modalDeleteCrew' title='Delete crew'>
     <x-slot name='trigger' class='link-danger' align='end'>Delete crew</x-slot>
-    <form action="{{ route('crews.destroy',$crew) }}" method="post" autocomplete="off" id='formDeleteCrew'>
-        @csrf
-        @method('delete')
-        <div class="text-center">
-            <p>{{ $crew->name }}</p>
-            <p class="text-muted">Are you sure you want to delete the crew?</p>
-        </div>
-    </form>
+    <div class="text-center">
+        <p>{{ $crew->name }}</p>
+        <p class="text-muted">Are you sure you want to delete the crew?</p>
+    </div>
     <x-slot name='footer' close='Cancel'>
-        <button type="submit" class='btn btn-outline-danger' form='formDeleteCrew'>Yes, delete crew</button>
+        <form action="{{ route('crews.destroy',$crew) }}" method="post" autocomplete="off" class='d-inline-block'>
+            @csrf
+            @method('delete')
+            <button type="submit" class='btn btn-outline-danger'>Yes, delete crew</button>
+        </form>
     </x-slot>
 </x-modal>
 @endsection
