@@ -10,7 +10,7 @@ class IntermediaryController extends Controller
 {
     public function index()
     {
-        return view('intermediaries.index')->with('intermediaries', Intermediary::all()->sortBy('name'));
+        return view('intermediaries.index')->with('intermediaries', Intermediary::withCount('works')->orderBy('id', 'desc')->get());
     }
 
     public function create()
