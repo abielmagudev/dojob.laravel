@@ -11,6 +11,6 @@
     @endif
 </p>
 <p class="text-end">
-    <a href="{{ route('intermediaries.edit', $intermediary) }}" class='btn btn-warning'>Edit</a>
+    <a href="{{ route('intermediaries.edit', $intermediary) }}" class='btn btn-warning'>Edit intermediary</a>
 </p>
 @endsection
