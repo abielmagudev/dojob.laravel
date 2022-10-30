@@ -67,6 +67,11 @@ class User extends Authenticatable
         return array_search($this->profilable_type, self::$profile_types);
     }
 
+    public function getRoleNameAttribute()
+    {
+        return $this->getRoleNames()->first();
+    }
+
     public function profilable()
     {
         return $this->morphTo();
