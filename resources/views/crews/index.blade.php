@@ -11,7 +11,10 @@
                 <tbody>
                     @foreach($crews->load('members') as $crew)
                     <tr>
-                        <td style="border-left:0.5rem solid <?= $crew->hasColor() ? $crew->color : 'black' ?>">{{ $crew->name }}</td>
+                        <td class='text-nowrap'>
+                            <b style='font-size:1.5rem;color:<?= $crew->colored ?>'>&bull;</b>
+                            <span class='ms-1'>{{ $crew->name }}</span>
+                        </td>
                         <td>
                             @foreach($crew->members as $member)
                             <span>{{ $member->fullname }}</span>,
