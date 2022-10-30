@@ -23,19 +23,27 @@ class Intermediary extends Model
         'is_available',
     ];
 
-    public function getFullnameAttribute()
+    public function getNameWithAliasAttribute()
     {
-        return "{$this->name} ({$this->alias})";
+        return implode(' ', [
+            $this->name,
+            "({$this->alias})"
+        ]);
     }
 
-    public function scopeOnlyAvailable($query)
+    public function hasNotes()
     {
-        return $query->where('is_available', true);
+        return isset($this->notes);
     }
 
     public function isAvailable()
     {
         return (bool) $this->is_available;
+    }
+
+    public function scopeOnlyAvailable($query)
+    {
+        return $query->where('is_available', true);
     }
 
     public function user()
