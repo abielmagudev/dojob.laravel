@@ -27,7 +27,15 @@ class Client extends Model
     {
         return implode(' ', [
             $this->name,
-            $this->lastname
+            $this->lastname,
+        ]);
+    }
+
+    public function getResidenceAttribute()
+    {
+        return implode(' ', [
+            $this->address,
+            $this->zip_code,
         ]);
     }
 
@@ -36,7 +44,15 @@ class Client extends Model
         return implode(', ', [
             $this->city ?? '...?',
             $this->state ?? '...?',
-            $this->country ?? '...?'
+            $this->country ?? '...?',
+        ]);
+    }
+
+    public function getContactAttribute()
+    {
+        return implode(' ', [
+            $this->phone,
+            $this->email,
         ]);
     }
 
