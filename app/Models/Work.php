@@ -36,6 +36,13 @@ class Work extends Model
         'notes',
     ];
 
+    public function getAssignedAttribute()
+    {
+        if( $this->isUnreal() )
+            return array_shift( self::assignments() );
+
+        return $this->hasCrew() ? array_shift( self::assignments() ) : array_pop( self::assignments() );
+    }
 
     // Client
 
@@ -231,5 +238,10 @@ class Work extends Model
     public static function defaultStatus()
     {
         return self::allStatus()[0];
+    }
+
+    public static function assignments()
+    {
+        return ['crew', 'member'];
     }
 }
