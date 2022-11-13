@@ -38,10 +38,12 @@ class Work extends Model
 
     public function getAssignedAttribute()
     {
-        if( $this->isUnreal() )
-            return array_shift( self::assignments() );
+        $assignments = self::assignments();
 
-        return $this->hasCrew() ? array_shift( self::assignments() ) : array_pop( self::assignments() );
+        if(! $this->isReal() )
+            return self::assignments()[0];
+
+        return $this->hasCrew() ? array_shift($assignments) : array_pop($assignments);        
     }
 
     // Client
