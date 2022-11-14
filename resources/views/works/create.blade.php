@@ -1,25 +1,26 @@
 @extends('app')
 @section('content')
+<x-heading>Works</x-heading>
 <p>
-    <a href="{{ route('works.index') }}">Index</a>
+    <span class="lead">{{ $client->fullname }}</span>
+    <span class="d-block">{{ $client->residence }}</span>
+    <span class="d-block">{{ $client->location }}</span>
+    <span class="d-block">{{ $client->contact }}</span>
 </p>
-<p>
-    <small>Client information</small>
-</p>
-<ul>
-    <li><b>{{ $client->fullname }}</b></li>
-    <li>{{ $client->address }}, {{ $client->zip_code }}</li>
-    <li>{{ $client->location }}</li>
-    <li>{{ $client->phone }}</li>
-    <li>{{ $client->email }}</li>
-</ul>
-<hr>
+
+<div class="card">
+    <div class="card-header">
+        <span class="text-uppercase">New work</span>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('works.store') }}" method="post" autocomplete="off">
+            @csrf
+            @include('works._form')
+            <br>
+            <button type="submit" class='btn btn-success'>Save work</button>
+            <a href="{{ route('works.index') }}" class='btn btn-primary'>Cancel</a>
+        </form>
+    </div>
+</div>
 <br>
-<form action="{{ route('works.store') }}" method="post" autocomplete="off">
-    @csrf
-    @include('works._form')
-    <br>
-    <button type="submit">Create work</button>
-    <a href="{{ route('works.index') }}">Cancel</a>
-</form>
 @endsection
