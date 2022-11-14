@@ -164,22 +164,43 @@ class Work extends Model
 
     public function getScheduledAtAttribute()
     {
-        return "{$this->scheduled_date} {$this->scheduled_time}";
+        return implode(' ', [
+            $this->scheduled_date,
+            $this->scheduled_time
+        ]);
     }
 
     public function getStartedAtAttribute()
     {
-        return "{$this->started_date} {$this->started_time}";
+        if(! $this->hasStarted() )
+            return;
+
+        return implode(' ', [
+            $this->started_date,
+            $this->started_time
+        ]);
     }
 
     public function getFinishedAtAttribute()
     {
-        return "{$this->finished_date} {$this->finished_time}";
+        if(! $this->hasFinished() )
+            return;
+
+        return implode(' ', [
+            $this->finished_date,
+            $this->finished_time
+        ]);
     }
 
     public function getClosedAtAttribute()
     {
-        return "{$this->closed_date} {$this->closed_time}";
+        if(! $this->hasClosed() )
+            return;
+
+        return implode(' ', [
+            $this->closed_date,
+            $this->closed_time
+        ]);
     }
 
     public function hasStarted()
@@ -190,6 +211,11 @@ class Work extends Model
     public function hasFinished()
     {
         return isset($this->finished_date) && isset($this->finished_time);
+    }
+
+    public function hasClosed()
+    {
+        return isset($this->closed_date) && isset($this->closed_time);
     }
 
 
