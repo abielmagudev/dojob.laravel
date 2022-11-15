@@ -1,17 +1,16 @@
 @props(['trigger','footer'])
 
 <!-- Button trigger modal -->
-<div class='{{ "text-{$trigger->attributes->get("align")}" ?? "d-inline-block" }}'>
-  <a href='#!' class="{{ $trigger->attributes->get('class') }}" data-bs-toggle="modal" data-bs-target="#{{ $attributes->get('id') }}">
-    {{ $trigger }}
-  </a>
+<div class='{{ $trigger->attributes->get("align") ? "text-{$trigger->attributes->get("align")}" : "d-inline-block" }}'>
+  <a href='#!' class="{{ $trigger->attributes->get('class') }}" data-bs-toggle="modal" data-bs-target="#{{ $attributes->get('id') }}">{{ $trigger }}</a>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" {{ $attributes }} tabindex="-1" aria-labelledby="{{ $attributes->get('id') }}Label" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog {{ $attributes->get('scrollable') ? 'modal-dialog-scrollable' : '' }}">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="{{ $attributes->get('id') }}Label">{{ $attributes->get('title') }}</h1>
+        <h1 class="modal-title fs-5" id="{{ $attributes->get('id') }}Label">{{ $attributes->get('header') }}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
