@@ -10,12 +10,30 @@
 <br>
 @endif
 
-<p class="text-end">
+<div class="d-flex justify-content-end mb-3">
     <a href="{{ route('crews.edit', $crew) }}" class='btn btn-warning'>Edit crew</a>
+    
     @if( $crew->isEnabled() )
-    <a href="{{ route('crews.operators.manage', $crew) }}" class='btn btn-primary'>Manage members</a>
+    <x-modal id='modalManageMembers' header='Manage members' scrollable='true'>
+        <x-slot name='trigger' class='btn btn-primary ms-1'>Manage members</x-slot>
+        <form action="{{ route('crews.members.update', $crew) }}" method="post" id='formManageMembers'>
+            @csrf
+            @method('put')
+            @foreach($members as $member)
+            <?php $checkbox_id = "checkbox{$member->id}" ?>
+            <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" name="members[]" value="{{ $member->id }}" id="{{ $checkbox_id }}" {{ $member->crew_id == $crew->id ? 'checked' : '' }}>
+                <label class="form-check-label ms-1" for="{{ $checkbox_id }}">{{ $member->fullname }}</label>
+            </div>
+            @endforeach
+        </form>
+        <x-slot name='footer' close='Cancel'>
+            <button class="btn btn-success" type='submit' form='formManageMembers'>Update members</button>
+        </x-slot>
+    </x-modal>
     @endif
-</p>
+
+</div>
 
 @if( $crew->isEnabled() )
 <div class="card">
@@ -26,12 +44,22 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover align-middle shadow-none">
-                <tbody>        
-                    @foreach($crew->members as $operator)
+                <thead>
                     <tr>
-                        <td>{{ $operator->fullname }}</td>
+                        <th>Full name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>        
+                    @foreach($crew->members as $member)
+                    <tr>
+                        <td>{{ $member->fullname }}</td>
+                        <td>{{ $member->phone }}</td>
+                        <td>{{ $member->email }}</td>
                         <td class='text-end'>
-                            <a href="{{ route('operators.show', $operator) }}" class='btn btn-outline-primary'>Show</a>
+                            <a href="{{ route('members.show', $member) }}" class='btn btn-outline-primary'>Show</a>
                         </td>
                     </tr>  
                     @endforeach

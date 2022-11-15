@@ -12,7 +12,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Members</th>
-                        <th colspan="2">Works</th>
+                        <th>Works</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
