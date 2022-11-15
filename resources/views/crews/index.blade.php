@@ -10,6 +10,7 @@
             <table class="table table-hover align-middle shadow-none">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Members</th>
                         <th>Works</th>
@@ -19,8 +20,10 @@
                 <tbody>
                     @foreach($crews->load('members') as $crew)
                     <tr>
+                        <td>
+                            <b style='border-radius:1rem;border:0.5rem solid <?= $crew->colored ?>'></b>
+                        </td>
                         <td class='text-nowrap'>
-                            <b style='font-size:1.5rem;color:<?= $crew->colored ?>'>&bull;</b>
                             <span class='ms-1'>{{ $crew->name }}</span>
                         </td>
                         <td>
