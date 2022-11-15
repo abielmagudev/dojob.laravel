@@ -33,30 +33,26 @@ class Member extends Model
     
     public function getFullnameAttribute()
     {
-        return "{$this->name} {$this->lastname}";
+        return implode(' ', [
+            $this->name,
+            $this->lastname
+        ]);
     }
 
-    public function isAvailable()
+    public function getContactAttribute()
     {
-        return (bool) $this->is_available;
+        return implode(' ', [
+            $this->phone,
+            $this->email
+        ]);
     }
 
-    public function isUnavailable()
-    {
-        return ! $this->isAvailable();
-    }
+
+    // Scopes
 
     public function scopeOnlyAvailable($query)
     {
         return $query->where('is_available', 1);
-    }
-
-    
-    // CREW
-
-    public function crew()
-    {
-        return $this->belongsTo(Crew::class);
     }
 
     public function scopeAttachCrew($query, array $members_id, int $crew_id)
@@ -74,21 +70,39 @@ class Member extends Model
         return $query->where('crew_id', $crew_id)->update(['crew_id' => null]);
     }
 
-    public function hasCrew()
-    {
-        if(! is_null($this->crew_id) )
-            return $this->crew instanceof Crew;
 
-        return self::UNCREWED;
-    }
-
-
-    // SKILL
+    // Relations
 
     public function skills()
     {
         return $this->belongsToMany(Skill::class);
     }
+
+    public function crew()
+    {
+        return $this->belongsTo(Crew::class);
+    }
+
+    public function works()
+    {
+        return $this->belongsToMany(Work::class);
+    }
+
+    public function user()
+    {
+        return $this->morphOne(User::class, 'profilable');
+    }
+
+
+    // Relations actions
+
+    public function syncSkills(array $skills_id)
+    {
+        return $this->skills()->syncWithPivotValues($skills_id, ['created_at' => now()]);
+    }    
+
+
+    // Cache
 
     public function skillsCache()
     {
@@ -96,30 +110,6 @@ class Member extends Model
             $this->skills_cache = $this->skills;
 
         return $this->skills_cache;
-    }
-
-    public function attachSkills(array $skills_id)
-    {
-        return $this->skills()->syncWithPivotValues($skills_id, ['created_at' => now()]);
-    }
-
-    public function hasSkills()
-    {
-        return (bool) $this->skills->count();
-    }
-
-    public function hasSkill($skill)
-    {
-        $skill_id = is_a($skill, Skill::class) ? $skill->id : $skill;
-        return $this->skillsCache()->contains('id', $skill_id);
-    }
-
-
-    // WORK
-
-    public function works()
-    {
-        return $this->belongsToMany(Work::class);
     }
 
     public function worksCache()
@@ -130,6 +120,40 @@ class Member extends Model
         return $this->works_cache; 
     }
 
+
+    // Validations
+
+    public function isAvailable()
+    {
+        return (bool) $this->is_available;
+    }
+
+    public function isUnavailable()
+    {
+        return ! $this->isAvailable();
+    }
+
+    public function hasCrew()
+    {
+        if(! is_null($this->crew_id) )
+            return $this->crew instanceof Crew;
+
+        return self::UNCREWED;
+    }
+
+    public function hasSkills()
+    {
+        return (bool) $this->skillsCache()->count();
+    }
+
+    public function hasSkill($skill)
+    {
+        if( is_a($skill, Skill::class) )
+            $skill = $skill->id;
+
+        return $this->skillsCache()->contains('id', $skill);
+    }
+   
     public function hasWorks()
     {
         return (bool) $this->worksCache()->count();
@@ -137,15 +161,9 @@ class Member extends Model
 
     public function hasWork($work)
     {
-        $work_id = is_a($work, Work::class) ? $work->id : $work;
-        return $this->worksCache()->contains('id', $work_id);
-    }
+        if( is_a($work, Work::class) )
+            $work = $work->id;
 
-
-    // USER
-    
-    public function user()
-    {
-        return $this->morphOne(User::class, 'profilable');
+        return $this->worksCache()->contains('id', $work);
     }
 }

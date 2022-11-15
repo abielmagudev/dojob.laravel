@@ -11,7 +11,7 @@ class MemberController extends Controller
 {
     public function index()
     {
-        return view('members.index')->with('members', Member::all());
+        return view('members.index')->with('members', Member::withCount('works')->simplePaginate(16));
     }
 
     public function create()
@@ -50,11 +50,16 @@ class MemberController extends Controller
         if(! $member->fill($request->validated())->save() )
             return back()->with('danger', 'Ups! member not updated');
 
-        $member->attachSkills($request->skills ?? []);
+        $member->syncSkills($request->skills ?? []);
 
         return redirect()->route('members.edit', $member)->with('success', "{$member->fullname} member updated");
     }
 
+    /**
+     * Soft deleted
+     * 
+     * The member keep his skills
+     */
     public function destroy(Member $member)
     {
         if(! $member->delete() )
