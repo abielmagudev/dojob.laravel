@@ -8,12 +8,9 @@
     </select>
 </div>
 <div class='mb-3'>
-    <label for="inputName" class='form-label'>Name</label>
-    <input type="text" name="name" id="inputName" value="{{ old('name', $member->name) }}" class='form-control' required>
-</div>
-<div class='mb-3'>
-    <label for="inputLastname" class='form-label'>Lastname</label>
-    <input type="text" name="lastname" id="inputLastname" value="{{ old('lastname', $member->lastname) }}" class='form-control' required>
+    <label for="inputName" class='form-label'>Full name</label>
+    <input type="text" name="name" id="inputName" value="{{ old('name', $member->name) }}" class='form-control mb-3' placeholder='Name' required>
+    <input type="text" name="lastname" id="inputLastname" value="{{ old('lastname', $member->lastname) }}" class='form-control' placeholder='Lastname' required>
 </div>
 <div class='mb-3'>
     <label for="inputPhone" class='form-label'>Phone</label>
@@ -29,7 +26,7 @@
 </div>
 <div class='mb-3'>
     <label for="textNotes" class='form-label'>Notes</label>
-    <textarea name="notes" id="textNotes" cols="30" rows="5" class='form-control' placeholder="Optional">{{ old('notes', $member->notes) }}</textarea>
+    <textarea name="notes" id="textNotes" cols="30" rows="3" class='form-control' placeholder="Optional">{{ old('notes', $member->notes) }}</textarea>
 </div>
 @includeWhen($member->isReal(), 'members._form-skills')
 @includeWhen($member->isReal(), 'members._form-available')

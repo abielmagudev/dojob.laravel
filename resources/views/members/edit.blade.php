@@ -20,7 +20,7 @@
 <x-modal id='modalDelete' title='Delete member'>
     <x-slot name='trigger' class='link-danger' align='end'>Delete member</x-slot>
     <div class="text-center">
-        <p class='lead'>{{ $member->fullname }}</p>
+        <p class='lead m-0'>{{ $member->fullname }}</p>
         <p>This member will not be available for future jobs, <br>the jobs they have already done will be kept.</p>
         <p class="text-muted">Are you sure you want to remove the member?</p>
     </div>

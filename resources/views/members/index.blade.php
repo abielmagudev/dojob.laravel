@@ -13,6 +13,7 @@
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Email</th>
+                        <th>Works</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@
                         <td>{{ $member->fullname }}</td>
                         <td>{{ $member->phone }}</td>
                         <td>{{ $member->email }}</td>
+                        <td>{{ $member->works_count }}</td>
                         <td class="text-end">
                             <a href="{{ route('members.edit', $member) }}" class='btn btn-outline-warning'>Edit</a>
                         </td>
@@ -32,4 +34,7 @@
         </div>
     </div>
 </div>
+<br>
+
+<x-simple-pagination :collection="$members"></x-simple-pagination>
 @endsection
