@@ -46,7 +46,7 @@ class CrewController extends Controller
             return back()->with('danger', 'Oops! crew not updated');
 
         if( $crew->isDisabled() )
-            $crew->removeAllMembers();
+            $crew->removeMembers();
             
         return redirect()->route('crews.edit', $crew)->with('success', "{$crew->name} crew updated");
     }

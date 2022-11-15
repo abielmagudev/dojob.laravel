@@ -14,7 +14,7 @@
 <label for="checkboxDisabled" class='form-label'>Enabled</label>
 <div class="border rounded p-3 mb-3">
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" ame="enabled" value="yes" id="checkboxDisabled" {{ $crew->isDisabled() ?: 'checked' }}>
+        <input class="form-check-input" type="checkbox" role="switch" name="enabled" value="yes" id="checkboxDisabled" {{ $crew->isDisabled() ?: 'checked' }}>
         <label class="form-check-label" for="checkboxDisabled">If you disable it, the equipment will not appear in the list of equipment to create a job and will remove all its operators.</label>
     </div>
 </div>

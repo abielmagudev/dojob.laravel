@@ -49,7 +49,6 @@
                         <th>Full name</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>        
@@ -58,9 +57,6 @@
                         <td>{{ $member->fullname }}</td>
                         <td>{{ $member->phone }}</td>
                         <td>{{ $member->email }}</td>
-                        <td class='text-end'>
-                            <a href="{{ route('members.show', $member) }}" class='btn btn-outline-primary'>Show</a>
-                        </td>
                     </tr>  
                     @endforeach
                 </tbody>
