@@ -25,6 +25,55 @@ class Crew extends Model
         return $this->hasColor() ? $this->color : 'black';
     }
 
+
+    // Scopes
+
+    public function scopeOnlyEnabled($query)
+    {
+        return $query->where('is_enabled', 1);
+    }
+
+    public function scopeOnlyUsable($query)
+    {
+        return $query->has('members')->where('is_enabled', 1);
+    }
+
+
+    // Relations
+
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
+    public function membersId()
+    {
+        return $this->members->pluck('id')->toArray();
+    }
+
+    public function attachMembers(array $members_id)
+    {
+        return Member::attachCrew($members_id, $this->id);
+    }
+
+    public function removeMembers(array $members_id)
+    {
+        return Member::removeCrew($this->id);
+    }
+
+    public function removeAllMembers()
+    {
+        return Member::removeCrew($this->id);
+    }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
+
+    
+    // Validations
+
     public function hasColor()
     {
         return (bool) preg_match(self::REGEXP_COLOR, $this->color);
@@ -45,35 +94,6 @@ class Crew extends Model
         return ! $this->isEnabled();
     }
 
-    public function scopeOnlyEnabled($query)
-    {
-        return $query->where('is_enabled', 1);
-    }
-
-    
-
-    // MEMBER
-
-    public function members()
-    {
-        return $this->hasMany(Member::class);
-    }
-
-    public function membersId()
-    {
-        return $this->members->pluck('id')->toArray();
-    }
-
-    public function attachMembers(array $members_id)
-    {
-        return Member::attachCrew($members_id, $this->id);
-    }
-
-    public function removeMembers()
-    {
-        return Member::removeCrew($this->id);
-    }
-
     public function hasMembers()
     {
         return $this->members->count() > 0;
@@ -87,18 +107,5 @@ class Crew extends Model
     public function isUnusable() // Useless
     {
         return ! $this->isEnabled() ||! $this->hasMembers();
-    }
-
-    public function scopeOnlyUsable($query)
-    {
-        return $query->has('members')->where('is_enabled', 1);
-    }
-
-
-    // WORK
-
-    public function works()
-    {
-        return $this->hasMany(Work::class);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CrewRequest;
 use App\Http\Requests\CrewOperatorsRequest;
 use App\Models\Crew;
-use App\Models\Operator;
+use App\Models\Member;
 
 class CrewController extends Controller
 {
@@ -43,7 +43,7 @@ class CrewController extends Controller
             return back()->with('danger', 'Oops! crew not updated');
 
         if( $crew->isDisabled() )
-            $crew->removeOperators();
+            $crew->removeAllMembers();
             
         return redirect()->route('crews.edit', $crew)->with('success', "{$crew->name} crew updated");
     }
@@ -53,7 +53,7 @@ class CrewController extends Controller
         if(! $crew->delete() )
             return back()->with('danger', 'Oops! crew not deleted');
 
-        $crew->removeOperators();
+        $crew->removeAllMembers();
 
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew deleted");
     }
@@ -62,7 +62,7 @@ class CrewController extends Controller
     {
         return view('crews.operators', [
             'crew' => $crew,
-            'operators' => Operator::onlyAvailable()->get(),
+            'operators' => Member::onlyAvailable()->get(),
         ]);
     }
 
