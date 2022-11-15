@@ -16,8 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 // CREW
 Route::controller(CrewController::class)->group( function () {
-    Route::get('crews/{crew}/operators', 'manageOperators')->name('crews.operators.manage');
-    Route::put('crews/{crew}/operators', 'updateOperators')->name('crews.operators.update');
+    Route::put('crews/{crew}/members', 'updateMembers')->name('crews.members.update');
 });
 Route::resource('crews', CrewController::class);
 

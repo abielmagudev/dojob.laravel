@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CrewRequest;
-use App\Http\Requests\CrewOperatorsRequest;
+use App\Http\Requests\CrewMembersRequest;
 use App\Models\Crew;
 use App\Models\Member;
 
@@ -29,7 +29,10 @@ class CrewController extends Controller
 
     public function show(Crew $crew)
     {
-        return view('crews.show')->with('crew', $crew);
+        return view('crews.show', [
+            'crew' => $crew,
+            'members' => Member::onlyAvailable()->get(),
+        ]);
     }
 
     public function edit(Crew $crew)
@@ -48,31 +51,23 @@ class CrewController extends Controller
         return redirect()->route('crews.edit', $crew)->with('success', "{$crew->name} crew updated");
     }
 
+    public function updateMembers(CrewMembersRequest $request, Crew $crew)
+    {
+        $crew->removeMembers();
+
+        if( $request->filled('members') )
+            $crew->attachMembers($request->members);
+
+        return redirect()->route('crews.show', $crew)->with('success', 'Members updated');
+    }
+
     public function destroy(Crew $crew)
     {
         if(! $crew->delete() )
             return back()->with('danger', 'Oops! crew not deleted');
 
-        $crew->removeAllMembers();
+        $crew->removeMembers();
 
         return redirect()->route('crews.index')->with('success', "{$crew->name} crew deleted");
-    }
-
-    public function manageOperators(Crew $crew)
-    {
-        return view('crews.operators', [
-            'crew' => $crew,
-            'operators' => Member::onlyAvailable()->get(),
-        ]);
-    }
-
-    public function updateOperators(CrewOperatorsRequest $request, Crew $crew)
-    {
-        $crew->removeOperators();
-
-        if( $request->filled('operators') )
-            $crew->attachOperators($request->operators);
-
-        return redirect()->route('crews.operators.manage', $crew)->with('success', 'Added crew operators');
     }
 }

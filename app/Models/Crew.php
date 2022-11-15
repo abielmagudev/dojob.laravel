@@ -56,12 +56,12 @@ class Crew extends Model
         return Member::attachCrew($members_id, $this->id);
     }
 
-    public function removeMembers(array $members_id)
+    public function detachMembers(array $members_id)
     {
-        return Member::removeCrew($this->id);
+        return Member::detachCrew($this->id);
     }
 
-    public function removeAllMembers()
+    public function removeMembers()
     {
         return Member::removeCrew($this->id);
     }
