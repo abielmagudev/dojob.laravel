@@ -56,16 +56,16 @@ class Client extends Model
         ]);
     }
 
-    public function hasAlias()
-    {
-        return isset($this->alias);
-    }
-
     public function works()
     {
         return $this->hasMany(Work::class);
     }
 
+    public function hasAlias()
+    {
+        return isset($this->alias);
+    }
+    
     public function hasWorks()
     {
         return (bool) $this->works->count();
