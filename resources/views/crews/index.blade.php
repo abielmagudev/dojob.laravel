@@ -27,9 +27,7 @@
                             <span class='ms-1'>{{ $crew->name }}</span>
                         </td>
                         <td>
-                            @foreach($crew->members as $member)
-                            <span>{{ $member->fullname }}</span>,
-                            @endforeach
+                            {{ $crew->members->implode('fullname', ',') }}
                         </td>
                         <td>{{ $crew->works_count }}</td>
                         <td class='text-end'>
