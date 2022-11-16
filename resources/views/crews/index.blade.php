@@ -20,15 +20,11 @@
                 <tbody>
                     @foreach($crews->load('members') as $crew)
                     <tr>
-                        <td>
-                            <b style='border-radius:1rem;border:0.5rem solid <?= $crew->colored ?>'></b>
+                        <td class='text-center'>
+                            <x-symbols.circle size='20' :color="$crew->colored" />
                         </td>
-                        <td class='text-nowrap'>
-                            <span class='ms-1'>{{ $crew->name }}</span>
-                        </td>
-                        <td>
-                            {{ $crew->members->implode('fullname', ',') }}
-                        </td>
+                        <td class='text-nowrap'>{{ $crew->name }}</td>
+                        <td>{{ $crew->members->implode('fullname', ',') }}</td>
                         <td>{{ $crew->works_count }}</td>
                         <td class='text-end'>
                             <a href="{{ route('crews.show', $crew) }}" class='btn btn-outline-primary'>Show</a>

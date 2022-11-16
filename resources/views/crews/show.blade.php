@@ -1,8 +1,8 @@
 @extends('app')
 @section('content')
 <x-heading>
+    <x-symbols.circle size='24' :color='$crew->colored' />
     {{ $crew->name }}
-    <span style='color:<?= $crew->hasColor() ? $crew->color : 'black' ?>'>&bull;</span>    
 </x-heading>
 
 @if( $crew->hasDescription() ) 

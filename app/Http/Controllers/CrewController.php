@@ -31,7 +31,7 @@ class CrewController extends Controller
     {
         return view('crews.show', [
             'crew' => $crew,
-            'members' => Member::onlyAvailable()->get(),
+            'members' => Member::onlyAvailable()->get()->sortBy('fullname'),
         ]);
     }
 
