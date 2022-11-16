@@ -23,7 +23,8 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th colspan='2'>Members</th>
+                        <th>Members</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
