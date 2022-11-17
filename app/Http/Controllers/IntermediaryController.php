@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Intermediary;
 use App\Http\Requests\IntermediaryRequest;
+use App\Models\Intermediary;
+use App\Models\Work;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IntermediaryController extends Controller
 {
@@ -28,7 +30,26 @@ class IntermediaryController extends Controller
 
     public function show(Intermediary $intermediary)
     {
-        return view('intermediaries.show')->with('intermediary', $intermediary);
+        foreach(Work::allStatus() as $status)
+            $counters_status_zero[$status] = 0;
+
+        foreach($intermediary->works->load('job') as $work)
+        {
+            if(! isset($works[$work->job->name]) )
+            {
+                $works[$work->job->name] = $counters_status_zero;
+                $works[$work->job->name]['total'] = 0;
+            }
+
+            $works[$work->job->name][$work->status]++;
+            $works[$work->job->name]['total']++;
+        }
+
+        return view('intermediaries.show', [
+            'all_status' => Work::allStatus(),
+            'intermediary' => $intermediary,
+            'works' => collect($works),
+        ]);
     }
 
     public function edit(Intermediary $intermediary)

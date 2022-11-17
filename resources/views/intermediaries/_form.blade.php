@@ -20,7 +20,7 @@
 </div>
 <div class='mb-3'>
     <label for="textareaNotes" class='form-label'>Notes</label>
-    <textarea id="textareaNotes" class='form-control' name="notes" cols="40" rows="4" placeholder="Optional">{{ $intermediary->notes }}</textarea>
+    <textarea id="textareaNotes" class='form-control' name="notes" cols="30" rows="3" placeholder="Optional">{{ $intermediary->notes }}</textarea>
 </div>
 @if( $intermediary->isReal() )
 <label for="checkboxAvailable" class="form-label">Available</label>

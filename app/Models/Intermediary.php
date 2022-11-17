@@ -23,14 +23,6 @@ class Intermediary extends Model
         'is_available',
     ];
 
-    /**
-     * Get the full name through the user
-     */
-    public function getFullnameAttribute()
-    {
-        return $this->nameWithAlias;
-    }
-
     public function getNameWithAliasAttribute()
     {
         return implode(' ', [
@@ -39,19 +31,45 @@ class Intermediary extends Model
         ]);
     }
 
-    public function hasNotes()
+    public function getToContactAttribute()
     {
-        return isset($this->notes);
+        return implode(' | ', [
+            $this->contact,
+            $this->phone,
+            $this->email
+        ]);
     }
 
-    public function isAvailable()
+    public function getContactMeansAttribute()
     {
-        return (bool) $this->is_available;
+        return implode(' | ', [
+            $this->phone,
+            $this->email
+        ]);
     }
+
+    /**
+    * Get the full name through the user
+    */
+    public function getFullnameAttribute()
+    {
+        return $this->nameWithAlias;
+    }
+
+
+    // Scopes
 
     public function scopeOnlyAvailable($query)
     {
         return $query->where('is_available', true);
+    }
+
+
+    // Relations
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
     }
 
     public function user()
@@ -59,10 +77,21 @@ class Intermediary extends Model
         return $this->morphOne(User::class, 'profilable');
     }
 
-    public function works()
+
+    // Validations
+
+    public function isAvailable()
     {
-        return $this->hasMany(Work::class);
+        return (bool) $this->is_available;
     }
+
+    public function hasNotes()
+    {
+        return isset($this->notes);
+    }
+
+
+    // Statics
 
     public static function generateAlias(string $name)
     {

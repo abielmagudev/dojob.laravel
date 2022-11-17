@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Available</th>
+                        <th>Contact</th>
                         <th colspan='2'>Works</th>
                     </tr>
                 </thead>
@@ -19,7 +19,10 @@
                 @foreach($intermediaries as $intermediary)
                 <tr>
                     <td>{{ $intermediary->nameWithAlias }}</td>
-                    <td>{{ $intermediary->isAvailable() ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <span class="d-block">{{ $intermediary->contact }}</span>
+                        <span class="d-block">{{ $intermediary->contact_means }}</span>
+                    </td>
                     <td>{{ $intermediary->works_count }}</td>
                     <td class='text-end'>
                         <a href="{{ route('intermediaries.show', $intermediary) }}" class='btn btn-outline-primary'>Show</a>
