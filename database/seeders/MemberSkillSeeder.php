@@ -20,7 +20,7 @@ class MemberSkillSeeder extends Seeder
             if( $total = mt_rand(0, SkillSeeder::TOTAL) )
             {
                 $skills_random = $skills->random($total)->pluck('id')->toArray();
-                $member->attachSkills($skills_random);
+                $member->syncSkills($skills_random);
             }
         });
     }
