@@ -1,13 +1,12 @@
 @extends('app')
 @section('content')
-<x-heading>{{ $intermediary->nameWithAlias }}</x-heading>
-<p class="text-muted">
-    <span class='lead'>{{ $intermediary->contact }}</span><br>
-    @if( $intermediary->hasNotes() )
-    <em>{{ $intermediary->notes }}</em><br>
-    @endif
-    <span>{{ $intermediary->contact_means }}</span>
-</p>
+<x-heading>
+    <x-slot name='surtitle'>Intermediary</x-slot>
+    {{ $intermediary->nameWithAlias }}
+    <x-slot name='subtitle'>
+        {{ implode(' | ', [$intermediary->contact, $intermediary->contact_means]) }}
+    </x-slot>
+</x-heading>
 <p class="text-end">
     <a href="{{ route('intermediaries.edit', $intermediary) }}" class='btn btn-warning'>Edit intermediary</a>
 </p>
