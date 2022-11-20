@@ -23,19 +23,25 @@ class SkillController extends Controller
         if(! $skill = Skill::create($request->validated()) )
             return back()->with('danger', 'Oops! skill no created');
 
-        return redirect()->route('skills.index')->with('success', "{$skill->name} skill created");
+        $url = $request->filled('member') ? route('members.edit', $request->member) : route('members.index');
+
+        return redirect($url)->with('success', "{$skill->name} skill created");
     }
 
     public function show(Skill $skill)
     {
         $skill->loadCount('members');
+
         return view('skills.show')->with('skill', $skill);
     }
 
-    public function edit(Skill $skill)
+    public function edit(Skill $skill, Request $request)
     {
-        $skill->loadCount('members');
-        return view('skills.edit')->with('skill', $skill);
+        return view('skills.edit', [
+            'skill' => $skill->loadCount('members'),
+            'back_url' => $request->filled('member') ? route('members.edit', $request->member) : route('members.index'),
+            'route_parameters' => $request->filled('member') ? [$skill, 'member' => $request->member] : [$skill],
+        ]);
     }
 
     public function update(SkillRequest $request, Skill $skill)
@@ -43,14 +49,18 @@ class SkillController extends Controller
         if(! $skill->fill($request->validated())->save() )
             return back()->with('danger', 'Oops! skill no updated');
 
-        return redirect()->route('skills.edit', $skill)->with('success', "{$skill->name} skill updated");
+        $route_parameters = $request->filled('member') ? [$skill, 'member' => $request->member] : [$skill];
+
+        return redirect()->route('skills.edit', $route_parameters)->with('success', "{$skill->name} skill updated");
     }
 
-    public function destroy(Skill $skill)
+    public function destroy(Skill $skill, Request $request)
     {
         if(! $skill->delete() )
             return back()->with('danger', 'Oops! skill no deleted');
 
-        return redirect()->route('skills.index')->with('success', "{$skill->name} skill deleted");
+        $url = $request->filled('member') ? route('members.edit', $request->member) : route('members.index');
+
+        return redirect($url)->with('success', "{$skill->name} skill deleted");
     }
 }
