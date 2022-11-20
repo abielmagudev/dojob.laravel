@@ -2,7 +2,7 @@
 
 <!-- Button trigger modal -->
 <div class='{{ $trigger->attributes->get("align") ? "text-{$trigger->attributes->get("align")}" : "d-inline-block" }}'>
-  <a href='#!' class="{{ $trigger->attributes->get('class') }}" data-bs-toggle="modal" data-bs-target="#{{ $attributes->get('id') }}">{{ $trigger }}</a>
+  <a href="#{{ $attributes->get('id') }}" class="{{ $trigger->attributes->get('class') }}" data-bs-toggle="modal" data-bs-target="#{{ $attributes->get('id') }}">{{ $trigger }}</a>
 </div>
 
 <!-- Modal -->
