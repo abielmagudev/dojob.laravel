@@ -1,8 +1,8 @@
 @isset($surtitle)
-<div class="text-muted h2">{{ $surtitle }}</div>
+<div class="text-muted mb-3">{{ $surtitle }}</div>
 @endisset
-<h1 class="m-0">{{ $slot }}</h1>
+<div class="h2">{{ $slot }}</div>
 @isset($subtitle)
-<div class="text-muted h4">{{ $subtitle }}</div>
+<div class="h6">{{ $subtitle }}</div>
 @endisset
 <br>
