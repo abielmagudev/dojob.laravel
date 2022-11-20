@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MemberRequest;
 use App\Models\Member;
 use App\Models\Skill;
-use App\Models\Crew;
 
 class MemberController extends Controller
 {
@@ -32,15 +31,14 @@ class MemberController extends Controller
 
     public function show(Member $member)
     {
-        return view('members.show')->with('member', $member);
+        return redirect()->route('members.index');
     }
 
     public function edit(Member $member)
     {
         return view('members.edit', [
             'member' => $member,
-            'skills' => Skill::all()->sortBy('id'),
-            'crews' => Crew::onlyEnabled()->get(),
+            'skills' => Skill::all()->sortBy('name'),
             'roles' => ['administrator','coordinator','operator'],
         ]);
     }

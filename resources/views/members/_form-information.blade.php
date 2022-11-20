@@ -1,13 +1,4 @@
 <div class='mb-3'>
-    <label for="selectType" class='form-label'>Type</label>
-    <select name="type" id="selectType" class='form-select'>
-        <option label="" disabled selected></option>
-        @foreach($roles as $rol)
-        <option value="{{ $rol }}">{{ ucfirst($rol) }}</option>   
-        @endforeach
-    </select>
-</div>
-<div class='mb-3'>
     <label for="inputName" class='form-label'>Full name</label>
     <input type="text" name="name" id="inputName" value="{{ old('name', $member->name) }}" class='form-control mb-3' placeholder='Name' required>
     <input type="text" name="lastname" id="inputLastname" value="{{ old('lastname', $member->lastname) }}" class='form-control' placeholder='Lastname' required>
@@ -28,5 +19,14 @@
     <label for="textNotes" class='form-label'>Notes</label>
     <textarea name="notes" id="textNotes" cols="30" rows="3" class='form-control' placeholder="Optional">{{ old('notes', $member->notes) }}</textarea>
 </div>
-@includeWhen($member->isReal(), 'members._form-skills')
-@includeWhen($member->isReal(), 'members._form-available')
+@if( $member->isReal() )    
+<div class='mb-3'>
+    <label class='form-label'>Available</label>
+    <div class="border rounded p-3">
+        <div class='form-check form-switch'>
+            <input type="checkbox" id="checkboxAvailable" name="available" value="yes" class='form-check-input' {{ $member->isAvailable() ? 'checked' : '' }}>
+            <label for="checkboxAvailable" class='form-check-label'>This member can be used to belong to a crew or assign a job.</label>
+        </div>
+    </div>
+</div>
+@endif

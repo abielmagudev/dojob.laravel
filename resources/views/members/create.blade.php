@@ -8,7 +8,7 @@
     <div class="card-body">
         <form action="{{ route('members.store') }}" method="post" autocomplete="off">
             @csrf
-            @include('members._form')
+            @include('members._form-information')
             <br>
             <button type="submit" class='btn btn-success'>Save member</button>
             <a href="{{ route('members.index') }}" class='btn btn-primary'>Cancel</a>

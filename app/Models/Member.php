@@ -35,15 +35,15 @@ class Member extends Model
     {
         return implode(' ', [
             $this->name,
-            $this->lastname
+            $this->lastname,
         ]);
     }
 
-    public function getContactAttribute()
+    public function getToContactAttribute()
     {
-        return implode(' ', [
+        return implode(' | ', [
+            $this->email,
             $this->phone,
-            $this->email
         ]);
     }
 
