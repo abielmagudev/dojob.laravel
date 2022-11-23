@@ -21,21 +21,21 @@ class Job extends Model
         'is_enabled',
     ];
 
+
+    // Scopes
+
     public function scopeOnlyEnabled($query)
     {
         return $query->where('is_enabled', 1);
     }
 
 
-    // Works
+    // Relations
 
     public function works()
     {
         return $this->hasMany(Work::class);
     }
-
-
-    // Plugins
 
     public function plugins()
     {
@@ -43,6 +43,14 @@ class Job extends Model
                     ->withTimestamps()
                     ->using(JobPlugin::class);
     }
+
+    public function syncPlugins(array $plugins_id, $detach = true)
+    {
+        return $this->plugins()->sync($plugins_id, $detach);
+    }
+
+
+    // Cache
 
     public function pluginsCache()
     {
@@ -52,26 +60,25 @@ class Job extends Model
         return $this->plugins_cache;
     }
 
-    public function syncPlugins(array $plugins_id, $detach = true)
-    {
-        return $this->plugins()->sync($plugins_id, $detach);
-    }
 
-    public function hasPlugin($plugin)
-    {
-        $plugin_id = is_a($plugin, Plugin::class) ? $plugin->id : $plugin;
-        return (bool) $this->pluginsCache()->where('id', $plugin_id)->first();
-    }
-
-
+    // Validations
 
     public function isEnabled()
     {
         return (bool) $this->is_enabled;
     }
 
+    public function hasPlugin($plugin)
+    {
+        if( is_a($plugin, Plugin::class) )
+            $plugin = $plugin->id;
+
+        return (bool) $this->pluginsCache()->where('id', $plugin)->first();
+    }
 
     
+    // Statics
+
     public static function defaults()
     {
         return [

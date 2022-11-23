@@ -33,4 +33,7 @@
         </div>
     </div>
 </div>
+<br>
+
+<x-simple-pagination :collection="$jobs"></x-simple-pagination>
 @endsection

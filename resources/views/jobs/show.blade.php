@@ -1,6 +1,10 @@
 @extends('app')
 @section('content')
-<x-heading>{{ $job->name }}</x-heading>
+<x-heading>
+    <x-slot name='surtitle'>Works</x-slot>
+    {{ $job->name }}
+    <x-slot name='subtitle'>{{ $job->isEnabled() ? 'Enabled' : 'Disabled' }}</x-slot>
+</x-heading>
 <p>
     <em>{{ $job->description }}</em>
 </p>

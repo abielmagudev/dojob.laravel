@@ -10,8 +10,10 @@
 <div class='mb-3'>
     <label for="checkboxEnabled" class="form-label">Enabled</label>
     <div class="border rounded p-3">
-        <input id="checkboxEnabled" class="form-check-input" type="checkbox" name="enabled" value='yes' {{ $job->isEnabled() ? 'checked' : '' }}>
-        <label for="checkboxEnabled" class="form-check-label">If you disable it, the job will not appear in the job list for creating a job.</label>
+        <div class="form-check form-switch">
+            <input id="checkboxEnabled" class="form-check-input" type="checkbox" name="enabled" value='yes' {{ $job->isEnabled() ? 'checked' : '' }}>
+            <label for="checkboxEnabled" class="form-check-label">If you disable it, the job will not appear in the job list for creating a job.</label>
+        </div>
     </div>
 </div>    
 @endif

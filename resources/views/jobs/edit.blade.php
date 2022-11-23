@@ -17,7 +17,7 @@
     </div>
 </div>
 <br>
-<x-modal id='modalDeleteJob' title='Delete job'>
+<x-modal id='modalDeleteJob' header='Delete job'>
     <x-slot name='trigger' align='end' class='link-danger'>Delete job</x-slot>
     <div class="text-center">
         <p class="lead m-0">{{ $job->name }}</p>
