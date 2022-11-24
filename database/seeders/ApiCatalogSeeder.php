@@ -7,18 +7,21 @@ use App\Models\ApiCatalog;
 
 class ApiCatalogSeeder extends Seeder
 {
-    const TOTAL = 4;
+    public static $defaults = [
+        'carpenter',
+        'cleaning',
+        'insulation',
+        'painting',
+    ];
+
+    public static function hasBeenCreated()
+    {
+        return count(self::$defaults);
+    }
 
     public function run()
     {
-        $catalogs_name = [
-            'carpenter',
-            'cleaning',
-            'insulation',
-            'painting',
-        ];
-
-        foreach($catalogs_name as $name)
+        foreach(self::$defaults as $name)
         {
             ApiCatalog::create([
                 'name' => $name

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plugin;
 use App\Models\ApiPlugin;
+use App\Models\ApiCatalog;
 use App\Http\Requests\PluginStoreRequest;
 use App\Http\Requests\PluginUpdateRequest;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class PluginController extends Controller
     public function index(Request $request)
     {
         return view('plugins.index', [
+            'api_catalogs' => ApiCatalog::all(),
             'api_plugins' => ApiPlugin::with('catalog')->get(),
             'plugins' => Plugin::all(),
         ]);

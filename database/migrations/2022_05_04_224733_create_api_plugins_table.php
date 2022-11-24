@@ -18,7 +18,7 @@ class CreateApiPluginsTable extends Migration
             $table->foreignId('catalog_id')->constrained('api_catalogs');
             $table->string('name', 80)->unique();
             $table->text('description');
-            $table->text('default_settings')->nullable();
+            $table->text('settings')->nullable();
             $table->string('version', 8);
             $table->unsignedDecimal('price')->nullable(); // null is free
             $table->string('hashed', 16)->unique();

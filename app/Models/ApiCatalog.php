@@ -16,8 +16,8 @@ class ApiCatalog extends Model
         return $this->hasMany(ApiPlugin::class);
     }
 
-    public function scopeByName($query, string $catalog_name)
+    public function scopeByName($query, string $name)
     {
-        return $query->where('name', $catalog_name); 
+        return $query->where('name', $name); 
     }
 }

@@ -11,6 +11,11 @@ class ApiPlugin extends Model
 
     protected $table = 'api_plugins';
 
+    public function getThePriceAttribute()
+    {
+        return sprintf('$%s', $this->price);
+    }
+
     public function catalog()
     {
         return $this->belongsTo(ApiCatalog::class, 'catalog_id');
