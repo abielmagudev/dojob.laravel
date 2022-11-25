@@ -17,7 +17,7 @@ class PluginController extends Controller
 
         $api_catalog_selected = $api_catalogs->where('slug', $request->catalog)->first() ?? new ApiCatalog;
 
-        $api_plugins = $api_catalog_selected->hasSlug($request->catalog)
+        $api_plugins = $api_catalog_selected->hasSlug($request->get('catalog', 'any'))
                         ? ApiPlugin::with('catalog')->whereCatalog($api_catalog_selected->id)->simplePaginate(16)
                         : ApiPlugin::with('catalog')->simplePaginate(16);
 
