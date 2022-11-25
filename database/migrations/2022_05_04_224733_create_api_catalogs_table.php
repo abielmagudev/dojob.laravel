@@ -16,6 +16,7 @@ class CreateApiCatalogsTable extends Migration
         Schema::create('api_catalogs', function (Blueprint $table) {
             $table->id();
             $table->string('name', 48)->unique();
+            $table->string('slug', 56)->unique();
             $table->timestamps();
         });
     }

@@ -2,26 +2,19 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\ApiCatalog;
+use Illuminate\Database\Seeder;
 
 class ApiCatalogSeeder extends Seeder
 {
-    public static $defaults = [
-        'carpenter',
-        'cleaning',
-        'insulation',
-        'painting',
-    ];
-
     public static function hasBeenCreated()
     {
-        return count(self::$defaults);
+        return count(ApiCatalog::testNames());
     }
 
     public function run()
     {
-        foreach(self::$defaults as $name)
+        foreach(ApiCatalog::testNames() as $name)
         {
             ApiCatalog::create([
                 'name' => $name

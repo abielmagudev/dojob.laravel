@@ -15,7 +15,7 @@ class CreateApiPluginsTable extends Migration
     {
         Schema::create('api_plugins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('catalog_id')->constrained('api_catalogs');
+            $table->foreignId('api_catalog_id')->constrained('api_catalogs');
             $table->string('name', 80)->unique();
             $table->text('description');
             $table->text('settings')->nullable();

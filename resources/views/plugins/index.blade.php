@@ -1,6 +1,21 @@
 @extends('app')
 @section('content')
 <x-heading>Plugins</x-heading>
+
+<div class="d-md-flex justify-content-end mb-3">
+    <form action="{{ route('plugins.index') }}" method='get'>
+        <div class="input-group mb-3">
+            <label class="input-group-text bg-dark text-white" for="selectCatalog">Catalog</label>
+            <select name="catalog" id="selectCatalog" class="form-select" onchange='this.form.submit()'>
+                <option value='any' selected>Any</option>
+                @foreach($api_catalogs as $catalog)
+                <option value="{{ $catalog->slug }}" {{ $catalog->id == $api_catalog_selected->id ? 'selected' : '' }}>{{ $catalog->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </form>
+</div>
+
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -8,7 +23,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Catalog</th>
+                        <th class='d-none d-md-table-cell'>Catalog</th>
                         <th>Price</th>
                         <th></th>
                     </tr>
@@ -16,19 +31,19 @@
                 <tbody>
                     @foreach($api_plugins as $api_plugin)
                     <tr>
-                        <td>
+                        <td style='min-width:204px'>
                             <span>{{ $api_plugin->name }}</span>
                             <br>
-                            <small>{{ $api_plugin->description }}</small>
+                            <small class='text-muted'>{{ $api_plugin->description }}</small>
                         </td>
-                        <td>{{ ucfirst($api_plugin->catalog->name) }}</td>
+                        <td class='d-none d-md-table-cell'>{{ ucfirst($api_plugin->catalog->name) }}</td>
                         <td>{{ $api_plugin->isFree() ? 'Free' : $api_plugin->the_price }}</td>
-                        <td class='text-end'>
+                        <td class='text-end' style='width:166px'>
                             @if( $plugins->contains('api_plugin_id', $api_plugin->id) )
-                            <a href="{{ route('plugins.edit', $plugins->firstWhere('api_plugin_id', $api_plugin->id) ) }}" class='btn btn-outline-primary'>Settings</a>
+                            <a href="{{ route('plugins.edit', $plugins->firstWhere('api_plugin_id', $api_plugin->id) ) }}" class='btn btn-outline-primary w-100'>Settings</a>
             
                             @else
-                            <button type="submit" name="plugin" value="{{ $api_plugin->hashed }}" form="formPluginStore" class='btn btn-outline-success'>Purchase</button>
+                            <button type="submit" name="plugin" value="{{ $api_plugin->hashed }}" form="formPluginStore" class='btn btn-success w-100'>Purchase</button>
             
                             @endif
                         </td>

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plugin extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        SoftDeletes;
 
     protected $fillable = [
         'api_plugin_id',
@@ -20,9 +22,12 @@ class Plugin extends Model
         return $this->api->name;
     }
 
-    public function getSettingsAttribute()
+    public function getConfigurationAttribute()
     {
-        return ! is_null($this->custom_settings) ? json_decode($this->custom_settings) : json_decode('');
+        if(! is_null($this->settings) )
+            return json_decode($this->settings);
+        
+        return json_decode($this->api->settings);
     }
 
     public function api()
@@ -32,7 +37,7 @@ class Plugin extends Model
 
     public function jobs()
     {
-        return $this->belongstoMany(Job::class)
+        return $this->belongsToMany(Job::class)
                     ->withTimestamps()
                     ->using(JobPlugin::class);
     }

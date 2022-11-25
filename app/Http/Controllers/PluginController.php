@@ -13,9 +13,18 @@ class PluginController extends Controller
 {
     public function index(Request $request)
     {
+        $api_catalogs = ApiCatalog::has('plugins')->get();
+
+        $api_catalog_selected = $api_catalogs->where('slug', $request->catalog)->first() ?? new ApiCatalog;
+
+        $api_plugins = $api_catalog_selected->hasSlug($request->catalog)
+                        ? ApiPlugin::with('catalog')->whereCatalog($api_catalog_selected->id)->simplePaginate(16)
+                        : ApiPlugin::with('catalog')->simplePaginate(16);
+
         return view('plugins.index', [
-            'api_catalogs' => ApiCatalog::all(),
-            'api_plugins' => ApiPlugin::with('catalog')->get(),
+            'api_catalogs' => $api_catalogs,
+            'api_catalog_selected' => $api_catalog_selected,
+            'api_plugins' => $api_plugins,
             'plugins' => Plugin::all(),
         ]);
     }

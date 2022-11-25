@@ -24,7 +24,7 @@ class ApiPluginSeeder extends Seeder
         foreach(self::$defaults as $name => $description)
         {
             ApiPlugin::create([
-                'catalog_id' => mt_rand(1, ApiCatalogSeeder::hasBeenCreated()),
+                'api_catalog_id' => mt_rand(1, ApiCatalogSeeder::hasBeenCreated()),
                 'name' => $name,
                 'description' => $description,
                 'settings' => json_encode(['one' => 'uno']),

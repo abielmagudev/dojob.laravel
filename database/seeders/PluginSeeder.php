@@ -15,15 +15,13 @@ class PluginSeeder extends Seeder
      */
     public function run()
     {
-        $api_plugins = ApiPlugin::all();
-
-        foreach($api_plugins as $api_plugin)
+        foreach(ApiPlugin::all() as $api_plugin)
         {
             if( (bool) random_int(0,1) )
             {
                 Plugin::create([
                     'api_plugin_id' => $api_plugin->id,
-                    'custom_settings' => $api_plugin->default_settings,
+                    'settings' => random_int(0,1) ? $api_plugin->settings : null,
                 ]);
             }
         }

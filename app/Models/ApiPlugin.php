@@ -18,11 +18,16 @@ class ApiPlugin extends Model
 
     public function catalog()
     {
-        return $this->belongsTo(ApiCatalog::class, 'catalog_id');
+        return $this->belongsTo(ApiCatalog::class, 'api_catalog_id');
     }
 
     public function isFree()
     {
         return is_null($this->price);
+    }
+
+    public function scopeWhereCatalog($query, $value, $column = 'api_catalog_id')
+    {
+        return $query->where($column, $value);
     }
 }
