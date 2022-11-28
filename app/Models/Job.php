@@ -21,15 +21,6 @@ class Job extends Model
         'is_enabled',
     ];
 
-
-    // Scopes
-
-    public function scopeOnlyEnabled($query)
-    {
-        return $query->where('is_enabled', 1);
-    }
-
-
     // Relations
 
     public function works()
@@ -77,6 +68,14 @@ class Job extends Model
     }
 
     
+    // Scopes
+
+    public function scopeOnlyEnabled($query)
+    {
+        return $query->where('is_enabled', 1);
+    }
+
+
     // Statics
 
     public static function defaults()
