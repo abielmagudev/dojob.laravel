@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
-use App\Models\Plugin;
 use App\Http\Requests\JobPluginRequest;
 use App\Http\Requests\JobRequest;
+use App\Models\Job;
+use App\Models\Plugin;
+use App\Models\Work;
 use Illuminate\Http\Request;
 
 
@@ -31,8 +32,11 @@ class JobController extends Controller
 
     public function show(Job $job)
     {
-        $job->loadCount(['works','plugins']);
-        return view('jobs.show')->with('job', $job);
+        return view('jobs.show', [
+            'job' => $job->load('plugins'),
+            'plugins' => Plugin::with('api')->get(),
+            'works' => Work::with('client')->where('job_id', $job->id)->take(15)->get(),
+        ]);
     }
 
     public function edit(Job $job)
@@ -57,18 +61,10 @@ class JobController extends Controller
         return redirect()->route('jobs.index')->with('success', "{$job->name} job deleted");
     }
 
-    public function managePlugins(Request $request, Job $job)
-    {
-        return view('jobs.plugins', [
-            'plugins' => Plugin::with('api')->get(),
-            'job' => $job,
-        ]);
-    }
-
     public function connectPlugins(JobPluginRequest $request, Job $job)
     {
         $job->syncPlugins($request->get('plugins', []));
-        return redirect()->route('jobs.plugins.manage', $job)->with('success', "Plugins of {$job->name} job updated");
+        return redirect()->route('jobs.show', $job)->with('success', "Plugins of {$job->name} job updated");
     }
 
     public function updatePlugins(JobPluginRequest $request, Job $job)

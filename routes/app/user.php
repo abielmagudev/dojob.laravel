@@ -22,7 +22,6 @@ Route::resource('crews', CrewController::class);
 
 // JOB
 Route::controller(JobController::class)->group( function () {
-    Route::get('jobs/{job}/plugins', 'managePlugins')->name('jobs.plugins.manage');
     Route::put('jobs/{job}/plugins', 'connectPlugins')->name('jobs.plugins.connect');
     Route::patch('jobs/{job}/plugins', 'updatePlugins')->name('jobs.plugins.update');
 });
