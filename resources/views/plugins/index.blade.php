@@ -40,7 +40,7 @@
                         <td>{{ $api_plugin->isFree() ? 'Free' : $api_plugin->the_price }}</td>
                         <td class='text-end' style='width:166px'>
                             @if( $plugins->contains('api_plugin_id', $api_plugin->id) )
-                            <a href="{{ route('plugins.edit', $plugins->firstWhere('api_plugin_id', $api_plugin->id) ) }}" class='btn btn-outline-primary w-100'>Settings</a>
+                            <a href="{{ route('plugins.edit', $plugins->firstWhere('api_plugin_id', $api_plugin->id) ) }}" class='btn btn-outline-primary w-100'>Configuration</a>
             
                             @else
                             <button type="submit" name="plugin" value="{{ $api_plugin->hashed }}" form="formPluginStore" class='btn btn-success w-100'>Purchase</button>

@@ -6,7 +6,7 @@
 </x-heading>
 <div class="card">
     <div class="card-header">
-        <span class="text-uppercase">Edit settings</span>
+        <span class="text-uppercase">Configuration</span>
     </div>
     <div class="card-body">
         <form action="{{ route('plugins.update', $plugin) }}" method="post">
@@ -21,7 +21,7 @@
                 </div>
                 @endforeach
             </div>
-            <button type="submit" class='btn btn-warning'>Update settings</button>
+            <button type="submit" class='btn btn-warning text-dark'>Update configuration</button>
             <a href="{{ route('plugins.index') }}" class='btn btn-primary'>Back</a>
         </form>
     </div>
