@@ -48,7 +48,7 @@
 <div class='mb-3'>
     <label for="selectIntermediary" class='form-label'>Intermediary</label>
     <select name="intermediary" id="selectIntermediary" class='form-select'>
-        <option disabled selected></option>
+        <option value='0' selected>None</option>
         @foreach($intermediaries as $intermediary)
         <option value="{{ $intermediary->id }}" {{ $intermediary->id == $work->intermediary_id ? 'selected' : '' }}>{{ $intermediary->name }} - {{ $intermediary->alias }}</option>
         @endforeach

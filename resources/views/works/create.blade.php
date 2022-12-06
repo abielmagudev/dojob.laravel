@@ -3,8 +3,7 @@
 <x-heading>Works</x-heading>
 <p>
     <span class="lead">{{ $client->fullname }}</span>
-    <span class="d-block">{{ $client->residence }}</span>
-    <span class="d-block">{{ $client->location }}</span>
+    <span class="d-block">{{ $client->residence }}, {{ $client->location }}</span>
     <span class="d-block">{{ $client->contact }}</span>
 </p>
 

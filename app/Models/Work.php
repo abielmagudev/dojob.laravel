@@ -151,7 +151,7 @@ class Work extends Model
 
     public function hasIntermediary()
     {
-        if(! isset($this->intermediary_id))
+        if(! $this->intermediary_id <> 0 )
             return self::NO_INTERMEDIARY;
 
         return $this->intermediary instanceof Intermediary;

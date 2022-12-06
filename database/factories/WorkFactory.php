@@ -36,7 +36,7 @@ class WorkFactory extends Factory
             'notes' => $this->faker->optional()->sentence(),
             'job_id' => $this->faker->numberBetween(1, JobSeeder::TOTAL),
             'client_id' => $this->faker->numberBetween(1, ClientSeeder::TOTAL),
-            'intermediary_id' => $this->faker->optional()->numberBetween(1, IntermediarySeeder::TOTAL),
+            'intermediary_id' => $this->faker->numberBetween(0, IntermediarySeeder::TOTAL),
             'crew_id' => $this->faker->optional()->numberBetween(1, CrewSeeder::TOTAL),
         ];
     }
