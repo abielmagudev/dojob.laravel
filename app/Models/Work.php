@@ -36,6 +36,14 @@ class Work extends Model
         'notes',
     ];
 
+
+    // Attributes ----------------------------------------------------------
+
+    public function getJobNameAttribute()
+    {
+        return $this->job->name;
+    }
+
     public function getAssignedAttribute()
     {
         $assignments = self::assignments();
@@ -45,122 +53,6 @@ class Work extends Model
 
         return $this->hasCrew() ? array_shift($assignments) : array_pop($assignments);        
     }
-
-    // Client
-
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
-
-
-
-    // Job
-
-    public function job()
-    {
-        return $this->belongsTo(Job::class);
-    }
-
-    public function getJobNameAttribute()
-    {
-        return $this->job->name;
-    }
-
-
-
-    // Intermediary
-
-    public function intermediary()
-    {
-        return $this->belongsTo(Intermediary::class);
-    }
-
-    public function hasIntermediary()
-    {
-        if(! isset($this->intermediary_id))
-            return self::NO_INTERMEDIARY;
-
-        return $this->intermediary instanceof Intermediary;
-    }
-    
-
-
-    // Warranties
-
-    public function warranties()
-    {
-        return $this->hasMany(Warranty::class);
-    }
-
-
-
-    // Crew
-
-    public function crew()
-    {
-        return $this->belongsTo(Crew::class);
-    }
-
-    public function hasCrew()
-    {
-        if(! isset($this->crew_id) )
-            return self::NO_CREW;
-
-        return $this->crew instanceof Crew;
-    }
-
-
-
-    // Members
-
-    public function members()
-    {
-        return $this->belongsToMany(Member::class);
-    }
-
-    public function membersCache()
-    {
-        if(! is_a($this->members_cache, EloquentCollection::class) )
-            $this->members_cache = $this->members;
-        
-        return $this->members_cache;
-    }
-
-    public function singleMember()
-    {
-        return $this->membersCache()->first();
-    }
-
-    public function attachMembers(array $workers_id)
-    {
-        return $this->members()->syncWithPivotValues($workers_id, ['created_at' => now()]);
-    }
-
-    public function hasMembers()
-    {
-        return (bool) $this->membersCache()->count();
-    }
-
-    public function hasSingleMember()
-    {
-        return $this->membersCache()->count() == 1;
-    }
-    
-    public function hasSingleMemberAssigned()
-    {
-        return $this->hasSingleMember() &&! $this->hasCrew();
-    }
-
-    public function hasMember($member)
-    {   
-        $member_id = is_a($member, Member::class) ? $member->id : $member;
-        return $this->membersCache()->contains('id', $member_id);
-    }
-
-
-
-    // Dates and times
 
     public function getScheduledAtAttribute()
     {
@@ -203,6 +95,102 @@ class Work extends Model
         ]);
     }
 
+
+    // Relations ----------------------------------------------------------
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
+    public function intermediary()
+    {
+        return $this->belongsTo(Intermediary::class);
+    }
+
+    public function warranties()
+    {
+        return $this->hasMany(Warranty::class);
+    }
+
+    public function crew()
+    {
+        return $this->belongsTo(Crew::class);
+    }
+
+    public function members()
+    {
+        return $this->belongsToMany(Member::class);
+    }
+
+    public function membersCache()
+    {
+        if(! is_a($this->members_cache, EloquentCollection::class) )
+            $this->members_cache = $this->members;
+        
+        return $this->members_cache;
+    }
+
+    public function singleMember()
+    {
+        return $this->membersCache()->first();
+    }
+
+    public function attachMembers(array $workers_id)
+    {
+        return $this->members()->syncWithPivotValues($workers_id, ['created_at' => now()]);
+    }
+
+
+    // Validations ----------------------------------------------------------
+
+    public function hasIntermediary()
+    {
+        if(! isset($this->intermediary_id))
+            return self::NO_INTERMEDIARY;
+
+        return $this->intermediary instanceof Intermediary;
+    }
+
+    public function hasCrew()
+    {
+        if(! isset($this->crew_id) )
+            return self::NO_CREW;
+
+        return $this->crew instanceof Crew;
+    }
+
+    public function hasMembers()
+    {
+        return (bool) $this->membersCache()->count();
+    }
+
+    public function hasSingleMember()
+    {
+        return $this->membersCache()->count() == 1;
+    }
+    
+    public function hasSingleMemberAssigned()
+    {
+        return $this->hasSingleMember() &&! $this->hasCrew();
+    }
+
+    public function hasMember($member)
+    {   
+        $member_id = is_a($member, Member::class) ? $member->id : $member;
+        return $this->membersCache()->contains('id', $member_id);
+    }
+
+    public function hasStatus(string $status)
+    {
+        return $this->status == $status;
+    }
+
     public function hasStarted()
     {
         return isset($this->started_date) && isset($this->started_time);
@@ -219,18 +207,15 @@ class Work extends Model
     }
 
 
-
-    // Status
+    // Scopes ----------------------------------------------------------
 
     public function scopeWhereHasOpenStatus($query)
     {
         return $query->whereIn('status', self::allOpenStatus());
     }
 
-    public function hasStatus(string $status)
-    {
-        return $this->status == $status;
-    }
+
+    // Statics ----------------------------------------------------------
 
     public static function allStatus()
     {

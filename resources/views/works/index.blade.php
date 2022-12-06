@@ -5,21 +5,24 @@
     <a href="{{ route('works.create', mt_rand(1,50)) }}" class='btn btn-primary'>New work</a>
 </p>
 <div class="card">
+    <div class="card-header">
+        <span>Today</span>
+        <span class="badge bg-primary">{{ $today->count() }}</span>
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class='table table-hover align-middle shadow-none'>
                 <thead>
                     <tr>
-                        <th>Schedule</th>
                         <th>Job</th>
                         <th>Client</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($works as $work)
+                    @foreach($today as $work )
                     <tr>
-                        <td class='text-nowrap'>{{ $work->scheduled_date }}</td>
+                        <td class='text-nowrap d-none'>{{ $work->scheduled_date }}</td>
                         <td>{{ $work->job->name }}</td>
                         <td>
                             <span class="d-block">{{ $work->client->fullname }}</span>

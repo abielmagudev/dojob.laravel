@@ -15,11 +15,11 @@ class WorkController extends Controller
 {
     public function index()
     {
-        return view('works.index', [
-            'works' => Work::with(['client', 'crew', 'job'])
-                            ->orderBy('scheduled_date','desc')
-                            ->get(),
-        ]);
+        $works = Work::with(['client', 'crew', 'job'])->orderByDesc('scheduled_date')->get();
+
+        $today = $works->where('scheduled_date', date('Y-m-d'));
+
+        return view('works.index', compact('works', 'today'));
     }
 
     public function create(Client $client)

@@ -25,7 +25,7 @@ class WorkFactory extends Factory
         return [
             'priority' => $this->faker->numberBetween(1,10),
             'status' => $status,
-            'scheduled_date' => $this->faker->date(),
+            'scheduled_date' => $this->faker->boolean() ? $this->faker->date() : date('Y-m-d'),
             'scheduled_time' => $this->faker->time(),
             'started_date' => $status == 'started' ? $this->faker->date() : null,
             'started_time' => $status == 'started' ? $this->faker->time() : null,
@@ -33,11 +33,11 @@ class WorkFactory extends Factory
             'finished_time' => $status == 'finished' ? $this->faker->time() : null,
             'closed_date' => in_array($status, Work::allCloseStatus()) ? $this->faker->date() : null,
             'closed_time' => in_array($status, Work::allCloseStatus()) ? $this->faker->time() : null,
+            'notes' => $this->faker->optional()->sentence(),
             'job_id' => $this->faker->numberBetween(1, JobSeeder::TOTAL),
             'client_id' => $this->faker->numberBetween(1, ClientSeeder::TOTAL),
             'intermediary_id' => $this->faker->optional()->numberBetween(1, IntermediarySeeder::TOTAL),
             'crew_id' => $this->faker->optional()->numberBetween(1, CrewSeeder::TOTAL),
-            'notes' => $this->faker->optional()->sentence(),
         ];
     }
 }
