@@ -30,7 +30,7 @@ class ApiPluginSeeder extends Seeder
                         'job three',
                     ],
                 ]),
-                'version' => mt_rand(1.0, 7.9),
+                'version' => mt_rand(0,1) ? sprintf("%s.%s.%s", mt_rand(0,9), mt_rand(0,9), mt_rand(0,9)) :  sprintf("%s.%s", mt_rand(0,9), mt_rand(0,9)),
                 'price' => mt_rand(0,1) ? mt_rand(1.00, 500.99) : null,
             ]);
         }
