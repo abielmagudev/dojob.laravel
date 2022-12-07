@@ -10,27 +10,25 @@ use App\Models\Intermediary;
 use App\Models\Job;
 use App\Models\Member;
 use App\Models\Work;
+use Illuminate\Http\Request;
+
 
 class WorkController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $works = Work::with(['client', 'crew', 'job'])->orderByDesc('scheduled_date')->get();
-
-        $today = $works->where('scheduled_date', date('Y-m-d'));
-
-        return view('works.index', compact('works', 'today'));
+        return view('works.index', [
+            'works' => Work::with(['client', 'crew', 'job'])->where('scheduled_date', date('Y-m-d'))->paginate(30),
+            'date' => $request->get('date', date('Y-m-d')),
+        ]);
     }
 
     public function create(Client $client)
     {
-        $jobs = Job::onlyEnabled()->orderBy('name')->get();
-
         return view('works.create', [
             'client' => $client,
             'intermediaries' => Intermediary::onlyAvailable()->orderBy('name')->get(),
-            'non_custom_jobs' => $jobs->where('is_custom', false),
-            'jobs' => $jobs->where('is_custom', true),
+            'jobs' => Job::onlyEnabled()->orderBy('name')->get(),
             'crews' => Crew::onlyUsable()->orderBy('name')->get(),
             'members' => Member::onlyAvailable()->get(),
             'work' => new Work,
