@@ -34,7 +34,7 @@ class PluginController extends Controller
         if(! $plugin = Plugin::create($request->validated()) )
             return back()->with('danger', 'Oops! plugin not pursached');
 
-        return redirect()->route('plugins.index')->with('success', "{$plugin->name} plugin pursached");
+        return redirect()->route('plugins.index')->with('success', "Plugin {$plugin->name} purchased");
     }
 
     public function edit(Plugin $plugin)
@@ -55,6 +55,6 @@ class PluginController extends Controller
         if(! $plugin->delete() )
             return back()->with('danger', 'Oops! plugin not deleted');
 
-        return redirect()->route('plugins.index')->with('success', "{$plugin->name} deleted");
+        return redirect()->route('plugins.index')->with('success', "Plugin {$plugin->name} deleted");
     }
 }
