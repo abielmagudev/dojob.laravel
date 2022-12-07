@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th class='d-none d-md-table-cell'>Version</th>
                         <th class='d-none d-md-table-cell'>Catalog</th>
                         <th>Price</th>
                         <th></th>
@@ -36,6 +37,7 @@
                             <br>
                             <small class='text-muted'>{{ $api_plugin->description }}</small>
                         </td>
+                        <td>{{ $api_plugin->version }}</td>
                         <td class='d-none d-md-table-cell'>{{ ucfirst($api_plugin->catalog->name) }}</td>
                         <td>{{ $api_plugin->isFree() ? 'Free' : $api_plugin->the_price }}</td>
                         <td class='text-end' style='width:166px'>

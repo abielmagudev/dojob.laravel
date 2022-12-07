@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class ApiPlugin extends Model
 {
@@ -11,7 +12,15 @@ class ApiPlugin extends Model
 
     protected $table = 'api_plugins';
 
+    
     // Attributes
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value; // Str::title($value)
+        $this->attributes['directory'] = Str::camel($value);
+        $this->attributes['hashed'] = Str::random( strlen($value) );
+    }
 
     public function getThePriceAttribute()
     {

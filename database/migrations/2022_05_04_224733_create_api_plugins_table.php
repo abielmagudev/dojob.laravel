@@ -17,11 +17,12 @@ class CreateApiPluginsTable extends Migration
             $table->id();
             $table->foreignId('api_catalog_id')->constrained('api_catalogs');
             $table->string('name', 80)->unique();
+            $table->string('hashed', 16)->unique();
+            $table->string('directory', 80)->unique();
             $table->text('description');
             $table->text('configuration')->nullable();
             $table->string('version', 8);
             $table->unsignedDecimal('price')->nullable(); // null is free
-            $table->string('hashed', 16)->unique();
             $table->timestamps();
         });
     }

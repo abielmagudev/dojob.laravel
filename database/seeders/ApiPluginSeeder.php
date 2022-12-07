@@ -35,7 +35,6 @@ class ApiPluginSeeder extends Seeder
                 ]),
                 'version' => mt_rand(1.0, 7.9),
                 'price' => mt_rand(0,1) ? mt_rand(1.00, 500.99) : null,
-                'hashed' => Str::random(16), 
             ]);
         }
     }
