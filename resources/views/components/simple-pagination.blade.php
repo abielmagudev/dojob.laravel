@@ -13,6 +13,10 @@
 
         @endif
 
+        <li class="page-item disabled">
+            <span class='page-link text-dark'>{{ $collection->currentPage() }}</span>
+        </li>
+        
         <!-- Next -->
         @if(! is_null($collection->nextPageUrl()) )
         <li class="page-item">
