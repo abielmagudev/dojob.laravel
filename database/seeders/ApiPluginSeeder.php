@@ -8,17 +8,14 @@ use Illuminate\Support\Str;
 
 class ApiPluginSeeder extends Seeder
 {
-    public static function hasBeenCreated()
-    {
-        return count(ApiPlugin::testNames());
-    }
-
     public function run()
     {
+        $been_created = count(ApiPlugin::testNames());
+
         foreach(ApiPlugin::testNames() as $name => $description)
         {
             ApiPlugin::create([
-                'api_catalog_id' => mt_rand(1, ApiCatalogSeeder::hasBeenCreated()),
+                'api_catalog_id' => mt_rand(1, $been_created),
                 'name' => $name,
                 'description' => $description,
                 'configuration' => json_encode([
