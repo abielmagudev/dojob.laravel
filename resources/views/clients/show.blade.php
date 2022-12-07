@@ -30,7 +30,7 @@
                 <tbody>
                     @foreach($client->works->load(['job','members']) as $work)
                     <tr>
-                        <td>{{ $work->job_name }}</td>
+                        <td>{{ $work->job->name }}</td>
                         <td>{{ $work->members->implode('fullname', ',') }}</td>
                         <td class='text-end'>
                             <a class='btn btn-outline-primary' href="{{ route('works.show', $work) }}">Show</a>
