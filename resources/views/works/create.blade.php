@@ -16,7 +16,7 @@
             @csrf
             @include('works._form')
             <br>
-            <button type="submit" class='btn btn-success'>Save work</button>
+            <button type="submit" class='btn btn-success' name='client' value='{{ $client->id }}'>Save work</button>
             <a href="{{ route('works.index') }}" class='btn btn-primary'>Cancel</a>
         </form>
     </div>

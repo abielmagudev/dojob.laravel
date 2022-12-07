@@ -55,7 +55,7 @@
     
                 <div class='mb-3'>
                     <div class="text-muted text-uppercase small mb-1">{{ ucfirst($work->assigned) }} assigned</div>
-                    @if( $work->hasCrew() )
+                    @if( $work->hasAssignedCrew() )
                     <div class="lead">{{ $work->crew->name }}</div>
                     <ul>
                         @foreach($work->members as $member)
@@ -64,7 +64,7 @@
                     </ul>
         
                     @else
-                    <div class='lead'>{{ $work->singleMember()->fullname }}</div>
+                    <div class='lead'>{{ $work->member()->fullname }}</div>
         
                     @endif
                 </div>

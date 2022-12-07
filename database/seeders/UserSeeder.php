@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
 
         $intermediary_role = $roles->where('name', 'intermediary')->first();
         $intermediaries = Intermediary::onlyAvailable()->get();
-        foreach($intermediaries->random(3) as $intermediary)
+        foreach($intermediaries->random( $intermediaries->count() ) as $intermediary)
         {
             $intermediary->user()->create([
                 'email' => $this->faker->email(),

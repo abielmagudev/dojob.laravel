@@ -12,9 +12,9 @@ class Work extends Model
     use HasExistence,
         HasFactory;
 
-    const NO_INTERMEDIARY = false;
+    const NONE_INTERMEDIARY = false;
     
-    const NO_CREW = false;
+    const NONE_CREW = false;
 
     private $members_cache = null;
 
@@ -29,20 +29,15 @@ class Work extends Model
         'finished_time',
         'closed_date',
         'closed_time',
+        'notes',
         'client_id',
         'intermediary_id',
         'job_id',
         'crew_id',
-        'notes',
     ];
 
 
     // Attributes ----------------------------------------------------------
-
-    public function getJobNameAttribute()
-    {
-        return $this->job->name;
-    }
 
     public function getAssignedAttribute()
     {
@@ -51,7 +46,7 @@ class Work extends Model
         if(! $this->isReal() )
             return self::assignments()[0];
 
-        return $this->hasCrew() ? array_shift($assignments) : array_pop($assignments);        
+        return $this->hasAssignedCrew() ? array_shift($assignments) : array_pop($assignments);        
     }
 
     public function getScheduledAtAttribute()
@@ -64,7 +59,7 @@ class Work extends Model
 
     public function getStartedAtAttribute()
     {
-        if(! $this->hasStarted() )
+        if(! $this->isStarted() )
             return;
 
         return implode(' ', [
@@ -75,7 +70,7 @@ class Work extends Model
 
     public function getFinishedAtAttribute()
     {
-        if(! $this->hasFinished() )
+        if(! $this->isFinished() )
             return;
 
         return implode(' ', [
@@ -86,7 +81,7 @@ class Work extends Model
 
     public function getClosedAtAttribute()
     {
-        if(! $this->hasClosed() )
+        if(! $this->isClosed() )
             return;
 
         return implode(' ', [
@@ -136,14 +131,9 @@ class Work extends Model
         return $this->members_cache;
     }
 
-    public function singleMember()
+    public function member()
     {
         return $this->membersCache()->first();
-    }
-
-    public function attachMembers(array $workers_id)
-    {
-        return $this->members()->syncWithPivotValues($workers_id, ['created_at' => now()]);
     }
 
 
@@ -152,15 +142,20 @@ class Work extends Model
     public function hasIntermediary()
     {
         if(! isset($this->intermediary_id) )
-            return self::NO_INTERMEDIARY;
+            return self::NONE_INTERMEDIARY;
 
         return $this->intermediary instanceof Intermediary;
     }
 
-    public function hasCrew()
+    public function hasAssignedMember()
+    {
+        return ($this->membersCache()->count() == 1) &&! $this->hasAssignedCrew();
+    }
+
+    public function hasAssignedCrew()
     {
         if(! isset($this->crew_id) )
-            return self::NO_CREW;
+            return self::NONE_CREW;
 
         return $this->crew instanceof Crew;
     }
@@ -170,20 +165,12 @@ class Work extends Model
         return (bool) $this->membersCache()->count();
     }
 
-    public function hasSingleMember()
-    {
-        return $this->membersCache()->count() == 1;
-    }
-    
-    public function hasSingleMemberAssigned()
-    {
-        return $this->hasSingleMember() &&! $this->hasCrew();
-    }
-
-    public function hasMember($member)
+    public function inMembers($member, $prop = 'id')
     {   
-        $member_id = is_a($member, Member::class) ? $member->id : $member;
-        return $this->membersCache()->contains('id', $member_id);
+        if(! is_a($member, Member::class) )
+            $member = (object) [$prop => $member];
+
+        return $this->membersCache()->contains($prop, $member->$prop);
     }
 
     public function hasStatus(string $status)
@@ -191,17 +178,17 @@ class Work extends Model
         return $this->status == $status;
     }
 
-    public function hasStarted()
+    public function isStarted()
     {
         return isset($this->started_date) && isset($this->started_time);
     }
 
-    public function hasFinished()
+    public function isFinished()
     {
         return isset($this->finished_date) && isset($this->finished_time);
     }
 
-    public function hasClosed()
+    public function isClosed()
     {
         return isset($this->closed_date) && isset($this->closed_time);
     }
@@ -212,6 +199,11 @@ class Work extends Model
     public function scopeWhereHasOpenStatus($query)
     {
         return $query->whereIn('status', self::allOpenStatus());
+    }
+
+    public function attachMembers(array $members_id)
+    {
+        return $this->members()->syncWithPivotValues($members_id, ['created_at' => now()]);
     }
 
 

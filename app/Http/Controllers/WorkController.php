@@ -40,13 +40,13 @@ class WorkController extends Controller
         if(! $work = Work::create( $request->validated() ) )
             return back()->with('danger', 'Oops! work not saved');
 
-        $members_id = ! $work->hasCrew() 
-                        ? $request->only('member_id')
-                        : $work->crew->membersId();
+        $members_id = ! $work->hasAssignedCrew() 
+                    ? $request->only('member_id')
+                    : $work->crew->membersId();
 
         $work->attachMembers($members_id);
 
-        return redirect()->route('works.index')->with('success', "{$work->job_name}");
+        return redirect()->route('works.index')->with('success', "Work {$work->job->name} created");
     }
 
     public function show(Work $work)
@@ -69,13 +69,13 @@ class WorkController extends Controller
         if(! $work->fill($request->validated())->save() )
             return back()->with('danger', 'Oops! Work not updated');
 
-        if( array_key_exists('crew_id', $work->getChanges()) && $work->hasCrew() )
+        if( array_key_exists('crew_id', $work->getChanges()) && $work->hasAssignedCrew() )
             $work->attachMembers( $work->crew->membersId() );
 
-        if( array_key_exists('member_id', $request->validated()) &&! $work->hasCrew() )
+        if( array_key_exists('member_id', $request->validated()) &&! $work->hasAssignedCrew() )
             $work->attachMembers( $request->only('member_id') );
 
-        return redirect()->route('works.edit', $work)->with('success', "{$work->job_name} work #{$work->id} was updated");
+        return redirect()->route('works.edit', $work)->with('success', "Work {$work->job->name} updated");
     }
 
     public function destroy(Work $work)
@@ -83,7 +83,7 @@ class WorkController extends Controller
         if(! $work->delete() )
             return back()->with('danger', 'Oops! work not deleted');
 
-        return redirect()->route('works.index')->with('success', "{$work->job_name} work deleted");
+        return redirect()->route('works.index')->with('success', "Work {$work->job->name} deleted");
     }
 
     public function warranties(Work $work)

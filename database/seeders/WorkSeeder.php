@@ -21,7 +21,7 @@ class WorkSeeder extends Seeder
 
         foreach($works as $work)
         {
-            if(! $work->hasCrew() )
+            if(! $work->hasAssignedCrew() )
             {
                 $single_member_id = mt_rand(1, MemberSeeder::TOTAL);
                 $work->attachMembers([$single_member_id]);

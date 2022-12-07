@@ -22,25 +22,25 @@
     </div>
     <div class="mb-3">
         <select name="crew" id="selectCrew" class="form-select {{ $work->assigned != 'crew' ? 'd-none' : '' }}" {{ $work->assigned == 'crew' ? 'required' : 'disabled' }}>
-            <option disabled selected label='Select crew...'></option>
+            <option disabled selected label='Select a crew...'></option>
             @foreach($crews as $crew)
             <option value="{{ $crew->id }}" {{ old('crew', $work->crew_id) == $crew->id ? 'selected' : '' }}>{{ $crew->name }}</option>
-            <?php if( old('crew', $work->crew_id) == $crew->id ) $selected_crew = true  ?>
+            <?php if( old('crew', $work->crew_id) == $crew->id ) $selected_crew = true ?>
             @endforeach
 
-            @if( $work->hasCrew() &&! isset($selected_crew) )
+            @if( $work->hasAssignedCrew() &&! isset($selected_crew) )
             <option label="{{ $work->crew->name }} (Unavailable)" selected></option>
             @endif
         </select>
 
         <select name="member" id="selectMember" class="form-select {{ $work->assigned != 'member' ? 'd-none' : '' }}" {{ $work->assigned == 'member' ? 'required' : 'disabled' }}>
-            <option disabled selected label="Select member..."></option>
+            <option disabled selected label="Select a member..."></option>
             @foreach($members as $member)
-            <option value="{{ $member->id }}" {{ $work->hasMember($member) &&! $work->hasCrew() ? 'selected' : '' }}>{{ $member->fullname }}</option>
+            <option value="{{ $member->id }}" {{ $work->inMembers($member) &&! $work->hasAssignedCrew() ? 'selected' : '' }}>{{ $member->fullname }}</option>
             @endforeach
 
-            @if( $work->hasSingleMemberAssigned() && $work->singleMember()->isUnavailable() )
-            <option label="{{ $work->singleMember()->fullname }} (Unavailable)" selected></option>
+            @if( $work->hasAssignedMember() && $work->member()->isUnavailable() )
+            <option label="{{ $work->member()->fullname }} (Unavailable)" selected></option>
             @endif
         </select>
     </div>
@@ -48,13 +48,13 @@
 <div class='mb-3'>
     <label for="selectIntermediary" class='form-label'>Intermediary</label>
     <select name="intermediary" id="selectIntermediary" class='form-select'>
-        <option value='0' selected>None</option>
+        <option selected>None intermediary</option>
         @foreach($intermediaries as $intermediary)
         <option value="{{ $intermediary->id }}" {{ $intermediary->id == $work->intermediary_id ? 'selected' : '' }}>{{ $intermediary->name }} - {{ $intermediary->alias }}</option>
         @endforeach
 
         @if( $work->hasIntermediary() &&! $work->intermediary->isAvailable() )
-        <option label="{{ $work->intermediary->name }} - {{ $work->intermediary->alias }} (Unavailable)" selected></option>
+        <option value="{{ $work->intermediary_id }}" selected>{{ $work->intermediary->name }} - {{ $work->intermediary->alias }} (Unavailable)</option>
         @endif
     </select>
 </div>
@@ -115,17 +115,10 @@
 <div class='mb-3'>
     <label for="selectJob" class='form-label'>Job</label>
     <select name="job" id="selectJob" class='form-select'>
-        <option disabled selected></option>
-        <optgroup label="Application">
-            @foreach($non_custom_jobs as $job)
-            <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ?: 'selected' }}>{{ $job->name }}</option>
-            @endforeach
-        </optgroup>
-        <optgroup label="New">
-            @foreach($jobs as $job)
-            <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ?: 'selected' }}>{{ $job->name }}</option>
-            @endforeach
-        </optgroup>
+        <option disabled selected label='Select a job...'></option>
+        @foreach($jobs as $job)
+        <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ?: 'selected' }}>{{ $job->name }}</option>
+        @endforeach
     </select>
 </div>
 

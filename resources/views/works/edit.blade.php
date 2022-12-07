@@ -23,7 +23,7 @@
     </div>
 </div>
 <br>
-<x-modal id='modalDeleteWork' title='Delete work'>
+<x-modal id='modalDeleteWork' header='Delete work'>
     <x-slot name='trigger' class='link-danger' align='end'>Delete work</x-slot>
     <div class="text-center">
         <p class="lead m-0">{{ $work->job->name }} ( <em>{{ $work->status }}</em> )</p>
