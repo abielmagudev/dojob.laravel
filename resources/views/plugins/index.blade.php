@@ -2,10 +2,10 @@
 @section('content')
 <x-heading>Plugins</x-heading>
 
-<div class="d-md-flex justify-content-end mb-3">
+<div class="d-md-flex justify-content-end mb-1">
     <form action="{{ route('plugins.index') }}" method='get'>
         <div class="input-group mb-3">
-            <label class="input-group-text bg-dark text-white" for="selectCatalog">Catalog</label>
+            <label class="input-group-text" for="selectCatalog">Catalog</label>
             <select name="catalog" id="selectCatalog" class="form-select" onchange='this.form.submit()'>
                 <option value='any' selected>Any</option>
                 @foreach($api_catalogs as $catalog)
