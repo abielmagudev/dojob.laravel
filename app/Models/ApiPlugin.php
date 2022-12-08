@@ -18,7 +18,7 @@ class ApiPlugin extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value; // Str::title($value)
-        $this->attributes['directory'] = Str::camel($value);
+        $this->attributes['space'] = Str::studly($value); // Str::camel($value);
         $this->attributes['hashed'] = Str::random( strlen($value) );
     }
 
