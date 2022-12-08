@@ -161,11 +161,27 @@ const selectAssign = {
         })
     }
 }
-
 selectAssign.listen([
     'selectCrew', 
     'selectMember'
 ])
+
+const selectJob = {
+    element: document.getElementById('selectJob'),
+    route: '<?= url('job_plugin/job_id/form') ?>',
+    listen: function () {
+        let self = this;
+
+        this.element.addEventListener('change', function (e) {
+            console.log(self.route.replace('job_id', e.target.value))
+            fetch( self.route.replace('job_id', e.target.value) )
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+        })
+    }
+}
+selectJob.listen()
+
 </script>  
 @endpush
 @endonce

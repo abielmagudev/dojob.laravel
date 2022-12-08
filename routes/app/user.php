@@ -4,13 +4,14 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\IntermediaryController;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\OperatorController;
-use App\Http\Controllers\SkillController;
+use App\Http\Controllers\JobPluginController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\PluginController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
-use App\Http\Controllers\PluginController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -50,3 +51,5 @@ Route::resources([
 
 // API
 Route::resource('plugins', PluginController::class)->except('create','show');
+
+Route::get('job_plugin/{job}/form', [JobPluginController::class, 'form'])->name('job_plugin.form');
