@@ -23,7 +23,7 @@ class JobPluginController extends Controller
             array_push($forms, [
                 'api_plugin_id' => $plugin->api->id,
                 'plugin_id' => $plugin->id,
-                'html' => view($resource_view)->render(),
+                'html' => view($resource_view)->with('api_plugin', $plugin->api)->render(),
                 'script' => File::exists($resource_script) ? File::get($resource_script) : false,
             ]);
         }
