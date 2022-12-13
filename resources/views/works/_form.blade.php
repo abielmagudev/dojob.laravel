@@ -121,6 +121,7 @@
         @endforeach
     </select>
 </div>
+<div id="plugins"></div>
 
 @else
 <div class="mb-3">
@@ -129,6 +130,8 @@
 </div>
 
 @endif
+
+<hr class='my-4'>
 
 <div class="mb-3">
     <label for="textareaNotes" class="form-label">Notes</label>
@@ -168,15 +171,31 @@ selectAssign.listen([
 
 const selectJob = {
     element: document.getElementById('selectJob'),
-    route: '<?= url('job_plugin/job_id/form') ?>',
+    route: '<?= route('job_plugin.url_form') ?>',
     listen: function () {
         let self = this;
 
         this.element.addEventListener('change', function (e) {
-            console.log(self.route.replace('job_id', e.target.value))
-            fetch( self.route.replace('job_id', e.target.value) )
+            let route =  self.route.replace('job_id', e.target.value); 
+           
+            fetch(route)
             .then((response) => response.json())
-            .then((data) => console.log(data));
+            .then((json) => {
+                json.forms.map(function (form) {
+                    document.getElementById('plugins').innerHTML = form.html;
+
+                    if( typeof form.script === 'string' )
+                    {
+                        let script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.text = form.script;
+                        document.getElementById('plugins').append(script);
+                    }
+                })
+            })
+            .catch( function(failure) {
+                console.log(failure)
+            })
         })
     }
 }

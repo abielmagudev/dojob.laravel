@@ -52,4 +52,5 @@ Route::resources([
 // API
 Route::resource('plugins', PluginController::class)->except('create','show');
 
+Route::get('job_plugin/job_id/form')->name('job_plugin.url_form');
 Route::get('job_plugin/{job}/form', [JobPluginController::class, 'form'])->name('job_plugin.form');
