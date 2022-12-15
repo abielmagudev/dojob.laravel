@@ -18,7 +18,7 @@ class JobPluginController extends Controller
         
         foreach($job->plugins->load('api') as $plugin)
         {
-            $resource_view = sprintf('api_plugins/%s/%s', $plugin->api->space, 'form');
+            $resource_view = sprintf('api_plugins/%s/forms/%s', $plugin->api->space, 'create');
             $resource_script = sprintf(resource_path('views/api_plugins') . '/%s/%s', $plugin->api->space, 'script.js');
             array_push($forms, [
                 'api_plugin_id' => $plugin->api->id,
