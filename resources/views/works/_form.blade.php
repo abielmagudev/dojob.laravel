@@ -121,7 +121,7 @@
         @endforeach
     </select>
 </div>
-<div id="plugins"></div>
+<div id="plugins" class='border rounded bg-light p-3'></div>
 
 @else
 <div class="mb-3">

@@ -60,6 +60,7 @@ class ApiPlugin extends Model
             'Predective maintenance' => 'Review and approval of the work done',
             'Preventive maintenance' => 'Keeps work done in good condition',
             'Corrective maintenance' => 'Correct the error or several errors of a work done',
+            'Attic insulation' => 'Keep your home protected from winter’s freezing cold and summer’s sweltering heat by insulating your attic',
         ];
     }
 }
