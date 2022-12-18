@@ -54,17 +54,17 @@ class ApiPlugin extends Model
     
     // Helpers
 
-    public function generateElementId($to_concat, $glue = '_')
+    public function generateElementId(string $string, string $glue = '_')
     {
         return implode($glue, [
             $this->hashed,
-            $to_concat,
+            $string,
         ]);
     }
 
-    public function generateInputName($to_concat)
+    public function generateInputName(string $string)
     {
-        return $this->hashed . "[{$to_concat}]";
+        return $this->hashed . "[{$string}]";
     }
 
 
