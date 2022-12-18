@@ -52,6 +52,22 @@ class ApiPlugin extends Model
     }
 
     
+    // Helpers
+
+    public function generateInputId($to_concat)
+    {
+        return implode('_', [
+            $this->hashed,
+            $to_concat,
+        ]);
+    }
+
+    public function generateInputName($to_concat)
+    {
+        return $this->hashed . "[{$to_concat}]";
+    }
+
+
     // Statics
 
     public static function testNames()
