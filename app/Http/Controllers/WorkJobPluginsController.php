@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\File;
 use App\Models\Job;
 use App\Models\Plugin;
 
-class JobPluginsController extends Controller
+class WorkJobPluginsController extends Controller
 {
-    /**
-     * document.createElement('script')
-     * 'script' => File::exists($resource_script) ? File::get($resource_script) : false
-     */
+    /*
+    document.createElement('script')
+    'script' => File::exists($resource_script) ? File::get($resource_script) : false
+    */
     public function create($job_id)
     {   
         if(! $job = Job::find($job_id) )
@@ -27,7 +27,7 @@ class JobPluginsController extends Controller
                 'rendered' => view("api_plugins/{$plugin->api->space}/create")->with('api_plugin', $plugin->api)->render(),
             ]);
         }
-        
+               
         return response()->json([ 
             'views' => $views,
             'status' => 200,

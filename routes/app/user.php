@@ -4,7 +4,6 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CrewController;
 use App\Http\Controllers\IntermediaryController;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\JobPluginsController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PluginController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\WorkJobPluginsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,6 +53,6 @@ Route::resources([
 Route::resource('plugins', PluginController::class)->except('create','show');
 
 // Ajax
-Route::get('work/job_id/plugins/action')->name('job_plugins.url');
-Route::get('work/{job}/plugins/create', [JobPluginsController::class, 'create'])->name('job_plugins.create');
-Route::get('work/{job}/plugins/edit', [JobPluginsController::class, 'form'])->name('job_plugins.edit');
+Route::get('work/job_id/plugins/action')->name('work_job_plugins.url');
+Route::get('work/{job}/plugins/create', [WorkJobPluginsController::class, 'create'])->name('work_job_plugins.create');
+Route::get('work/{job}/plugins/edit', [WorkJobPluginsController::class, 'edit'])->name('work_job_plugins.edit');

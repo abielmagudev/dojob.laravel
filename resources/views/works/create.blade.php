@@ -132,11 +132,13 @@ selectAssign.listen([
     'selectCrew', 
     'selectMember'
 ])
+</script>
 
+<script>
 const selectJob = {
     element: document.getElementById('selectJob'),
     container: document.getElementById('plugins'),
-    route: '<?= route('job_plugins.url') ?>',
+    route: '<?= route('work_job_plugins.url') ?>',
     listen: function () {
         let self = this;
 
