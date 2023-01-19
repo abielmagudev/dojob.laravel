@@ -83,7 +83,7 @@
                 <select name="job" id="selectJob" class='form-select'>
                     <option disabled selected label='Select a job...'></option>
                     @foreach($jobs as $job)
-                    <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ?: 'selected' }}>{{ $job->name }}</option>
+                    <option value="{{ $job->id }}" {{ old('job', $work->job_id) <> $job->id ? '' : 'selected' }}>{{ $job->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -137,26 +137,26 @@ selectAssign.listen([
 <script>
 const selectJob = {
     element: document.getElementById('selectJob'),
-    container: document.getElementById('plugins'),
-    route: '<?= route('work_job_plugins.url') ?>',
+    plugins: document.getElementById('plugins'),
+    route: '<?= route('pluginloader.demo') ?>',
     listen: function () {
         let self = this;
 
         this.element.addEventListener('change', function (e) {
-            self.container.innerHTML = ""
-            let route = self.route.replace('job_id', e.target.value).replace('action', 'create'); 
-            
-            fetch(route)
+            self.plugins.innerHTML = ""
+            let url = self.route.replace('job_id', e.target.value) + '/create'; 
+
+            fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json)
-                json.views.map(function (view) {
+                // console.info(json)
+                
+                json.map(function (view) {
                     let div = document.createElement('div');
-                    div.id = view.api_plugin.hashed;
                     div.classList.add('mb-3');
-                    div.innerHTML = view.rendered;
-                    self.container.append(div);
-
+                    div.innerHTML = view;
+                    self.plugins.append(div);
+                    /*
                     if( script = document.getElementById(view.api_plugin.hashed+'_script') )
                     {
                         let code = script.text;
@@ -166,7 +166,18 @@ const selectJob = {
                         element.text = code;
                         self.container.append(element);
                     }
+                    */
                 })
+
+                console.log(self.plugins.getElementsByTagName('script'))
+                
+                for(el of self.plugins.getElementsByTagName('script'))
+                {
+                    console.info(el)
+                    eval(el.innerHTML)
+                }
+
+                
             })
             .catch( function(failure) {
                 console.log(failure)
