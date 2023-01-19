@@ -22,7 +22,7 @@ class JobPluginSeeder extends Seeder
 
             if( random_int(0,1) )
             {
-                $plugins_id = range(0, mt_rand(0,3));
+                $plugins_id = range(1, mt_rand(2,4));
                 $job->plugins()->attach( $plugins_id );
             }
         } );
