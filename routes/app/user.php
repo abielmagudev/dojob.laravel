@@ -7,11 +7,11 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PluginController;
+use App\Http\Controllers\PluginLoaderController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\WorkController;
-use App\Http\Controllers\WorkJobPluginsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,7 +52,7 @@ Route::resources([
 // API
 Route::resource('plugins', PluginController::class)->except('create','show');
 
-// Ajax
-Route::get('work/job_id/plugins/action')->name('work_job_plugins.url');
-Route::get('work/{job}/plugins/create', [WorkJobPluginsController::class, 'create'])->name('work_job_plugins.create');
-Route::get('work/{job}/plugins/edit', [WorkJobPluginsController::class, 'edit'])->name('work_job_plugins.edit');
+// PLUGIN LOADER 
+Route::get('pluginloader/job_id/')->name('pluginloader.demo');
+Route::get('pluginloader/{job_id}/create', [PluginLoaderController::class, 'create'])->name('pluginloader.create');
+Route::get('pluginloader/{job_id}/edit/{work_id}', [PluginLoaderController::class, 'edit'])->name('pluginloader.edit');
