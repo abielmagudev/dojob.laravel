@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ahex\Zkaffold\Domain;
+namespace App\Models\Extensions;
 
 trait HasExistence
 {

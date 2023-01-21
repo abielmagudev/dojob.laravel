@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Ahex\Zkaffold\Domain\HasExistence;
+use App\Models\Extensions\HasExistence;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
