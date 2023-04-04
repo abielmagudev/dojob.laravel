@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ApiPlugins;
+namespace App\ApiPlugins\AtticInsulation;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
